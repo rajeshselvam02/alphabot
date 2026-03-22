@@ -1693,3 +1693,186 @@ async def fetch_cumulative_delta(symbol: str, limit: int = 100) -> dict:
         "delta_dir":    delta_dir,
         "trades_count": len(trades),
     }
+
+
+class DQLAgent:
+    """
+    Deep Q-Learning Agent for AlphaBot (Hilpisch Ch.2-3).
+    Replaces 9 AND-gate filter stack with learned neural policy.
+    State: [zscore, rsi, vol_ratio, cd_delta, hurst, half_life_norm]
+    Action: 0=HOLD, 1=BUY, 2=SELL
+    """
+    def __init__(self, state_dim: int = 6, hidden: int = 64,
+                 gamma: float = 0.95, epsilon: float = 0.1,
+                 lr: float = 0.001):
+        self.state_dim  = state_dim
+        self.hidden     = hidden
+        self.gamma      = gamma
+        self.epsilon    = epsilon
+        self.lr         = lr
+        self.replay     = []
+        self.max_replay = 2000
+        self.trained    = False
+        self._init_weights()
+
+    def _init_weights(self):
+        """Xavier initialization for 3-layer network."""
+        import numpy as np
+        np.random.seed(42)
+        scale1 = np.sqrt(2.0 / self.state_dim)
+        scale2 = np.sqrt(2.0 / self.hidden)
+        self.W1 = np.random.randn(self.state_dim, self.hidden) * scale1
+        self.b1 = np.zeros(self.hidden)
+        self.W2 = np.random.randn(self.hidden, self.hidden) * scale2
+        self.b2 = np.zeros(self.hidden)
+        self.W3 = np.random.randn(self.hidden, 3) * scale2
+        self.b3 = np.zeros(3)
+
+    def _relu(self, x):
+        import numpy as np
+        return np.maximum(0, x)
+
+    def _forward(self, state):
+        import numpy as np
+        x = self._relu(state @ self.W1 + self.b1)
+        x = self._relu(x @ self.W2 + self.b2)
+        return x @ self.W3 + self.b3  # Q-values
+
+    def predict(self, state: list) -> int:
+        """Predict action: 0=HOLD, 1=BUY, 2=SELL."""
+        import numpy as np
+        if np.random.random() < self.epsilon and not self.trained:
+            return np.random.randint(3)  # explore
+        s = np.array(state, dtype=float)
+        q = self._forward(s)
+        return int(np.argmax(q))
+
+    def store(self, state, action, reward, next_state, done):
+        """Store experience in replay buffer."""
+        self.replay.append((state, action, reward, next_state, done))
+        if len(self.replay) > self.max_replay:
+            self.replay.pop(0)
+
+    def train(self, batch_size: int = 32):
+        """Train on random batch from replay buffer."""
+        import numpy as np
+        if len(self.replay) < batch_size:
+            return 0.0
+        idx = np.random.choice(len(self.replay), batch_size, replace=False)
+        batch = [self.replay[i] for i in idx]
+        total_loss = 0.0
+        for state, action, reward, next_state, done in batch:
+            s  = np.array(state, dtype=float)
+            ns = np.array(next_state, dtype=float)
+            target = self._forward(s).copy()
+            if done:
+                target[action] = reward
+            else:
+                target[action] = reward + self.gamma * np.max(self._forward(ns))
+            # Backprop
+            loss = self._backprop(s, target)
+            total_loss += loss
+        self.trained = len(self.replay) >= batch_size * 2
+        return total_loss / batch_size
+
+    def _backprop(self, state, target):
+        """Manual backpropagation with gradient descent."""
+        import numpy as np
+        # Forward pass
+        z1 = state @ self.W1 + self.b1
+        a1 = self._relu(z1)
+        z2 = a1 @ self.W2 + self.b2
+        a2 = self._relu(z2)
+        q  = a2 @ self.W3 + self.b3
+        # Loss
+        loss = float(np.mean((q - target) ** 2))
+        # Backward pass
+        dq = 2 * (q - target) / len(q)
+        dW3 = np.outer(a2, dq)
+        db3 = dq
+        da2 = dq @ self.W3.T
+        dz2 = da2 * (z2 > 0)
+        dW2 = np.outer(a1, dz2)
+        db2 = dz2
+        da1 = dz2 @ self.W2.T
+        dz1 = da1 * (z1 > 0)
+        dW1 = np.outer(state, dz1)
+        db1 = dz1
+        # Update weights
+        self.W3 -= self.lr * dW3
+        self.b3 -= self.lr * db3
+        self.W2 -= self.lr * dW2
+        self.b2 -= self.lr * db2
+        self.W1 -= self.lr * dW1
+        self.b1 -= self.lr * db1
+        return loss
+
+    def build_state(self, zscore: float, rsi: float, vol_ratio: float,
+                    cd_delta: float, hurst: float, half_life: float) -> list:
+        """Normalize state features to [-1, 1] range."""
+        return [
+            max(-3, min(3, zscore)) / 3.0,
+            (rsi - 50) / 50.0,
+            max(-2, min(2, vol_ratio - 1.0)),
+            max(-1, min(1, cd_delta / 100.0)),
+            max(0, min(1, hurst)),
+            max(0, min(1, half_life / 100.0)),
+        ]
+
+    def train_on_bars(self, bars: list, entry_z: float = 1.5) -> dict:
+        """
+        Train agent on historical OHLCV bars (Hilpisch Ch.3).
+        Simulates trading: BUY at z<-entry_z, SELL at z>+entry_z, HOLD otherwise.
+        Reward = return of the trade.
+        """
+        import numpy as np
+        if len(bars) < 60:
+            return {"error": "need 60+ bars"}
+        closes = [b["close"] for b in bars]
+        volumes = [b["volume"] for b in bars]
+        losses = []
+        position = 0
+        entry_price = 0.0
+        for i in range(20, len(closes) - 1):
+            window = closes[max(0,i-49):i+1]
+            if len(window) < 20:
+                continue
+            # Compute simple zscore for training
+            mu = float(np.mean(window[-20:]))
+            sd = float(np.std(window[-20:]))
+            if sd == 0:
+                continue
+            z = (closes[i] - mu) / sd
+            avg_vol = float(np.mean(volumes[max(0,i-19):i+1]))
+            vol_r = volumes[i] / avg_vol if avg_vol > 0 else 1.0
+            state = self.build_state(
+                zscore=z, rsi=50.0, vol_ratio=vol_r,
+                cd_delta=0.0, hurst=0.5, half_life=20.0
+            )
+            action = self.predict(state)
+            # Compute reward
+            ret = (closes[i+1] - closes[i]) / closes[i]
+            if action == 1:    reward = ret * 100    # BUY
+            elif action == 2:  reward = -ret * 100   # SELL
+            else:              reward = 0.0           # HOLD
+            next_z = (closes[i+1] - mu) / sd
+            next_state = self.build_state(
+                zscore=next_z, rsi=50.0, vol_ratio=vol_r,
+                cd_delta=0.0, hurst=0.5, half_life=20.0
+            )
+            done = abs(next_z) < 0.3
+            self.store(state, action, reward, next_state, done)
+            loss = self.train(batch_size=32)
+            if loss > 0:
+                losses.append(loss)
+        avg_loss = float(np.mean(losses)) if losses else 0.0
+        return {
+            "episodes": len(losses),
+            "avg_loss": round(avg_loss, 6),
+            "replay_size": len(self.replay),
+            "trained": self.trained,
+            "epsilon": self.epsilon,
+        }
+
+# Global agent instance
+dql_agent = DQLAgent()

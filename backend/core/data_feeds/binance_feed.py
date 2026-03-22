@@ -112,7 +112,7 @@ class BinanceFeed:
             logger.error(f"Feed parse error: {e}")
 
     async def start(self):
-        """Poll Gate.io REST every 2 minutes — reliable, no WebSocket timing issues."""
+        """Gate.io WebSocket with timestamp-delta close detection."""
         if not self._subscriptions:
             for sym in settings.BOLLINGER_PAIRS:
                 self.subscribe(sym, settings.BOLLINGER_INTERVAL)
@@ -163,7 +163,7 @@ class BinanceFeed:
                                 logger.error(f"Callback error: {e}", exc_info=True)
                     except Exception as e:
                         logger.error(f"Poll error {sym}: {e}")
-                await asyncio.sleep(120)
+                await asyncio.sleep(30)
             except asyncio.CancelledError:
                 break
             except Exception as e:

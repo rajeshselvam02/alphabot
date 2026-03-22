@@ -253,7 +253,7 @@ class BollingerMRStrategy:
                 rsi=rsi_out["rsi"],
                 bbw=bbw_out.get("bbw") or 4.0,
             )
-            if not ml_out["take"] and signal in ("buy", "sell"):
+            if ml_out["prob_take"] < 0.45 and signal in ("buy", "sell"):
                 logger.info(f"[META] {symbol} signal REJECTED by meta-label (prob={ml_out['prob_take']:.2f})")
             else:
                 await self._execute(symbol, signal, close, zscore, kf_out, prob=ml_out["prob_take"])

@@ -29,6 +29,7 @@ from backend.core.signals.quant_signals import (
     compute_dynamic_exits,
     meta_label,
     wyckoff_analysis,
+    fetch_cumulative_delta,
     logit_direction_filter,
     compute_rsi,
     compute_bbw,
@@ -224,6 +225,12 @@ class BollingerMRStrategy:
         wyckoff_out = wyckoff_analysis(self._bars_ohlcv.get(symbol, []))
         wyckoff_bias = wyckoff_out['wyckoff_bias']
 
+        # ── Cumulative Delta Filter (Trader Dale p.41) ─────
+        # Skip BUY when strong selling, skip SELL when strong buying
+        cd_out = await fetch_cumulative_delta(symbol, limit=100)
+        cd_signal = cd_out.get("signal", "neutral")
+        cd_divergence = cd_out.get("divergence", False)
+
         # ── RSI Filter (Murphy p.239) ──────────────────────
         # Skip BUY when overbought (RSI > 70), skip SELL when oversold (RSI < 30)
         rsi_out = compute_rsi(self._prices[symbol], period=14)
@@ -234,7 +241,7 @@ class BollingerMRStrategy:
             await self._check_stationarity(symbol)
 
         # Generate signal
-        signal = self._signal(symbol, zscore, vol_filter_ok=vol_filter_ok, logit_signal=logit_signal, rsi_signal=rsi_signal, bbw_signal=bbw_signal, macd_signal=macd_signal, wyckoff_bias=wyckoff_bias)
+        signal = self._signal(symbol, zscore, vol_filter_ok=vol_filter_ok, logit_signal=logit_signal, rsi_signal=rsi_signal, bbw_signal=bbw_signal, macd_signal=macd_signal, wyckoff_bias=wyckoff_bias, cd_signal=cd_signal, cd_divergence=cd_divergence)
 
         if signal and self._paper_trading_enabled:
             # Meta-labeling (Lopez de Prado Ch.3) — secondary filter
@@ -273,6 +280,9 @@ class BollingerMRStrategy:
             "macd":      macd_out.get("histogram"),
             "macd_signal": macd_signal,
             "wyckoff":    wyckoff_bias,
+            "cd_signal":  cd_signal,
+            "cd_delta":   cd_out.get("delta_pct"),
+            "cd_div":     cd_divergence,
         })
 
     # Pair definitions — y=dependent, x=independent
@@ -344,7 +354,7 @@ class BollingerMRStrategy:
 
         return raw
 
-    def _signal(self, symbol: str, zscore: float, vol_filter_ok: bool = True, logit_signal: str = "neutral", rsi_signal: str = "neutral", bbw_signal: str = "neutral", macd_signal: str = "neutral", wyckoff_bias: str = "neutral") -> Optional[str]:
+    def _signal(self, symbol: str, zscore: float, vol_filter_ok: bool = True, logit_signal: str = "neutral", rsi_signal: str = "neutral", bbw_signal: str = "neutral", macd_signal: str = "neutral", wyckoff_bias: str = "neutral", cd_signal: str = "neutral", cd_divergence: bool = False) -> Optional[str]:
         """Generate trading signal from z-score."""
         ez = settings.BOLLINGER_ENTRY_Z
         xz = settings.BOLLINGER_EXIT_Z

@@ -1617,3 +1617,68 @@ def wyckoff_analysis(bars: list, lookback: int = 20) -> dict:
         "bullish_signals":         bullish_signals,
         "bearish_signals":         bearish_signals,
     }
+
+
+async def fetch_cumulative_delta(symbol: str, limit: int = 100) -> dict:
+    """
+    Cumulative Delta from real tick data (Trader Dale p.41).
+    Uses Gate.io trades API — true buy/sell side per trade.
+    delta > 0 = buying pressure (bullish)
+    delta < 0 = selling pressure (bearish)
+    """
+    import aiohttp
+    pair = symbol.replace("USDT", "_USDT")
+    url = f"https://api.gateio.ws/api/v4/spot/trades"
+    params = {"currency_pair": pair, "limit": limit}
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                if resp.status != 200:
+                    return {"error": f"status {resp.status}"}
+                trades = await resp.json()
+    except Exception as e:
+        return {"error": str(e)}
+
+    buy_vol  = sum(float(t["amount"]) for t in trades if t["side"] == "buy")
+    sell_vol = sum(float(t["amount"]) for t in trades if t["side"] == "sell")
+    total    = buy_vol + sell_vol
+    delta    = buy_vol - sell_vol
+    delta_pct = delta / total * 100 if total > 0 else 0.0
+
+    # Divergence: price direction vs delta direction
+    if len(trades) >= 2:
+        price_now  = float(trades[0]["price"])
+        price_then = float(trades[-1]["price"])
+        price_dir  = "up" if price_now > price_then else "down"
+        delta_dir  = "up" if delta > 0 else "down"
+        divergence = price_dir != delta_dir
+    else:
+        divergence = False
+        price_dir  = "flat"
+        delta_dir  = "flat"
+
+    # Signal
+    if divergence:
+        if price_dir == "up" and delta_dir == "down":
+            signal = "bearish_divergence"   # price up but sellers dominating
+        else:
+            signal = "bullish_divergence"   # price down but buyers dominating
+    elif delta_pct > 20:
+        signal = "strong_buying"
+    elif delta_pct < -20:
+        signal = "strong_selling"
+    else:
+        signal = "neutral"
+
+    return {
+        "buy_volume":   round(buy_vol, 6),
+        "sell_volume":  round(sell_vol, 6),
+        "delta":        round(delta, 6),
+        "delta_pct":    round(delta_pct, 2),
+        "signal":       signal,
+        "divergence":   divergence,
+        "price_dir":    price_dir,
+        "delta_dir":    delta_dir,
+        "trades_count": len(trades),
+    }

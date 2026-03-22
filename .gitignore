@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+*.log
+logs/
+*.db
+node_modules/
+dist/
+.venv/
+alphabot.db

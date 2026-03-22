@@ -1728,6 +1728,28 @@ class DQLAgent:
         self.W3 = np.random.randn(self.hidden, 3) * scale2
         self.b3 = np.zeros(3)
 
+    def pretrain(self, n_samples: int = 5000):
+        """
+        Supervised pre-training: teach the network correct MR actions
+        from synthetic zscore samples before live training.
+        BUY when z < -0.5, SELL when z > +0.5, HOLD otherwise.
+        """
+        import numpy as np
+        for _ in range(n_samples):
+            z = np.random.uniform(-3, 3)
+            rsi = np.random.uniform(20, 80)
+            vol = np.random.uniform(0.5, 2.0)
+            state = self.build_state(z, rsi, vol, 0.0, 0.5, 20.0)
+            # Target Q-values: high for correct action, low for others
+            if z < -0.5:
+                target = np.array([-1.0, 2.0, -1.0])   # BUY
+            elif z > 0.5:
+                target = np.array([-1.0, -1.0, 2.0])   # SELL
+            else:
+                target = np.array([2.0, -1.0, -1.0])   # HOLD
+            self._backprop(np.array(state), target)
+        self.trained = True
+
     def _relu(self, x):
         import numpy as np
         return np.maximum(0, x)
@@ -1819,25 +1841,27 @@ class DQLAgent:
             max(0, min(1, half_life / 100.0)),
         ]
 
-    def train_on_bars(self, bars: list, entry_z: float = 1.5) -> dict:
+    def train_on_bars(self, bars: list, entry_z: float = 1.5, finetune_lr: float = 0.0001) -> dict:
         """
         Train agent on historical OHLCV bars (Hilpisch Ch.3).
-        Simulates trading: BUY at z<-entry_z, SELL at z>+entry_z, HOLD otherwise.
-        Reward = return of the trade.
+        Uses supervised pre-training: label each bar with correct MR action,
+        then use Q-learning to reinforce correct policy.
+        BUY label: z < -0.5 (price below mean, expect rise)
+        SELL label: z > +0.5 (price above mean, expect fall)
+        HOLD label: |z| <= 0.5
         """
         import numpy as np
+        orig_lr = self.lr
+        self.lr = finetune_lr  # lower lr to preserve pretrained weights
         if len(bars) < 60:
             return {"error": "need 60+ bars"}
         closes = [b["close"] for b in bars]
         volumes = [b["volume"] for b in bars]
         losses = []
-        position = 0
-        entry_price = 0.0
         for i in range(20, len(closes) - 1):
             window = closes[max(0,i-49):i+1]
             if len(window) < 20:
                 continue
-            # Compute simple zscore for training
             mu = float(np.mean(window[-20:]))
             sd = float(np.std(window[-20:]))
             if sd == 0:
@@ -1845,27 +1869,30 @@ class DQLAgent:
             z = (closes[i] - mu) / sd
             avg_vol = float(np.mean(volumes[max(0,i-19):i+1]))
             vol_r = volumes[i] / avg_vol if avg_vol > 0 else 1.0
-            state = self.build_state(
-                zscore=z, rsi=50.0, vol_ratio=vol_r,
-                cd_delta=0.0, hurst=0.5, half_life=20.0
-            )
+            state = self.build_state(zscore=z, rsi=50.0, vol_ratio=vol_r,
+                                     cd_delta=0.0, hurst=0.5, half_life=20.0)
+            # Correct MR label
+            if z < -0.5:   correct_action = 1   # BUY — price below mean
+            elif z > 0.5:  correct_action = 2   # SELL — price above mean
+            else:          correct_action = 0   # HOLD — near mean
+
+            # Reward: +1 if agent picks correct action, -1 if wrong
             action = self.predict(state)
-            # Compute reward
-            ret = (closes[i+1] - closes[i]) / closes[i]
-            if action == 1:    reward = ret * 100    # BUY
-            elif action == 2:  reward = -ret * 100   # SELL
-            else:              reward = 0.0           # HOLD
+            reward = 1.0 if action == correct_action else -1.0
+
+            # Bonus reward: larger |z| = higher stakes = bigger reward
+            reward *= (1.0 + abs(z))
+
             next_z = (closes[i+1] - mu) / sd
-            next_state = self.build_state(
-                zscore=next_z, rsi=50.0, vol_ratio=vol_r,
-                cd_delta=0.0, hurst=0.5, half_life=20.0
-            )
+            next_state = self.build_state(zscore=next_z, rsi=50.0, vol_ratio=vol_r,
+                                          cd_delta=0.0, hurst=0.5, half_life=20.0)
             done = abs(next_z) < 0.3
-            self.store(state, action, reward, next_state, done)
+            self.store(state, correct_action, reward, next_state, done)
             loss = self.train(batch_size=32)
             if loss > 0:
                 losses.append(loss)
         avg_loss = float(np.mean(losses)) if losses else 0.0
+        self.lr = orig_lr  # restore original lr
         return {
             "episodes": len(losses),
             "avg_loss": round(avg_loss, 6),
@@ -1874,5 +1901,6 @@ class DQLAgent:
             "epsilon": self.epsilon,
         }
 
-# Global agent instance
-dql_agent = DQLAgent()
+# Global agent instance — pre-trained on synthetic MR data
+dql_agent = DQLAgent(epsilon=0.0)
+dql_agent.pretrain(n_samples=5000)

@@ -30,6 +30,8 @@ from backend.core.signals.quant_signals import (
     meta_label,
     wyckoff_analysis,
     fetch_cumulative_delta,
+    DQLAgent,
+    dql_agent,
     logit_direction_filter,
     compute_rsi,
     compute_bbw,
@@ -242,6 +244,23 @@ class BollingerMRStrategy:
 
         # Generate signal
         signal = self._signal(symbol, zscore, current_price=close, vol_filter_ok=vol_filter_ok, logit_signal=logit_signal, rsi_signal=rsi_signal, bbw_signal=bbw_signal, macd_signal=macd_signal, wyckoff_bias=wyckoff_bias, cd_signal=cd_signal, cd_divergence=cd_divergence)
+
+        # DQL Agent advisory (Hilpisch Ch.3) — runs alongside filters
+        dql_actions = ['HOLD', 'BUY', 'SELL']
+        hurst_val = self._stats.get(symbol, {}).get('hurst', 0.5) or 0.5
+        hl_val = self._stats.get(symbol, {}).get('half_life', 20.0) or 20.0
+        dql_state = dql_agent.build_state(
+            zscore=zscore,
+            rsi=rsi_out.get('rsi', 50.0),
+            vol_ratio=volume / (avg_vol if avg_vol > 0 else 1),
+            cd_delta=cd_out.get('delta_pct', 0.0),
+            hurst=hurst_val,
+            half_life=hl_val,
+        )
+        dql_action = dql_agent.predict(dql_state)
+        dql_label  = dql_actions[dql_action]
+        if signal:
+            logger.info(f'[DQL] {symbol} filter_signal={signal} dql={dql_label} z={zscore:.2f}')
 
         if signal and self._paper_trading_enabled:
             # Meta-labeling (Lopez de Prado Ch.3) — secondary filter

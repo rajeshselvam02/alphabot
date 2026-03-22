@@ -4197,3 +4197,90 @@ NameError: name 'price' is not defined. Did you mean: 'print'?
 2026-03-22 15:38:21,502 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.44
 2026-03-22 15:38:23,169 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.33
 2026-03-22 15:38:23,179 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 15:45:20,467 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2080.75
+2026-03-22 15:45:22,576 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 629.50
+2026-03-22 15:45:25,167 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.26
+2026-03-22 15:45:25,168 | alphabot.bollinger | INFO | [KF] ADAUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 15:45:25,872 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.78
+2026-03-22 15:45:25,872 | alphabot.bollinger | INFO | [KF] LINKUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 15:45:26,832 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68804.30
+2026-03-22 15:45:28,536 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-22 15:45:28,538 | alphabot.bollinger | INFO | [KF] DOTUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 15:45:32,372 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.37
+2026-03-22 15:46:36,446 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 15:46:36,447 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 15:46:49,752 | alphabot.engine | INFO | =======================================================
+2026-03-22 15:46:49,752 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 15:46:49,752 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 15:46:49,753 | alphabot.engine | INFO | =======================================================
+2026-03-22 15:46:49,794 | alphabot.api | INFO | Redis relay started
+2026-03-22 15:46:49,815 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 15:46:49,816 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 15:46:52,072 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 15:46:53,733 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 15:46:56,019 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 15:46:58,061 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 15:46:58,062 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 15:46:58,094 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 15:46:58,122 | alphabot.engine | INFO | Warmup complete
+2026-03-22 15:46:58,130 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 15:46:58,130 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 15:46:58,131 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 15:46:59,062 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2080.75
+2026-03-22 15:46:59,078 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 15:47:01,983 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68804.30
+2026-03-22 15:47:02,002 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 15:47:03,596 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 629.50
+2026-03-22 15:47:03,618 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 15:47:05,830 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.78
+2026-03-22 15:47:06,791 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.37
+2026-03-22 15:47:06,807 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 15:47:08,713 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.26
+2026-03-22 15:47:09,964 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-22 15:50:15,424 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 15:50:15,425 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 15:50:26,204 | alphabot.engine | INFO | =======================================================
+2026-03-22 15:50:26,205 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 15:50:26,205 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 15:50:26,205 | alphabot.engine | INFO | =======================================================
+2026-03-22 15:50:26,226 | alphabot.api | INFO | Redis relay started
+2026-03-22 15:50:26,328 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 15:50:26,328 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 15:50:27,734 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 15:50:29,178 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 15:50:30,695 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 15:50:32,362 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 15:50:32,363 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 15:50:32,396 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 15:50:32,409 | alphabot.engine | INFO | Warmup complete
+2026-03-22 15:50:32,413 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 15:50:32,414 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 15:50:32,414 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 15:50:33,164 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2080.75
+2026-03-22 15:50:33,176 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 15:50:36,182 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 629.50
+2026-03-22 15:50:36,198 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 15:50:38,112 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.37
+2026-03-22 15:50:38,130 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 15:50:40,224 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-22 15:50:43,708 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.26
+2026-03-22 15:50:44,308 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 15:50:45,418 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.78
+2026-03-22 15:50:48,542 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68804.30
+2026-03-22 15:50:48,555 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)

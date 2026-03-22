@@ -84,17 +84,8 @@ class BollingerMRStrategy:
             )
             self._prices[symbol]   = []
             self._pos_side[symbol] = None
-            # Restore bar count from Redis (survives restarts)
-            import asyncio
-            try:
-                saved = asyncio.get_event_loop().run_until_complete(
-                    redis_client.get(f"bars_count:{symbol}")
-                )
-                if saved:
-                    self._bars[symbol] = int(saved)
-                else:
-                    self._bars[symbol] = 0  # will be fixed in async init
-            except Exception:
+            # Bar count seeded by engine.py after warmup — don't overwrite
+            if not (symbol in self._bars and self._bars[symbol] > 20):
                 self._bars[symbol] = 0
             self._last_z[symbol]   = 0.0
             self._volumes[symbol]  = []

@@ -4512,3 +4512,1325 @@ NameError: name 'price' is not defined. Did you mean: 'print'?
 2026-03-22 18:07:18,562 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
 2026-03-22 18:07:28,802 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
 2026-03-22 18:07:39,044 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:07:49,272 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:07:59,541 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:06,523 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:07,840 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:08:16,754 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:18,809 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:19,658 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:08:29,041 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:39,599 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:50,073 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:08:59,497 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:00,758 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:09:03,817 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:04,335 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:09:07,693 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:08,225 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:09:12,570 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:13,115 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:09:23,109 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:33,664 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:34,965 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:45,184 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:47,425 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:09:49,063 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:09:57,911 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:10:08,154 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:10:18,373 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:10:28,632 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:10:38,998 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:10:49,231 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:10:59,435 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:11:11,526 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:11:23,074 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:11:33,622 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:11:43,845 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:11:54,094 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:12:04,342 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:12:14,604 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:12:24,845 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:12:35,068 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:12:45,454 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:12:55,677 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:13:05,905 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:13:16,121 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:13:26,985 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:13:37,446 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:13:47,692 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:13:59,206 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:14:09,461 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:14:19,998 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:14:30,550 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:14:41,128 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:14:42,011 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 18:14:51,543 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:15:01,920 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:15:12,282 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:15:22,665 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:15:22,706 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2080.01
+2026-03-22 18:15:24,671 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68717.60
+2026-03-22 18:15:26,226 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 18:15:26,227 | alphabot.bollinger | INFO | [KF] ADAUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 18:15:26,979 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.44
+2026-03-22 18:15:26,982 | alphabot.bollinger | INFO | [KF] DOTUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 18:15:28,656 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 630.80
+2026-03-22 18:15:30,428 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.32
+2026-03-22 18:15:32,662 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.78
+2026-03-22 18:15:32,663 | alphabot.bollinger | INFO | [KF] LINKUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 18:15:33,041 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:15:43,523 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:15:53,884 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:16:04,237 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:16:14,625 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:16:25,111 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:16:35,456 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:16:45,858 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:16:56,470 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:17:07,028 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:17:17,588 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:17:27,956 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:17:38,415 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:17:48,959 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:17:59,339 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:18:09,748 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:18:20,310 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:18:31,857 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:18:42,385 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:18:42,744 | telegram.ext.Updater | ERROR | Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
+    raise exc
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.READ_NUM_BYTES, timeout=timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_backends/anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_httpxrequest.py", line 279, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_utils/networkloop.py", line 154, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_extbot.py", line 672, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 4865, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 704, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_extbot.py", line 370, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 733, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_baserequest.py", line 305, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_httpxrequest.py", line 303, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ReadError: 
+2026-03-22 18:18:54,890 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:19:05,444 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:19:15,687 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:19:25,947 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:19:36,216 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:19:46,498 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:19:56,946 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:20:07,506 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:20:17,771 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:20:28,051 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:20:38,403 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:20:48,831 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:20:59,135 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:21:09,604 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:21:20,163 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:21:30,714 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:21:40,980 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:21:51,522 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:22:01,792 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:22:12,066 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:22:22,321 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:22:32,565 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:22:43,077 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:22:53,341 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:23:03,655 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:23:14,155 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:23:24,644 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:23:34,911 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:23:45,450 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:23:56,464 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:24:06,896 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:24:17,147 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:24:27,406 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:24:37,936 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:24:48,502 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:24:59,056 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:25:09,618 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:25:20,180 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:25:30,444 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:25:41,046 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:25:51,534 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:26:01,808 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:26:12,193 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:26:22,591 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:26:32,885 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:26:43,149 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:26:53,616 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:27:04,027 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:27:14,349 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:27:24,658 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:27:34,927 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:27:45,768 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:27:56,039 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:28:06,299 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:28:16,830 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:28:27,109 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:28:37,459 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:28:47,859 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:28:58,117 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:29:08,368 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:29:18,650 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:29:29,140 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:29:39,408 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:29:49,679 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:30:00,143 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:30:10,707 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:30:21,265 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:30:25,858 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2078.32
+2026-03-22 18:30:27,674 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68691.30
+2026-03-22 18:30:29,576 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 18:30:30,920 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.44
+2026-03-22 18:30:31,529 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:30:32,564 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 630.90
+2026-03-22 18:30:34,264 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.25
+2026-03-22 18:30:36,089 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.78
+2026-03-22 18:30:42,064 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:30:52,404 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:31:02,871 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:31:13,127 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:31:23,497 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:31:33,979 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:31:44,237 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:31:54,511 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:32:04,943 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:32:15,505 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:32:25,774 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:32:36,035 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:32:46,289 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:32:56,619 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:33:06,862 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:33:17,262 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:33:27,528 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:33:37,794 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:33:48,302 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:33:59,172 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:34:09,742 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:34:20,133 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:34:30,419 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:34:40,714 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:34:50,982 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:35:01,261 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:35:11,535 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:35:21,786 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:35:32,058 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:35:42,309 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:35:52,573 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:36:02,921 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:36:14,283 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:36:24,803 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:36:35,048 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:36:45,277 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:36:55,529 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:37:05,766 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:37:16,012 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:37:26,244 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:37:36,480 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:37:46,683 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:37:56,911 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:38:07,223 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:38:17,459 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:38:27,695 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:38:37,923 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:38:49,145 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:38:59,393 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:39:09,598 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:39:19,857 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:39:30,119 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:39:40,334 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:39:50,554 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:40:00,816 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:40:11,341 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:40:21,584 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:40:31,820 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:40:42,063 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:40:52,303 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:41:02,531 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:41:12,766 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:41:23,032 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:41:33,261 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:41:43,504 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:41:53,760 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:42:03,988 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:42:14,218 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:42:24,454 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:42:35,676 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:42:45,913 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:42:56,139 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:43:06,402 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:43:16,675 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:43:27,599 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:43:37,819 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:43:48,323 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:43:58,562 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:44:09,146 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:44:19,370 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:44:29,599 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:44:39,831 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:44:50,070 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:45:00,306 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:45:10,526 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:45:20,816 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:45:29,114 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2065.30
+2026-03-22 18:45:31,054 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:45:31,195 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68470.60
+2026-03-22 18:45:33,275 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 18:45:34,236 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-22 18:45:36,799 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 629.00
+2026-03-22 18:45:39,025 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.84
+2026-03-22 18:45:40,994 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.75
+2026-03-22 18:45:41,334 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:45:52,214 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:46:02,714 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:46:12,952 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:46:23,209 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:46:33,764 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:46:44,002 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:46:54,230 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:47:05,758 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:47:15,999 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:47:26,237 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:47:36,461 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:47:46,708 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:47:56,951 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:48:07,189 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:48:17,455 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:48:27,703 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:48:38,250 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:48:48,503 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:48:58,739 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:49:08,971 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:49:19,211 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:49:30,088 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:49:40,330 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:49:50,576 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:50:00,819 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:50:11,102 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:50:21,337 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:50:31,839 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:50:42,072 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:50:52,318 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:51:02,559 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:51:12,799 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:51:23,040 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:51:33,267 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:51:44,484 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:51:54,735 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:52:05,223 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:52:15,517 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:52:25,774 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:52:36,326 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:52:46,577 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:52:56,812 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:53:07,054 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:53:17,290 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:53:28,197 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:53:38,525 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:53:38,585 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 18:53:48,804 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:53:59,195 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:54:09,446 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:54:19,696 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:54:29,952 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:54:40,204 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:54:50,468 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:55:00,745 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:55:11,032 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:55:21,302 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:55:29,904 | telegram.ext.Updater | ERROR | Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
+    raise exc
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.READ_NUM_BYTES, timeout=timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_backends/anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_httpxrequest.py", line 279, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_utils/networkloop.py", line 154, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_extbot.py", line 672, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 4865, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 704, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_extbot.py", line 370, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 733, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_baserequest.py", line 305, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_httpxrequest.py", line 303, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ReadError: 
+2026-03-22 18:55:47,299 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:55:57,589 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:07,867 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:18,150 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:28,539 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:38,874 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:49,464 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:52,834 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:56:54,400 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 18:57:03,511 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:57:14,688 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:57:24,993 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:57:35,338 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:57:45,810 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:57:56,108 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:58:06,546 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:58:16,838 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:58:27,262 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:58:37,568 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:58:48,138 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 18:59:23,033 | alphabot.feed | ERROR | Poll error ETHUSDT: 
+2026-03-22 18:59:34,022 | alphabot.feed | ERROR | Poll error BTCUSDT: 
+2026-03-22 18:59:45,018 | alphabot.feed | ERROR | Poll error ADAUSDT: 
+2026-03-22 18:59:56,020 | alphabot.feed | ERROR | Poll error DOTUSDT: 
+2026-03-22 19:00:07,020 | alphabot.feed | ERROR | Poll error MATICUSDT: 
+2026-03-22 19:00:18,020 | alphabot.feed | ERROR | Poll error BNBUSDT: 
+2026-03-22 19:00:26,475 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.01
+2026-03-22 19:00:31,099 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.76
+2026-03-22 19:00:36,165 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:00:47,756 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:00:58,183 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:01:05,510 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2072.21
+2026-03-22 19:01:08,613 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:01:19,016 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:01:22,356 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68622.30
+2026-03-22 19:01:29,451 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:01:39,022 | alphabot.feed | ERROR | Poll error ADAUSDT: 
+2026-03-22 19:01:40,792 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:01:45,257 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-22 19:01:51,315 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:01:56,016 | alphabot.feed | ERROR | Poll error MATICUSDT: 
+2026-03-22 19:02:00,335 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 629.60
+2026-03-22 19:02:01,815 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:02:12,321 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:02:22,783 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:02:33,248 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:02:43,744 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:02:47,124 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:02:54,182 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:04,627 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:06,338 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:07,609 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:03:09,752 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:10,196 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:03:20,464 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:30,932 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:41,578 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:03:52,014 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:04:02,696 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:04:13,138 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:04:23,586 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:04:34,055 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:04:44,534 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:04:55,173 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:05:05,632 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:05:16,403 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:05:26,852 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:05:37,438 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:05:47,998 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:05:58,443 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:06:09,122 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:06:19,680 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:06:30,125 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:06:40,595 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:06:51,047 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:07:01,517 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:07:11,950 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:07:22,400 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:07:32,856 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:07:44,813 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:07:55,346 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:08:05,932 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:08:16,580 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:08:27,050 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:08:37,515 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:08:48,134 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:08:58,691 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:09:09,265 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:09:19,733 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:09:30,380 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:09:40,836 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:09:51,487 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:09:58,374 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 19:09:58,374 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 19:10:11,337 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:10:11,337 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 19:10:11,337 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 19:10:11,338 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:10:11,356 | alphabot.api | INFO | Redis relay started
+2026-03-22 19:10:11,376 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 19:10:11,377 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 19:10:11,378 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 19:10:11,378 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 19:10:16,745 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 19:10:20,160 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 19:10:23,463 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 19:10:26,492 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 19:10:26,492 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 19:10:26,538 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 19:10:26,557 | alphabot.engine | INFO | Warmup complete
+2026-03-22 19:10:29,572 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:10:29,585 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-22 19:10:30,855 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:10:31,980 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:10:31,999 | apscheduler.scheduler | INFO | Scheduler started
+2026-03-22 19:10:32,000 | telegram.ext.Application | INFO | Application started
+2026-03-22 19:10:32,289 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/deleteWebhook "HTTP/1.1 200 OK"
+2026-03-22 19:10:32,306 | alphabot.telegram | INFO | [TG] Command bot started — /status /zscores /positions /trades /pnl /help
+2026-03-22 19:10:32,307 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 19:10:32,308 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 19:10:32,310 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 19:10:34,874 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2072.21
+2026-03-22 19:10:34,893 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 19:10:44,371 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:10:45,585 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-22 19:10:48,462 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.76
+2026-03-22 19:10:52,754 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 87.01
+2026-03-22 19:10:52,764 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:10:54,853 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:10:57,918 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68622.30
+2026-03-22 19:10:57,934 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:11:05,417 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:11:08,513 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:11:11,343 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 629.60
+2026-03-22 19:11:11,353 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:11:15,970 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:11:27,191 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:11:37,718 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:11:48,183 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:11:58,653 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:12:09,115 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:12:19,662 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:12:30,123 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:12:40,554 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:12:52,018 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:13:02,465 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:13:12,936 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:13:23,415 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:13:33,900 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:13:44,460 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:13:54,927 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:14:05,641 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:14:16,161 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:14:26,773 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:14:37,262 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:14:47,743 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:14:50,029 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 19:14:50,030 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 19:15:00,242 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:15:00,242 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 19:15:00,242 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 19:15:00,243 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:15:00,299 | alphabot.api | INFO | Redis relay started
+2026-03-22 19:15:00,369 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 19:15:00,369 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 19:15:00,370 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 19:15:04,989 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 19:15:08,368 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 19:15:11,608 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 19:15:16,700 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 19:15:16,700 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 19:15:16,748 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 19:15:16,772 | alphabot.engine | INFO | Warmup complete
+2026-03-22 19:15:18,872 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:15:18,879 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-22 19:15:19,487 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:15:22,055 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:15:22,072 | apscheduler.scheduler | INFO | Scheduler started
+2026-03-22 19:15:22,073 | telegram.ext.Application | INFO | Application started
+2026-03-22 19:15:22,693 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/deleteWebhook "HTTP/1.1 200 OK"
+2026-03-22 19:15:22,712 | alphabot.telegram | INFO | [TG] Command bot started — /status /zscores /positions /trades /pnl /help
+2026-03-22 19:15:22,713 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 19:15:22,713 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 19:15:22,714 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 19:15:25,481 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2061.14
+2026-03-22 19:15:25,493 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 19:15:34,206 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:15:34,225 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 627.40
+2026-03-22 19:15:34,236 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:15:39,512 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:15:42,609 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68335.30
+2026-03-22 19:15:42,624 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:15:44,487 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:15:48,620 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.72
+2026-03-22 19:15:51,510 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.42
+2026-03-22 19:15:54,239 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.73
+2026-03-22 19:15:54,255 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:15:54,744 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:16:05,248 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:16:15,532 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:16:25,773 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:16:36,020 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:16:46,278 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:16:56,579 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:17:07,011 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:17:17,322 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:17:27,605 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:17:37,889 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:17:48,183 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:17:59,244 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:18:09,777 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:18:14,639 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 19:18:20,127 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:18:30,371 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:18:40,628 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:18:50,892 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:19:01,252 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:19:11,516 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:19:21,761 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:19:32,028 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:19:42,283 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:19:52,542 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:20:02,821 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:20:13,266 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:20:23,525 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:20:33,789 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:20:45,650 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:20:55,937 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:21:06,213 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:21:16,464 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:21:27,836 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:21:38,371 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:21:48,639 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:21:58,924 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:22:09,244 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:22:19,658 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:22:30,557 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:22:40,919 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:22:51,344 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:22:52,152 | alphabot.engine | INFO | Trading paused: Manual pause via API
+2026-03-22 19:22:53,375 | alphabot.risk | INFO | Risk halt cleared
+2026-03-22 19:22:53,376 | alphabot.engine | INFO | Trading resumed
+2026-03-22 19:22:54,835 | alphabot.engine | INFO | Trading paused: Manual pause via API
+2026-03-22 19:22:56,375 | alphabot.risk | INFO | Risk halt cleared
+2026-03-22 19:22:56,376 | alphabot.engine | INFO | Trading resumed
+2026-03-22 19:23:01,696 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:23:12,844 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:23:23,212 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:23:33,587 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:23:43,938 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:23:54,290 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:24:04,996 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:24:15,493 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:24:25,859 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:24:36,212 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:24:46,754 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:24:57,404 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:25:07,805 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:25:18,206 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:25:28,572 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:25:38,930 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:25:50,237 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:26:01,810 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:26:12,186 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:26:22,542 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:26:32,897 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:26:43,245 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:26:53,903 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:27:04,253 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:27:14,681 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:27:25,271 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:27:35,684 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:27:46,063 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:27:56,973 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:28:07,357 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:28:17,719 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:28:28,286 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:28:38,658 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:28:49,417 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:28:59,802 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:29:10,206 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:29:20,763 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:29:31,130 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:29:41,486 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:29:51,849 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:02,364 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:03,671 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.70
+2026-03-22 19:30:03,674 | alphabot.bollinger | INFO | [KF] LINKUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 19:30:06,532 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.42
+2026-03-22 19:30:06,533 | alphabot.bollinger | INFO | [KF] DOTUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 19:30:09,427 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.69
+2026-03-22 19:30:12,726 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:23,164 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:33,745 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:44,164 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:45,018 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2060.01
+2026-03-22 19:30:53,335 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 627.20
+2026-03-22 19:30:54,527 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:30:58,869 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:30:58,870 | alphabot.bollinger | INFO | [KF] ADAUSDT warmed as pair (2 bars, 0 errors)
+2026-03-22 19:31:01,905 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68288.60
+2026-03-22 19:31:04,907 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:31:15,340 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:31:25,696 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:31:36,217 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:31:46,611 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:31:57,253 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:32:17,421 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:32:17,423 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 19:32:17,423 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 19:32:17,423 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:32:17,460 | alphabot.api | INFO | Redis relay started
+2026-03-22 19:32:17,474 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 19:32:17,474 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 19:32:19,661 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 19:32:20,786 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 19:32:24,370 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 19:32:27,438 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 19:32:30,725 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 19:32:30,725 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 19:32:30,774 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 19:32:30,788 | alphabot.engine | INFO | Warmup complete
+2026-03-22 19:32:33,094 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:32:33,103 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-22 19:32:33,730 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:32:35,819 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:32:35,828 | apscheduler.scheduler | INFO | Scheduler started
+2026-03-22 19:32:35,828 | telegram.ext.Application | INFO | Application started
+2026-03-22 19:32:36,047 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/deleteWebhook "HTTP/1.1 200 OK"
+2026-03-22 19:32:36,057 | alphabot.telegram | INFO | [TG] Command bot started — /status /zscores /positions /trades /pnl /help
+2026-03-22 19:32:36,058 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 19:32:36,058 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 19:32:36,060 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 19:32:38,749 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2060.01
+2026-03-22 19:32:38,763 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 19:32:43,994 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.69
+2026-03-22 19:32:44,020 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:32:47,326 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:32:49,417 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.70
+2026-03-22 19:32:55,504 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68288.60
+2026-03-22 19:32:55,520 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:32:57,731 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:33:00,948 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:33:04,143 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 627.20
+2026-03-22 19:33:04,165 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:33:07,974 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:33:10,867 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.42
+2026-03-22 19:33:18,215 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:33:28,453 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:33:38,699 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:33:48,930 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:33:59,186 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:34:09,445 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:34:19,681 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:34:29,893 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:34:40,140 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:34:50,369 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:35:00,609 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:35:10,874 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:35:21,106 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:35:31,344 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:35:41,590 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:35:52,145 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:36:02,393 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:36:12,933 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:36:23,146 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:36:33,353 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:36:43,665 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:36:54,015 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:37:04,245 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:37:14,630 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:37:24,935 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:37:35,184 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:37:40,112 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 19:37:40,112 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 19:37:51,454 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:37:51,454 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 19:37:51,454 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 19:37:51,454 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:37:51,479 | alphabot.api | INFO | Redis relay started
+2026-03-22 19:37:51,506 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 19:37:51,506 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 19:37:51,506 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 19:37:51,506 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 19:37:51,507 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 19:37:51,507 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 19:37:51,507 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 19:37:51,507 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 19:37:51,507 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 19:37:51,507 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 19:37:52,214 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 19:37:55,044 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 19:37:57,988 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 19:38:01,547 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 19:38:05,062 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 19:38:05,062 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 19:38:05,083 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 19:38:05,086 | alphabot.engine | INFO | Warmup complete
+2026-03-22 19:38:06,670 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:38:06,678 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-22 19:38:07,175 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:38:09,103 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:38:09,108 | apscheduler.scheduler | INFO | Scheduler started
+2026-03-22 19:38:09,108 | telegram.ext.Application | INFO | Application started
+2026-03-22 19:38:09,737 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/deleteWebhook "HTTP/1.1 200 OK"
+2026-03-22 19:38:09,744 | alphabot.telegram | INFO | [TG] Command bot started — /status /zscores /positions /trades /pnl /help
+2026-03-22 19:38:09,745 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 19:38:09,745 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 19:38:09,745 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 19:38:12,007 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2060.01
+2026-03-22 19:38:12,017 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 19:38:16,781 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 627.20
+2026-03-22 19:38:16,802 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:38:20,928 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:38:25,240 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:38:27,988 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.70
+2026-03-22 19:38:30,869 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68288.60
+2026-03-22 19:38:30,892 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:38:31,176 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:38:36,625 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.69
+2026-03-22 19:38:36,641 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:38:41,418 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:38:42,701 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.42
+2026-03-22 19:38:52,312 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:39:02,546 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:39:12,778 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:39:23,019 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:39:33,247 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:39:43,509 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:39:53,863 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:40:04,368 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:40:14,631 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:40:25,094 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:40:35,339 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:40:45,568 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:40:55,827 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:41:06,143 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:41:16,432 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:41:26,655 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:41:36,908 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:41:48,517 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:41:58,752 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:42:08,977 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:42:19,432 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:42:29,671 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:42:39,906 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:42:50,214 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:43:00,554 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:43:11,270 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:43:13,244 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 19:43:13,245 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 19:43:24,464 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:43:24,464 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 19:43:24,464 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 19:43:24,464 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:43:24,491 | alphabot.api | INFO | Redis relay started
+2026-03-22 19:43:24,508 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 19:43:24,508 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 19:43:24,508 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 19:43:24,509 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 19:43:25,284 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 19:43:27,916 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 19:43:31,521 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 19:43:34,914 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 19:43:39,329 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 19:43:39,330 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 19:43:39,336 | asyncio | ERROR | Task exception was never retrieved
+future: <Task finished name='engine' coro=<TradingEngine.run() done, defined at /root/alphabot/backend/core/engine.py:95> exception=NameError("name 'already_seeded' is not defined")>
+Traceback (most recent call last):
+  File "/root/alphabot/backend/core/engine.py", line 97, in run
+    await self.startup()
+  File "/root/alphabot/backend/core/engine.py", line 57, in startup
+    await self._warmup()
+  File "/root/alphabot/backend/core/engine.py", line 82, in _warmup
+    await bollinger_strategy.on_bar(bar)
+  File "/root/alphabot/backend/core/strategies/bollinger_mr.py", line 99, in on_bar
+    self._init(symbol)
+    ~~~~~~~~~~^^^^^^^^
+  File "/root/alphabot/backend/core/strategies/bollinger_mr.py", line 88, in _init
+    if not already_seeded:
+           ^^^^^^^^^^^^^^
+NameError: name 'already_seeded' is not defined
+2026-03-22 19:44:23,630 | alphabot.feed | INFO | Binance feed stopped
+2026-03-22 19:44:23,630 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-22 19:44:35,103 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:44:35,103 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-22 19:44:35,103 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-22 19:44:35,103 | alphabot.engine | INFO | =======================================================
+2026-03-22 19:44:35,125 | alphabot.api | INFO | Redis relay started
+2026-03-22 19:44:35,142 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-22 19:44:35,142 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-22 19:44:35,578 | alphabot.api | INFO | WS client connected (1 total)
+2026-03-22 19:44:38,539 | alphabot.feed | INFO | Pre-loaded 300 bars for BTCUSDT/15m
+2026-03-22 19:44:42,019 | alphabot.feed | INFO | Pre-loaded 300 bars for ETHUSDT/15m
+2026-03-22 19:44:45,059 | alphabot.feed | INFO | Pre-loaded 300 bars for BNBUSDT/15m
+2026-03-22 19:44:48,408 | alphabot.feed | INFO | Pre-loaded 300 bars for SOLUSDT/15m
+2026-03-22 19:44:48,408 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-22 19:44:48,428 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-22 19:44:48,431 | alphabot.engine | INFO | Warmup complete
+2026-03-22 19:44:50,099 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:44:50,107 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-22 19:44:50,702 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-22 19:44:52,218 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-22 19:44:52,225 | apscheduler.scheduler | INFO | Scheduler started
+2026-03-22 19:44:52,226 | telegram.ext.Application | INFO | Application started
+2026-03-22 19:44:52,457 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/deleteWebhook "HTTP/1.1 200 OK"
+2026-03-22 19:44:52,461 | alphabot.telegram | INFO | [TG] Command bot started — /status /zscores /positions /trades /pnl /help
+2026-03-22 19:44:52,461 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-22 19:44:52,461 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-22 19:44:52,461 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-22 19:44:55,186 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2060.01
+2026-03-22 19:44:55,197 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-22 19:45:00,634 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.96
+2026-03-22 19:45:00,645 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:45:04,058 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:45:06,396 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-22 19:45:09,440 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 628.30
+2026-03-22 19:45:09,452 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:45:14,412 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:45:17,919 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.42
+2026-03-22 19:45:20,478 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.73
+2026-03-22 19:45:24,084 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68396.00
+2026-03-22 19:45:24,118 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-22 19:45:24,779 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:45:35,179 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:45:47,079 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:45:57,481 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:45:59,914 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2065.56
+2026-03-22 19:46:08,146 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:46:18,511 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:46:28,946 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:46:40,781 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:46:41,407 | telegram.ext.Updater | ERROR | Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
+    raise exc
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.READ_NUM_BYTES, timeout=timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_backends/anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_httpxrequest.py", line 279, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_utils/networkloop.py", line 161, in network_retry_loop
+    await do_action()
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_utils/networkloop.py", line 154, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_extbot.py", line 672, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 4865, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 704, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/ext/_extbot.py", line 370, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/_bot.py", line 733, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_baserequest.py", line 305, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/root/alphabot-venv/lib/python3.13/site-packages/telegram/request/_httpxrequest.py", line 303, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ReadError: 
+2026-03-22 19:46:54,205 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:47:04,762 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:47:15,123 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:47:25,577 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:47:35,950 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:47:46,432 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:47:56,803 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:48:07,169 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:48:18,126 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:48:28,526 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:48:38,878 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:48:49,403 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"
+2026-03-22 19:48:59,804 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getUpdates "HTTP/1.1 200 OK"

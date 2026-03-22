@@ -1,0 +1,134 @@
+name: AlphaBot CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy scipy pytest
+
+    - name: Syntax check all Python files
+      run: |
+        find backend -name "*.py" | xargs python -m py_compile
+        echo "✅ All Python files syntax OK"
+
+    - name: Test quant_signals imports
+      run: |
+        python -c "
+        import sys
+        sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import (
+            KalmanFilter,
+            compute_half_life,
+            compute_hurst,
+            compute_ravi,
+            compute_rsi,
+            compute_bbw,
+            compute_macd,
+            frac_diff,
+            prob_of_loss,
+            logit_direction_filter,
+            wyckoff_analysis,
+            meta_label,
+            prob_bet_size,
+            zscore_to_prob,
+            triple_barrier_label,
+            compute_dynamic_exits,
+        )
+        print('✅ All quant_signals imports OK')
+        "
+
+    - name: Test Kalman Filter
+      run: |
+        python -c "
+        import sys; sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import KalmanFilter
+        kf = KalmanFilter(delta=0.0001, Ve=0.001)
+        prices = [100 + i * 0.5 for i in range(50)]
+        for i in range(1, len(prices)):
+            r = kf.update(prices[i-1], prices[i])
+        assert 'zscore' in r
+        print(f'✅ Kalman OK — last zscore: {r[\"zscore\"]:.4f}')
+        "
+
+    - name: Test RSI
+      run: |
+        python -c "
+        import sys; sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import compute_rsi
+        prices = [100 + i*2 for i in range(30)]
+        r = compute_rsi(prices)
+        assert r['signal'] == 'overbought'
+        print(f'✅ RSI OK — rsi: {r[\"rsi\"]}')
+        "
+
+    - name: Test Wyckoff Analysis
+      run: |
+        python -c "
+        import sys; sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import wyckoff_analysis
+        import random; random.seed(42)
+        bars = [{'open': 100+i, 'high': 101+i, 'low': 99+i, 
+                 'close': 100+i, 'volume': random.uniform(50,150)} 
+                for i in range(25)]
+        r = wyckoff_analysis(bars)
+        assert 'wyckoff_bias' in r
+        print(f'✅ Wyckoff OK — bias: {r[\"wyckoff_bias\"]}')
+        "
+
+    - name: Test Meta-Labeling
+      run: |
+        python -c "
+        import sys; sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import meta_label
+        import random; random.seed(42)
+        prices = [70000 - i*50 + random.gauss(0,20) for i in range(35)]
+        r = meta_label(prices, zscore=-2.5, volume=150, avg_volume=100, rsi=35, bbw=2.5)
+        assert r['take'] == True
+        print(f'✅ Meta-label OK — prob_take: {r[\"prob_take\"]}')
+        "
+
+    - name: Test Probability Bet Sizing
+      run: |
+        python -c "
+        import sys; sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import zscore_to_prob, prob_bet_size
+        prob = zscore_to_prob(2.0)
+        size = prob_bet_size(prob, max_bet_pct=0.15, kelly_fraction=0.25)
+        assert size > 0
+        print(f'✅ Bet sizing OK — Z=2.0 prob={prob:.3f} size={size*100:.2f}%')
+        "
+
+    - name: Test FracDiff
+      run: |
+        python -c "
+        import sys; sys.path.insert(0, '.')
+        from backend.core.signals.quant_signals import frac_diff
+        prices = [70000 + i*10 for i in range(50)]
+        fd = frac_diff(prices, d=0.4)
+        assert len(fd) == len(prices)
+        print(f'✅ FracDiff OK — output length: {len(fd)}')
+        "
+
+    - name: Summary
+      run: |
+        echo "================================"
+        echo "  AlphaBot CI — All tests passed"
+        echo "  13 books | 8 filters | v1.7"
+        echo "================================"

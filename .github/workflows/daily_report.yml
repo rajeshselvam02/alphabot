@@ -1,0 +1,60 @@
+name: Daily Performance Report
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 18:00 UTC = 11:30 PM IST daily
+  workflow_dispatch:       # allow manual trigger
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Generate daily report
+      run: |
+        python -c "
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        print('='*50)
+        print(f'AlphaBot Daily Report — {now.strftime(\"%Y-%m-%d %H:%M UTC\")}')
+        print('='*50)
+        print('Mode: PAPER trading')
+        print('Strategy: Pair MR (ETH as x) + 8 filters')
+        print('Target: 60 days paper trading before live')
+        print()
+        print('Books implemented: 13')
+        print('  1. Ernie Chan - Algorithmic Trading')
+        print('  2. Platen & Heath - Benchmark Approach')
+        print('  3. Williams - Probability with Martingales')
+        print('  4. Stroustrup - C++ Programming Language')
+        print('  5. Shreve - Stochastic Calculus II')
+        print('  6. Velu - Algorithmic Trading & Quant Strategies')
+        print('  7. Chande - Beyond Technical Analysis')
+        print('  8. OShaughnessy - What Works on Wall Street')
+        print('  9. Dunis - Applied Quant Methods')
+        print(' 10. Lopez de Prado - Advances in Financial ML')
+        print(' 11. Murphy - Technical Analysis of Financial Markets')
+        print(' 12. Trader Dale - Order Flow Trading Setups')
+        print(' 13. Wyckoff - The Richard D. Wyckoff Method')
+        print()
+        print('Filters active: 8')
+        print('  RAVI + Volume + Logit + RSI + BBW + MACD + Meta-label + Wyckoff')
+        print()
+        print('Performance targets:')
+        print('  [ ] Sharpe > 0.8')
+        print('  [ ] Max DD < 15%')
+        print('  [ ] Win rate > 45%')
+        print('  [ ] 60 days paper trading')
+        print('='*50)
+        "
+
+    - name: Check syntax on push
+      run: |
+        find backend -name "*.py" | xargs python -m py_compile && echo "✅ Syntax OK"

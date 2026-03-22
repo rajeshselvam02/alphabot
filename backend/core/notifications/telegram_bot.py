@@ -114,3 +114,104 @@ class TelegramNotifier:
         await self.send_plain(msg)
 
 telegram = TelegramNotifier()
+
+from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram import Update
+
+class TelegramCommandBot:
+    """
+    Telegram command bot — query AlphaBot from Telegram.
+    Commands: /status /zscores /positions /pause /resume
+    """
+    def __init__(self, notifier: TelegramNotifier):
+        self.notifier = notifier
+        self.app      = None
+        self._get_portfolio = None
+        self._get_strategies = None
+        self._get_positions  = None
+
+    def register_callbacks(self, portfolio_fn, strategies_fn, positions_fn):
+        self._get_portfolio  = portfolio_fn
+        self._get_strategies = strategies_fn
+        self._get_positions  = positions_fn
+
+    async def start(self):
+        if not self.notifier.enabled:
+            return
+        self.app = Application.builder().token(self.notifier.token).build()
+        self.app.add_handler(CommandHandler("status",    self._cmd_status))
+        self.app.add_handler(CommandHandler("zscores",   self._cmd_zscores))
+        self.app.add_handler(CommandHandler("positions", self._cmd_positions))
+        self.app.add_handler(CommandHandler("help",      self._cmd_help))
+        await self.app.initialize()
+        await self.app.start()
+        await self.app.updater.start_polling(drop_pending_updates=True)
+        logger.info("[TG] Command bot started — /status /zscores /positions /help")
+
+    async def stop(self):
+        if self.app:
+            await self.app.updater.stop()
+            await self.app.stop()
+            await self.app.shutdown()
+
+    async def _cmd_help(self, update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+        msg = (
+            "AlphaBot Commands:\n\n"
+            "/status — equity, trades, drawdown\n"
+            "/zscores — live Z-scores for all pairs\n"
+            "/positions — open positions with P&L\n"
+            "/help — show this message"
+        )
+        await update.message.reply_text(msg)
+
+    async def _cmd_status(self, update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+        if not self._get_portfolio:
+            await update.message.reply_text("Bot not ready yet.")
+            return
+        p = self._get_portfolio()
+        msg = (
+            f"ALPHABOT STATUS\n\n"
+            f"Equity: ${p.get('equity', 0):,.2f}\n"
+            f"Cash: ${p.get('cash', 0):,.2f}\n"
+            f"P&L: ${p.get('total_pnl', 0):+.2f}\n"
+            f"Trades: {p.get('total_trades', 0)}\n"
+            f"Win Rate: {p.get('win_rate', 0):.1f}%\n"
+            f"Drawdown: {p.get('drawdown', 0):.2f}%\n"
+            f"Sharpe: {p.get('sharpe', 0):.3f}"
+        )
+        await update.message.reply_text(msg)
+
+    async def _cmd_zscores(self, update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+        if not self._get_strategies:
+            await update.message.reply_text("Bot not ready yet.")
+            return
+        s = self._get_strategies()
+        lines = []
+        for sym, z in s.get('last_z', {}).items():
+            fz = float(z)
+            if fz != 0.0:
+                alert = " <<< SIGNAL" if abs(fz) > 1.5 else ""
+                lines.append(f"{sym[:3]}: {fz:+.4f}{alert}")
+        msg = "LIVE Z-SCORES\n\n" + "\n".join(lines) if lines else "No Z-scores yet."
+        await update.message.reply_text(msg)
+
+    async def _cmd_positions(self, update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+        if not self._get_positions:
+            await update.message.reply_text("Bot not ready yet.")
+            return
+        positions = self._get_positions()
+        if not positions:
+            await update.message.reply_text("No open positions.")
+            return
+        lines = []
+        for sym, pos in positions.items():
+            lines.append(
+                f"{sym}\n"
+                f"  Side: {pos['side']}\n"
+                f"  Entry: ${pos['entry_price']:,.2f}\n"
+                f"  Current: ${pos['current_price']:,.2f}\n"
+                f"  PnL: ${pos['unrealized_pnl']:+.2f}"
+            )
+        await update.message.reply_text("OPEN POSITIONS\n\n" + "\n\n".join(lines))
+
+command_bot = TelegramCommandBot(telegram)

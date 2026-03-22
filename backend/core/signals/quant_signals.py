@@ -26,6 +26,7 @@ Theory:
    Kalman gain K(t) = R(t|t-1)·x(t) / Q(t)  (Williams Eq 15.9)
 ═══════════════════════════════════════════════════════
 """
+import math
 import numpy as np
 from typing import Optional, Tuple
 from dataclasses import dataclass, field
@@ -1390,6 +1391,16 @@ def compute_dynamic_exits(prices: list, zscore: float,
     else:  # short position
         tp = round(current - pt_multiplier * vol, 4)
         sl = round(current + sl_multiplier * vol, 4)
+
+    # Bjork HJB optimal holding period
+    # optimal_bars = half_life * ln(|zscore| / exit_threshold)
+    try:
+        hl = compute_half_life(prices)
+        if hl and abs(zscore) > 0.5:
+            optimal_bars = int(hl * math.log(abs(zscore) / 0.5))
+            max_bars = max(10, min(optimal_bars, 80))
+    except Exception:
+        pass
 
     return {
         "take_profit": tp,

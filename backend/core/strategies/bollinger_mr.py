@@ -241,7 +241,7 @@ class BollingerMRStrategy:
             await self._check_stationarity(symbol)
 
         # Generate signal
-        signal = self._signal(symbol, zscore, vol_filter_ok=vol_filter_ok, logit_signal=logit_signal, rsi_signal=rsi_signal, bbw_signal=bbw_signal, macd_signal=macd_signal, wyckoff_bias=wyckoff_bias, cd_signal=cd_signal, cd_divergence=cd_divergence)
+        signal = self._signal(symbol, zscore, current_price=close, vol_filter_ok=vol_filter_ok, logit_signal=logit_signal, rsi_signal=rsi_signal, bbw_signal=bbw_signal, macd_signal=macd_signal, wyckoff_bias=wyckoff_bias, cd_signal=cd_signal, cd_divergence=cd_divergence)
 
         if signal and self._paper_trading_enabled:
             # Meta-labeling (Lopez de Prado Ch.3) — secondary filter
@@ -354,7 +354,7 @@ class BollingerMRStrategy:
 
         return raw
 
-    def _signal(self, symbol: str, zscore: float, vol_filter_ok: bool = True, logit_signal: str = "neutral", rsi_signal: str = "neutral", bbw_signal: str = "neutral", macd_signal: str = "neutral", wyckoff_bias: str = "neutral", cd_signal: str = "neutral", cd_divergence: bool = False) -> Optional[str]:
+    def _signal(self, symbol: str, zscore: float, current_price: float = 0.0, vol_filter_ok: bool = True, logit_signal: str = "neutral", rsi_signal: str = "neutral", bbw_signal: str = "neutral", macd_signal: str = "neutral", wyckoff_bias: str = "neutral", cd_signal: str = "neutral", cd_divergence: bool = False) -> Optional[str]:
         """Generate trading signal from z-score."""
         ez = settings.BOLLINGER_ENTRY_Z
         xz = settings.BOLLINGER_EXIT_Z
@@ -370,14 +370,14 @@ class BollingerMRStrategy:
                 eb = pos.get("signal_data", {}).get("entry_bar", 0)
                 bars_held = self._bars.get(symbol, 0) - eb
                 if side == "long":
-                    if tp and price >= tp:
+                    if tp and current_price >= tp:
                         return "close_long"   # upper barrier
-                    if sl and price <= sl:
+                    if sl and current_price <= sl:
                         return "close_long"   # lower barrier
                 elif side == "short":
-                    if tp and price <= tp:
+                    if tp and current_price <= tp:
                         return "close_short"  # upper barrier
-                    if sl and price >= sl:
+                    if sl and current_price >= sl:
                         return "close_short"  # lower barrier
                 if bars_held >= mb:
                     return "close_long" if side == "long" else "close_short"  # vertical barrier

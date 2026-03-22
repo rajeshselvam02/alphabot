@@ -25,6 +25,7 @@ Per-symbol state:
 import logging
 from typing import Dict, Optional
 from backend.config.settings import settings
+from backend.core.notifications.telegram_bot import telegram
 from backend.core.signals.quant_signals import (
     compute_dynamic_exits,
     meta_label,
@@ -468,6 +469,7 @@ class BollingerMRStrategy:
             "hurst":        round(self._stats[symbol]["hurst"], 3),
         }
 
+        asyncio.create_task(telegram.alert_signal(symbol, zscore, signal))
         if signal == "buy":
             tb = compute_dynamic_exits(self._prices[symbol], zscore, pt_multiplier=2.0, sl_multiplier=1.0, max_bars=20)
             signal_meta["take_profit"] = tb.get("take_profit")

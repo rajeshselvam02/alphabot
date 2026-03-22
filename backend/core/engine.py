@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from backend.config.settings import settings
 from backend.core.data_feeds.binance_feed import binance_feed
 from backend.core.strategies.bollinger_mr import bollinger_strategy
+from backend.core.notifications.telegram_bot import telegram
 from backend.core.strategies.cross_sectional import cs_strategy
 from backend.core.execution.paper_trader import paper_trader
 from backend.core.execution.risk_manager import risk_manager
@@ -58,7 +59,8 @@ class TradingEngine:
         self.running    = True
         self.start_time = datetime.now(timezone.utc)
         await self._publish_status()
-        logger.info("Engine startup complete. Starting live feed...")
+        await telegram.init()
+    logger.info("Engine startup complete. Starting live feed...")
 
     async def _warmup(self):
         """Replay historical bars — NO trading during warmup."""

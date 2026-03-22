@@ -3,7 +3,9 @@ Paper Trader — Simulated order execution for paper trading mode.
 Tracks virtual portfolio with slippage simulation.
 All state kept in memory + Redis.
 """
+import asyncio
 import uuid
+from backend.core.notifications.telegram_bot import telegram
 import logging
 from datetime import datetime, timezone
 from typing import Dict, Optional
@@ -103,6 +105,13 @@ class PaperTrader:
                     "unrealized_pct": 0.0,
                     "signal_data":   signal_data or {},
                 }
+                sd = signal_data or {}
+                asyncio.create_task(telegram.alert_trade_open(
+                    side=side, symbol=symbol, price=fill_price, qty=quantity,
+                    zscore=sd.get("zscore", 0.0),
+                    tp=sd.get("take_profit", 0.0) or 0.0,
+                    sl=sd.get("stop_loss", 0.0) or 0.0
+                ))
 
         else:
             # ── Close position (or open short) ────────────────────
@@ -121,6 +130,7 @@ class PaperTrader:
                 if close_qty >= pos["quantity"]:
                     del self.positions[symbol]
                     logger.info(f"[PAPER] {symbol} closed. PnL: ${pnl:+.2f}")
+                    asyncio.create_task(telegram.alert_trade_close(symbol=symbol, price=fill_price, qty=close_qty, pnl=pnl, reason="signal"))
                 else:
                     pos["quantity"] -= close_qty
             else:

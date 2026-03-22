@@ -7,6 +7,8 @@ from typing import List
 import os
 
 class Settings(BaseSettings):
+    TELEGRAM_TOKEN:   str = ""
+    TELEGRAM_CHAT_ID: str = ""
     # ── App ──────────────────────────────────────────────────────
     APP_NAME: str       = "AlphaBot"
     DEBUG: bool         = False

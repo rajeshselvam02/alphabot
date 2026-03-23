@@ -73,11 +73,30 @@ class RiskManager:
             self.is_halted   = True
             self.halt_reason = reason
             logger.critical(f"RISK HALT: {reason}")
+            # Persist halt to Redis so restart does not auto-resume
+            try:
+                import asyncio, json
+                from datetime import datetime, timezone
+                from backend.db.redis_client import redis_client
+                halt_data = json.dumps({
+                    "reason": reason,
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                })
+                asyncio.create_task(redis_client.set("risk:halted", halt_data))
+            except Exception as e:
+                logger.error(f"[RISK] Failed to persist halt: {e}")
 
     def resume(self):
         self.is_halted   = False
         self.halt_reason = ""
         logger.info("Risk halt cleared")
+        # Clear halt from Redis
+        try:
+            import asyncio
+            from backend.db.redis_client import redis_client
+            asyncio.create_task(redis_client.delete("risk:halted"))
+        except Exception:
+            pass
 
     def zscore_size(self, zscore: float, price: float, prob: float = None) -> float:
         """Probability-based bet sizing (Lopez de Prado Ch.10)."""

@@ -99,6 +99,23 @@ class BollingerMRStrategy:
         volume = bar.get("volume", 0.0)
         self._init(symbol)
 
+        # ── Freshness gate: reject stale bars ──────────────────
+        try:
+            from datetime import datetime, timezone, timedelta
+            bar_ts  = bar.get("timestamp", "")
+            if bar_ts:
+                bar_time = datetime.fromisoformat(bar_ts)
+                age = datetime.now(timezone.utc) - bar_time
+                max_age = timedelta(minutes=45)  # 3x 15m interval
+                if age > max_age and self.is_active:
+                    logger.warning(
+                        f"[STALE] {symbol} bar is {int(age.total_seconds()//60)}m old "
+                        f"(ts={bar_ts[:16]}) — skipping signal"
+                    )
+                    return
+        except Exception:
+            pass  # if timestamp parsing fails, allow bar through
+
         # Store full OHLCV bars for Wyckoff analysis
         if symbol not in self._bars_ohlcv:
             self._bars_ohlcv[symbol] = []

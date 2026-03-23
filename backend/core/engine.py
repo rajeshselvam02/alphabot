@@ -36,6 +36,9 @@ class TradingEngine:
         await init_db()
         logger.info("Database initialized (SQLite)")
 
+        # ── Startup validation ──────────────────────────────────
+        await self._validate_startup()
+
         # Register strategy callbacks
         binance_feed.register(bollinger_strategy.on_bar)
         binance_feed.register(cs_strategy.on_bar)
@@ -68,6 +71,42 @@ class TradingEngine:
         await command_bot.start()
         logger.info("Engine startup complete. Starting live feed...")
 
+    async def _validate_startup(self):
+        """Validate critical dependencies and restore durable state."""
+        import json
+        # Check for durable risk halt
+        halt_raw = await redis_client.get("risk:halted")
+        if halt_raw:
+            try:
+                h = json.loads(halt_raw)
+                logger.critical(
+                    f"[STARTUP] RISK HALT DETECTED from previous session: "
+                    f"{h.get('reason')} at {h.get('timestamp','?')}"
+                )
+                risk_manager.is_halted   = True
+                risk_manager.halt_reason = h.get("reason", "Previous session halt")
+                logger.critical("[STARTUP] Bot starting in HALTED state — use /api/control/resume to re-enable")
+            except Exception:
+                pass
+
+        # Check Redis connectivity
+        try:
+            await redis_client.get("ping_test")
+            logger.info("[STARTUP] Redis connection OK")
+        except Exception as e:
+            logger.critical(f"[STARTUP] Redis unavailable: {e}")
+
+        # Check required settings
+        missing = []
+        if not settings.TELEGRAM_TOKEN:
+            missing.append("TELEGRAM_TOKEN")
+        if not settings.TELEGRAM_CHAT_ID:
+            missing.append("TELEGRAM_CHAT_ID")
+        if missing:
+            logger.warning(f"[STARTUP] Missing optional settings: {missing}")
+        else:
+            logger.info("[STARTUP] All settings validated")
+
     async def _warmup(self):
         """Replay historical bars — NO trading during warmup."""
         logger.info("Warming up strategy signals...")
@@ -84,6 +123,8 @@ class TradingEngine:
         bollinger_strategy.is_active = True
         cs_strategy.is_active        = True
         risk_manager.reset_peak()
+        # Restore portfolio state from Redis (survives restarts)
+        await paper_trader.load_state()
         # Seed bar counts and Kalman state from Redis after warmup
         for sym in settings.BOLLINGER_PAIRS:
             count = await redis_client.bar_count(sym, settings.BOLLINGER_INTERVAL)

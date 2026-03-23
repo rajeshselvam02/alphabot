@@ -40,6 +40,51 @@ class PaperTrader:
         self.wins:       int                = 0
         self.losses:     int                = 0
 
+    async def load_state(self):
+        """Load portfolio state from Redis — called on startup before warmup."""
+        try:
+            raw = await redis_client.get('portfolio_state')
+            if raw:
+                import json
+                s = json.loads(raw)
+                self.cash       = s.get('cash', settings.INITIAL_CAPITAL)
+                self.equity     = s.get('equity', settings.INITIAL_CAPITAL)
+                self.positions  = s.get('positions', {})
+                self.trades     = s.get('trades', [])
+                self.total_fees = s.get('total_fees', 0.0)
+                self.wins       = s.get('wins', 0)
+                self.losses     = s.get('losses', 0)
+                import logging
+                logging.getLogger("alphabot.paper").info(
+                    f"[PAPER] State restored: cash=${self.cash:,.2f} "
+                    f"positions={len(self.positions)} trades={len(self.trades)}"
+                )
+            else:
+                logging.getLogger("alphabot.paper").info(
+                    "[PAPER] No saved state found — starting fresh"
+                )
+        except Exception as e:
+            import logging
+            logging.getLogger("alphabot.paper").warning(f"[PAPER] State load failed: {e}")
+
+    async def save_state(self):
+        """Persist full portfolio state to Redis — called after every trade."""
+        try:
+            import json
+            state = {
+                'cash':       self.cash,
+                'equity':     self.equity,
+                'positions':  self.positions,
+                'trades':     self.trades[-200:],  # keep last 200
+                'total_fees': self.total_fees,
+                'wins':       self.wins,
+                'losses':     self.losses,
+            }
+            await redis_client.set('portfolio_state', json.dumps(state))
+        except Exception as e:
+            import logging
+            logging.getLogger("alphabot.paper").warning(f"[PAPER] State save failed: {e}")
+
     # ── Order execution ───────────────────────────────────────────
 
     async def execute(
@@ -177,6 +222,7 @@ class PaperTrader:
         # Push to Redis for dashboard
         await redis_client.publish("trades", trade)
         await self._push_state()
+        await self.save_state()
 
         logger.info(
             f"[PAPER] {'BUY ' if side == 'buy' else 'SELL'} "

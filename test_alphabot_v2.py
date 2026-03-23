@@ -509,6 +509,27 @@ async def main():
     return FAIL_COUNT == 0
 
 
+async def cleanup_test_artifacts():
+    """Remove test trades and positions from paper_trader after test run."""
+    from backend.core.execution.paper_trader import paper_trader
+    test_symbols = ['PNL_TEST_LONG', 'PNL_TEST_SHORT', 'ETHUSDT', 'BTCUSDT']
+    # Remove test positions
+    for sym in list(paper_trader.positions.keys()):
+        if sym.startswith('PNL_TEST'):
+            del paper_trader.positions[sym]
+    # Remove test trades
+    paper_trader.trades = [
+        t for t in paper_trader.trades
+        if not t['symbol'].startswith('PNL_TEST')
+    ]
+    # Reset counters to only count real trades
+    real_trades = [t for t in paper_trader.trades if t.get('pnl') is not None]
+    paper_trader.wins   = sum(1 for t in real_trades if t['pnl'] and t['pnl'] > 0)
+    paper_trader.losses = sum(1 for t in real_trades if t['pnl'] and t['pnl'] <= 0)
+    print("  Test artifacts cleaned from paper_trader")
+
 if __name__ == "__main__":
     success = asyncio.run(main())
+    # Clean up test artifacts so they don't appear in dashboard
+    asyncio.run(cleanup_test_artifacts())
     sys.exit(0 if success else 1)

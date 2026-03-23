@@ -148,6 +148,8 @@ class TelegramCommandBot:
     async def start(self):
         if not self.notifier.enabled:
             return
+        logger.info("[TG] Command bot disabled — outbound alerts only")
+        return
         self.app = Application.builder().token(self.notifier.token).build()
         self.app.add_handler(CommandHandler("status",    self._cmd_status))
         self.app.add_handler(CommandHandler("zscores",   self._cmd_zscores))

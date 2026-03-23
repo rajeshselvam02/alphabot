@@ -424,7 +424,7 @@ class BollingerMRStrategy:
         qty = risk_manager.zscore_size(zscore, price, prob=prob)
 
         # Scale by first passage risk (Shreve Ch.3)
-        half_life = self._stats.get(symbol, {}).get("half_life")
+        half_life = self._stats.get(symbol, {}).get("half_life") or 20.0
         scale     = position_scale_from_risk(zscore, half_life)
         qty       = qty * scale
 

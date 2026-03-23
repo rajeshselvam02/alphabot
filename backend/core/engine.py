@@ -88,7 +88,7 @@ class TradingEngine:
         for sym in settings.BOLLINGER_PAIRS:
             count = await redis_client.bar_count(sym, settings.BOLLINGER_INTERVAL)
             bollinger_strategy._bars[sym] = count
-            bollinger_strategy.total_bars += count
+            # total_bars already incremented during warmup replay
             pass  # _last_z populated during warmup replay below
         logger.info("Warmup complete")    
 

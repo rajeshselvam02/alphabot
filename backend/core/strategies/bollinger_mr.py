@@ -126,13 +126,9 @@ class BollingerMRStrategy:
         self._bars[symbol]  += 1
         self.total_bars     += 1
         # Persist to Redis so restarts don't reset counter
-        try:
-            import asyncio
-            asyncio.get_event_loop().run_until_complete(
-                redis_client.set(f"bars_count:{symbol}", self._bars[symbol])
-            )
-        except Exception:
-            pass
+        asyncio.create_task(
+            redis_client.set(f"bars_count:{symbol}", self._bars[symbol])
+        )
 
         # Warm-up: need at least lookback*2 bars before trading
         warmup = settings.BOLLINGER_LOOKBACK * 2
@@ -190,7 +186,7 @@ class BollingerMRStrategy:
         avg_vol = None
         if len(vols) >= 20:
             avg_vol = sum(vols[-20:]) / 20
-            if avg_vol > 0 and volume < 0.8 * avg_vol:
+            if avg_vol > 0 and volume < 0.2 * avg_vol:
                 vol_filter_ok = False
                 logger.debug(
                     f"[VOL] {symbol} low volume ({volume:.1f} < 80% of {avg_vol:.1f}) "
@@ -245,7 +241,7 @@ class BollingerMRStrategy:
         dql_state = dql_agent.build_state(
             zscore=zscore,
             rsi=rsi_out.get('rsi', 50.0),
-            vol_ratio=volume / (avg_vol if avg_vol > 0 else 1),
+            vol_ratio=volume / (avg_vol if avg_vol and avg_vol > 0 else 1),
             cd_delta=cd_out.get('delta_pct', 0.0),
             hurst=hurst_val,
             half_life=hl_val,
@@ -401,10 +397,10 @@ class BollingerMRStrategy:
                 return None  # Wyckoff says bearish, skip buy
             if wyckoff_bias == "strong_bullish" and zscore > ez:
                 return None  # Wyckoff says bullish, skip sell
-            if zscore < -ez and logit_signal in ("long", "neutral"):
+            if zscore < -ez and logit_signal in ("long", "neutral") and rsi_signal != "oversold" and macd_signal != "bullish":
                 self.signals_fired += 1
                 return "buy"
-            if zscore > ez and logit_signal in ("short", "neutral"):
+            if zscore > ez and logit_signal in ("short", "neutral") and rsi_signal != "overbought" and macd_signal != "bearish":
                 self.signals_fired += 1
                 return "sell"
         elif side == "long" and zscore >= -xz:

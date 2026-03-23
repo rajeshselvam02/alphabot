@@ -118,7 +118,10 @@ class PaperTrader:
             if symbol in self.positions:
                 pos      = self.positions[symbol]
                 close_qty = min(quantity, pos["quantity"])
-                gross_pnl = (fill_price - pos["entry_price"]) * close_qty
+                if pos["side"] == "long":
+                    gross_pnl = (fill_price - pos["entry_price"]) * close_qty
+                else:  # short position
+                    gross_pnl = (pos["entry_price"] - fill_price) * close_qty
                 pnl       = gross_pnl - fee
                 self.cash += close_qty * fill_price - fee
 

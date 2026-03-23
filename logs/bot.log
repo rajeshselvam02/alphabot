@@ -12458,3 +12458,112 @@ telegram.error.NetworkError: httpx.ReadError:
 2026-03-23 03:39:55,751 | alphabot.engine | INFO | Trading paused: Manual pause via API
 2026-03-23 03:39:55,754 | alphabot.risk | INFO | Risk halt cleared
 2026-03-23 03:39:55,754 | alphabot.engine | INFO | Trading resumed
+2026-03-23 03:41:07,020 | alphabot.feed | ERROR | Poll error MATICUSDT: 
+2026-03-23 03:45:19,595 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2055.78
+2026-03-23 03:45:21,346 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68208.20
+2026-03-23 03:45:22,873 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.71
+2026-03-23 03:45:23,595 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 03:45:24,314 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 627.40
+2026-03-23 03:45:25,753 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.54
+2026-03-23 03:45:27,998 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 04:00:19,592 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2052.66
+2026-03-23 04:00:21,290 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68080.60
+2026-03-23 04:00:23,056 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.70
+2026-03-23 04:00:24,335 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 04:00:25,222 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 626.40
+2026-03-23 04:00:26,982 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.40
+2026-03-23 04:00:29,779 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 04:09:16,693 | alphabot.feed | INFO | Binance feed stopped
+2026-03-23 04:09:16,702 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-23 04:09:31,026 | alphabot.engine | INFO | =======================================================
+2026-03-23 04:09:31,026 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-23 04:09:31,026 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-23 04:09:31,027 | alphabot.engine | INFO | =======================================================
+2026-03-23 04:09:31,048 | alphabot.api | INFO | Redis relay started
+2026-03-23 04:09:31,064 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-23 04:09:31,064 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-23 04:09:32,733 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:09:33,611 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:09:34,817 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:09:35,770 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:09:35,780 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-23 04:09:35,842 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-23 04:09:35,846 | alphabot.engine | INFO | Warmup complete
+2026-03-23 04:09:37,411 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-23 04:09:37,423 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-23 04:09:37,970 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-23 04:09:37,984 | alphabot.telegram | INFO | [TG] Command bot disabled — outbound alerts only
+2026-03-23 04:09:37,985 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-23 04:09:37,986 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-23 04:09:37,988 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-23 04:09:39,071 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2052.66
+2026-03-23 04:09:39,091 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-23 04:09:40,821 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 04:09:41,902 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 626.40
+2026-03-23 04:09:41,933 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 04:09:43,741 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 04:09:44,744 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68080.60
+2026-03-23 04:09:44,770 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 04:09:47,495 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.40
+2026-03-23 04:09:47,513 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 04:09:49,423 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.70
+2026-03-23 04:15:19,189 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2052.92
+2026-03-23 04:15:20,865 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 04:15:20,867 | alphabot.bollinger | INFO | [KF] ADAUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 04:15:21,975 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 626.90
+2026-03-23 04:15:23,658 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 04:15:23,659 | alphabot.bollinger | INFO | [KF] DOTUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 04:15:24,347 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68167.30
+2026-03-23 04:15:26,575 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.44
+2026-03-23 04:15:28,057 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.71
+2026-03-23 04:15:28,058 | alphabot.bollinger | INFO | [KF] LINKUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 04:17:18,141 | alphabot.feed | INFO | Binance feed stopped
+2026-03-23 04:17:18,143 | alphabot.engine | INFO | Engine shutdown complete
+2026-03-23 04:17:33,059 | alphabot.engine | INFO | =======================================================
+2026-03-23 04:17:33,059 | alphabot.engine | INFO |   ALPHABOT STARTING — Mode: PAPER
+2026-03-23 04:17:33,059 | alphabot.engine | INFO |   Capital: $10,000
+2026-03-23 04:17:33,059 | alphabot.engine | INFO | =======================================================
+2026-03-23 04:17:33,142 | alphabot.api | INFO | Redis relay started
+2026-03-23 04:17:33,167 | alphabot.engine | INFO | Database initialized (SQLite)
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: BTCUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: BNBUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: ADAUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: DOTUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: ETHUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: SOLUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: MATICUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.feed | INFO | Subscribed: LINKUSDT @ 15m
+2026-03-23 04:17:33,168 | alphabot.engine | INFO | Pre-loading historical bars...
+2026-03-23 04:17:33,892 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:17:34,616 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:17:35,329 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:17:36,289 | alphabot.feed | WARNING | Historical fetch failed: 400
+2026-03-23 04:17:36,297 | alphabot.engine | INFO | Warming up strategy signals...
+2026-03-23 04:17:36,357 | alphabot.risk | INFO | Peak reset to $10,000.00
+2026-03-23 04:17:36,360 | alphabot.engine | INFO | Warmup complete
+2026-03-23 04:17:37,436 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/getMe "HTTP/1.1 200 OK"
+2026-03-23 04:17:37,443 | alphabot.telegram | INFO | [TG] Connected as @Moiviz_bot
+2026-03-23 04:17:37,891 | httpx | INFO | HTTP Request: POST https://api.telegram.org/bot5168476172:AAGP1_snAhfRFXmBEMZfbGqBfrE5sXDiBns/sendMessage "HTTP/1.1 200 OK"
+2026-03-23 04:17:37,910 | alphabot.telegram | INFO | [TG] Command bot disabled — outbound alerts only
+2026-03-23 04:17:37,911 | alphabot.engine | INFO | Engine startup complete. Starting live feed...
+2026-03-23 04:17:37,911 | alphabot.engine | INFO | All tasks running. Bot is live.
+2026-03-23 04:17:37,914 | alphabot.feed | INFO | Starting Gate.io REST polling...
+2026-03-23 04:17:38,631 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2052.92
+2026-03-23 04:17:38,642 | alphabot.bollinger | INFO | [KF] ETHUSDT warmed as single (301 bars, 50 errors)
+2026-03-23 04:17:40,491 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68167.30
+2026-03-23 04:17:40,504 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 04:17:41,926 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 626.90
+2026-03-23 04:17:41,939 | alphabot.bollinger | INFO | [KF] BNBUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 04:17:43,374 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 04:17:44,135 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 04:17:44,884 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.44
+2026-03-23 04:17:44,922 | alphabot.bollinger | INFO | [KF] SOLUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 04:17:47,183 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.71

@@ -490,10 +490,10 @@ def jump_diffusion_var(
     equity:      float,
     confidence:  float = 0.99,
     horizon_h:   int   = 24,
-    sigma_h:     float = 0.02,
-    lambda_:     float = 0.1,
-    jump_mean:   float = -0.05,
-    jump_std:    float = 0.03,
+    sigma_h:     float = 0.004,  # 0.4% per hour = ~2% daily (0.02/sqrt(24))
+    lambda_:     float = 0.001,  # 1 jump per 1000 hours (realistic for crypto)
+    jump_mean:   float = -0.02,  # avg jump -2%
+    jump_std:    float = 0.015,  # jump std 1.5%
 ) -> dict:
     """
     VaR under jump-diffusion model (Shreve Ch.11).

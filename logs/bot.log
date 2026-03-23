@@ -12435,3 +12435,26 @@ telegram.error.NetworkError: httpx.ReadError:
 2026-03-23 03:15:14,736 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.73
 2026-03-23 03:15:16,888 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
 2026-03-23 03:15:16,889 | alphabot.bollinger | INFO | [KF] ADAUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 03:30:18,278 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2056.62
+2026-03-23 03:30:20,174 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68212.90
+2026-03-23 03:30:22,418 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.72
+2026-03-23 03:30:23,380 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 03:30:24,252 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 627.90
+2026-03-23 03:30:25,865 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.60
+2026-03-23 03:30:28,202 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 03:31:44,425 | alphabot.api | INFO | WS client connected (2 total)
+2026-03-23 03:31:44,448 | alphabot.engine | INFO | Trading paused: Manual pause via API
+2026-03-23 03:31:44,453 | alphabot.risk | INFO | Risk halt cleared
+2026-03-23 03:31:44,453 | alphabot.engine | INFO | Trading resumed
+2026-03-23 03:36:24,775 | alphabot.api | INFO | WS client connected (2 total)
+2026-03-23 03:36:24,792 | alphabot.engine | INFO | Trading paused: Manual pause via API
+2026-03-23 03:36:24,796 | alphabot.risk | INFO | Risk halt cleared
+2026-03-23 03:36:24,796 | alphabot.engine | INFO | Trading resumed
+2026-03-23 03:39:01,380 | alphabot.api | INFO | WS client connected (2 total)
+2026-03-23 03:39:01,400 | alphabot.engine | INFO | Trading paused: Manual pause via API
+2026-03-23 03:39:01,408 | alphabot.risk | INFO | Risk halt cleared
+2026-03-23 03:39:01,408 | alphabot.engine | INFO | Trading resumed
+2026-03-23 03:39:55,736 | alphabot.api | INFO | WS client connected (2 total)
+2026-03-23 03:39:55,751 | alphabot.engine | INFO | Trading paused: Manual pause via API
+2026-03-23 03:39:55,754 | alphabot.risk | INFO | Risk halt cleared
+2026-03-23 03:39:55,754 | alphabot.engine | INFO | Trading resumed

@@ -12675,3 +12675,13 @@ telegram.error.NetworkError: httpx.ReadError:
 2026-03-23 06:22:02,022 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
 2026-03-23 06:22:02,827 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68605.90
 2026-03-23 06:22:02,855 | alphabot.bollinger | INFO | [KF] BTCUSDT warmed as pair (301 bars, 50 errors)
+2026-03-23 06:30:25,325 | alphabot.feed | INFO | [ETHUSDT] bar closed @ 2059.00
+2026-03-23 06:30:27,564 | alphabot.feed | INFO | [SOLUSDT] bar closed @ 86.62
+2026-03-23 06:30:29,312 | alphabot.feed | INFO | [LINKUSDT] bar closed @ 8.71
+2026-03-23 06:30:29,312 | alphabot.bollinger | INFO | [KF] LINKUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 06:30:30,431 | alphabot.feed | INFO | [BNBUSDT] bar closed @ 628.70
+2026-03-23 06:30:31,870 | alphabot.feed | INFO | [ADAUSDT] bar closed @ 0.25
+2026-03-23 06:30:31,871 | alphabot.bollinger | INFO | [KF] ADAUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 06:30:32,891 | alphabot.feed | INFO | [DOTUSDT] bar closed @ 1.43
+2026-03-23 06:30:32,891 | alphabot.bollinger | INFO | [KF] DOTUSDT warmed as pair (2 bars, 0 errors)
+2026-03-23 06:30:34,139 | alphabot.feed | INFO | [BTCUSDT] bar closed @ 68568.00

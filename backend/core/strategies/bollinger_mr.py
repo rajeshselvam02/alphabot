@@ -465,6 +465,9 @@ class BollingerMRStrategy:
             price=price,
             open_positions=paper_trader.positions,
             is_mean_reversion=True,    # no stop-loss
+            strategy=self.NAME,
+            asset_class="crypto",
+            conviction=min(1.5, max(0.75, abs(zscore) / max(settings.BOLLINGER_ENTRY_Z, 0.1))),
         )
 
         if not decision.approved:

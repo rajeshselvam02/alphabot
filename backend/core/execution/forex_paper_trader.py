@@ -178,6 +178,9 @@ class ForexPaperTrader:
         notional = lots * LOT_SIZE * price if key != "XAUUSD" else lots * 100 * price
         return notional / 50.0
 
+    def required_margin(self, key: str, lots: float, price: float) -> float:
+        return self._required_margin(key.replace("/", ""), lots, price)
+
     def lot_size_from_risk(self, key: str, price: float, risk_pct: float = 0.01) -> float:
         """
         Kelly-inspired lot sizing: risk X% of equity per trade.
@@ -193,21 +196,21 @@ class ForexPaperTrader:
     # ── State ──────────────────────────────────────────────────
 
     async def _save_state(self):
-        import json
         state = {
             "equity":    self.equity,
             "cash":      self.cash,
             "positions": self.positions,
             "trades":    self.trades[-200:],  # keep last 200
         }
-        await redis_client.set("forex:paper_state", json.dumps(state))
+        await redis_client.set("forex:paper_state", state)
 
     async def load_state(self):
-        import json
-        raw = await redis_client.get("forex:paper_state")
-        if raw:
+        state = await redis_client.get("forex:paper_state")
+        if isinstance(state, str):
+            import json
+            state = json.loads(state)
+        if state:
             try:
-                state = json.loads(raw)
                 self.equity    = state.get("equity",    self.initial_capital)
                 self.cash      = state.get("cash",      self.initial_capital)
                 self.positions = state.get("positions", {})

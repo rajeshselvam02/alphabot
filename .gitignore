@@ -8,3 +8,14 @@ node_modules/
 dist/
 .venv/
 alphabot.db
+# Secrets
+.env
+.env.bak
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Runtime outputs
+logs/
+reports/

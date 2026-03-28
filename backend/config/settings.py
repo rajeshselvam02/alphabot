@@ -2,11 +2,12 @@
 AlphaBot Configuration — Termux/Android Optimized
 Uses SQLite (no PostgreSQL needed) + Redis for live state
 """
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
 import os
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
     TELEGRAM_TOKEN:   str = ""
     TELEGRAM_CHAT_ID: str = ""
     # ── App ──────────────────────────────────────────────────────
@@ -53,7 +54,7 @@ class Settings(BaseSettings):
     # ── Strategy 1: Bollinger MR ─────────────────────────────────
     # Based on: Chan Ch.3, Williams Ch.10 (martingale theory),
     #           Platen Ch.4 (OU process), Platen Ch.7 (SDE solutions)
-    BOLLINGER_PAIRS: List[str]  = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+    BOLLINGER_PAIRS: List[str]  = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "ADAUSDT", "LINKUSDT", "DOTUSDT"]
     BOLLINGER_LOOKBACK: int     = 5
     BOLLINGER_ENTRY_Z: float    = 2.0
     BOLLINGER_EXIT_Z: float     = 0.0
@@ -91,8 +92,19 @@ class Settings(BaseSettings):
     DERIBIT_CLIENT_ID:          str  = ""
     DERIBIT_CLIENT_SECRET:      str  = ""
     DERIBIT_TESTNET:            bool = True
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+
+    # ── Twelve Data (Forex + XAU/USD) ────────────────────────
+    TWELVEDATA_API_KEY: str = ""
+
+    # ── Strategy 4: Forex Mean Reversion ─────────────────────
+    FOREX_PAIRS: List[str] = [
+        "EURUSD", "GBPUSD", "USDJPY", "USDCHF",
+        "AUDUSD", "USDCAD", "XAUUSD"
+    ]
+    FOREX_INTERVAL: str   = "1h"
+    FOREX_ENTRY_Z: float  = 2.0
+    FOREX_EXIT_Z: float   = 0.0
+    FOREX_LOOKBACK: int   = 20
+    FOREX_CAPITAL: float  = 10000.0
 
 settings = Settings()

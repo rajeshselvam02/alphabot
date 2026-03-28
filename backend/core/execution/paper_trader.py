@@ -43,34 +43,39 @@ class PaperTrader:
     async def load_state(self):
         """Load portfolio state from Redis — called on startup before warmup."""
         try:
-            raw = await redis_client.get('portfolio_state')
-            if raw:
+            state = await redis_client.get("portfolio_state")
+            if not state:
+                state = await redis_client.get_portfolio()
+            if isinstance(state, str):
                 import json
-                s = json.loads(raw)
+                state = json.loads(state)
+            if state:
+                s = state
+                positions = s.get("positions", {})
+                if isinstance(positions, list):
+                    positions = {
+                        p["symbol"]: p for p in positions
+                        if isinstance(p, dict) and p.get("symbol")
+                    }
                 self.cash       = s.get('cash', settings.INITIAL_CAPITAL)
                 self.equity     = s.get('equity', settings.INITIAL_CAPITAL)
-                self.positions  = s.get('positions', {})
+                self.positions  = positions
                 self.trades     = s.get('trades', [])
                 self.total_fees = s.get('total_fees', 0.0)
                 self.wins       = s.get('wins', 0)
                 self.losses     = s.get('losses', 0)
-                import logging
-                logging.getLogger("alphabot.paper").info(
+                logger.info(
                     f"[PAPER] State restored: cash=${self.cash:,.2f} "
                     f"positions={len(self.positions)} trades={len(self.trades)}"
                 )
             else:
-                logging.getLogger("alphabot.paper").info(
-                    "[PAPER] No saved state found — starting fresh"
-                )
+                logger.info("[PAPER] No saved state found — starting fresh")
         except Exception as e:
-            import logging
-            logging.getLogger("alphabot.paper").warning(f"[PAPER] State load failed: {e}")
+            logger.warning(f"[PAPER] State load failed: {e}")
 
     async def save_state(self):
         """Persist full portfolio state to Redis — called after every trade."""
         try:
-            import json
             state = {
                 'cash':       self.cash,
                 'equity':     self.equity,
@@ -80,10 +85,10 @@ class PaperTrader:
                 'wins':       self.wins,
                 'losses':     self.losses,
             }
-            await redis_client.set('portfolio_state', json.dumps(state))
+            await redis_client.set_portfolio(state)
+            await redis_client.set("portfolio_state", state)
         except Exception as e:
-            import logging
-            logging.getLogger("alphabot.paper").warning(f"[PAPER] State save failed: {e}")
+            logger.warning(f"[PAPER] State save failed: {e}")
 
     # ── Order execution ───────────────────────────────────────────
 

@@ -157,7 +157,7 @@ class BollingerMRStrategy:
                 f"[JUMP] {symbol} — magnitude {kf_out['jump_magnitude']}σ "
                 f"— skipping bar, filter state preserved"
             )
-            await redis_client.publish("signals", {
+            signal_payload = {
                 "strategy": self.NAME,
                 "symbol":   symbol,
                 "close":    round(close, 4),
@@ -165,7 +165,9 @@ class BollingerMRStrategy:
                 "is_jump":  True,
                 "jump_magnitude": kf_out["jump_magnitude"],
                 "position": self._pos_side.get(symbol),
-            })
+            }
+            await redis_client.set_signal(self.NAME, symbol, signal_payload)
+            await redis_client.publish("signals", signal_payload)
             return
 
         if self._bars[symbol] < warmup:
@@ -183,7 +185,7 @@ class BollingerMRStrategy:
                 f"[RAVI] {symbol} trending (RAVI={ravi_out['ravi']:.1f}%) "
                 f"— skipping MR signal"
             )
-            await redis_client.publish("signals", {
+            signal_payload = {
                 "strategy": self.NAME,
                 "symbol":   symbol,
                 "close":    round(close, 4),
@@ -192,7 +194,9 @@ class BollingerMRStrategy:
                 "regime":   ravi_out["regime"],
                 "signal":   "skip_mr",
                 "position": self._pos_side.get(symbol),
-            })
+            }
+            await redis_client.set_signal(self.NAME, symbol, signal_payload)
+            await redis_client.publish("signals", signal_payload)
             return
 
         # ── Volume Confirmation Filter (Velu Ch.5) ──────────
@@ -284,7 +288,7 @@ class BollingerMRStrategy:
                 await self._execute(symbol, signal, close, zscore, kf_out, prob=ml_out["prob_take"])
 
         # Publish live signal to dashboard
-        await redis_client.publish("signals", {
+        signal_payload = {
             "strategy":  self.NAME,
             "symbol":    symbol,
             "close":     round(close, 4),
@@ -308,7 +312,9 @@ class BollingerMRStrategy:
             "cd_signal":  cd_signal,
             "cd_delta":   cd_out.get("delta_pct"),
             "cd_div":     cd_divergence,
-        })
+        }
+        await redis_client.set_signal(self.NAME, symbol, signal_payload)
+        await redis_client.publish("signals", signal_payload)
 
     # Pair definitions — y=dependent, x=independent
     PAIRS = {

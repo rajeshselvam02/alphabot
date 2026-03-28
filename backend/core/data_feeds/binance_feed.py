@@ -185,8 +185,7 @@ class BinanceFeed:
         """
         pair = symbol.replace("USDT","_USDT")
         url = f"{GATEIO_REST}/api/v4/spot/candlesticks"
-        gate_iv = INTERVAL_MAP.get(interval, interval)
-        params = {"currency_pair": pair, "interval": gate_iv, "limit": min(limit, 1000)}
+        params = {"currency_pair": pair, "interval": interval, "limit": min(limit, 1000)}
 
         try:
             async with aiohttp.ClientSession() as session:

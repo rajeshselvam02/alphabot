@@ -7,6 +7,7 @@ import json
 import logging
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
+from backend.api.xaufx_router import router as xaufx_router
 
 import redis.asyncio as aioredis
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
@@ -22,6 +23,7 @@ from backend.core.execution.paper_trader import paper_trader
 from backend.core.execution.risk_manager import risk_manager
 from backend.core.strategies.bollinger_mr import bollinger_strategy
 from backend.core.strategies.cross_sectional import cs_strategy
+from backend.core.strategies.forex_mr import forex_strategy
 
 # Setup logging
 logging.basicConfig(
@@ -64,6 +66,21 @@ class WSManager:
 ws_manager = WSManager()
 
 
+def build_status_snapshot() -> dict:
+    """Return a dashboard-friendly status payload even before live engine updates exist."""
+    return {
+        "running": engine.running,
+        "mode": settings.TRADING_MODE,
+        "portfolio": paper_trader.summary(),
+        "risk": risk_manager.to_dict(),
+        "strategies": [
+            bollinger_strategy.get_stats(),
+            cs_strategy.get_stats(),
+            forex_strategy.get_stats(),
+        ],
+    }
+
+
 # ── Redis pub/sub relay to WebSocket clients ──────────────────────
 
 async def redis_relay():
@@ -88,10 +105,12 @@ async def redis_relay():
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator:
     os.makedirs("./logs", exist_ok=True)
-    asyncio.create_task(engine.run(),    name="engine")
-    asyncio.create_task(redis_relay(),   name="relay")
+    engine_task = asyncio.create_task(engine.run(), name="engine")
+    relay_task = asyncio.create_task(redis_relay(), name="relay")
     yield
     await engine.shutdown()
+    for task in (engine_task, relay_task):
+        task.cancel()
 
 
 app = FastAPI(
@@ -99,6 +118,8 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+app.include_router(xaufx_router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -119,10 +140,9 @@ async def ws_endpoint(ws: WebSocket):
     await ws_manager.connect(ws)
     try:
         # Send current state on connect
-        status = await redis_client.get_status()
-        if status:
-            status["_ch"] = "status"
-            await ws.send_json(status)
+        status = await redis_client.get_status() or build_status_snapshot()
+        status["_ch"] = "status"
+        await ws.send_json(status)
 
         prices = await redis_client.get_prices()
         if prices:
@@ -153,6 +173,22 @@ async def trades(limit: int = 50):
     return {"trades": list(reversed(t)), "total": len(paper_trader.trades)}
 
 
+@app.get("/api/signals")
+async def signals():
+    r = await get_redis()
+    out = {}
+    for key in await r.keys("signal:*"):
+        raw = await r.get(key)
+        if not raw:
+            continue
+        try:
+            signal = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        out[signal.get("symbol") or signal.get("strategy") or key] = signal
+    return {"signals": out}
+
+
 @app.get("/api/positions")
 async def positions():
     return {"positions": list(paper_trader.positions.values())}
@@ -166,7 +202,7 @@ async def prices():
 @app.get("/api/status")
 async def status():
     s = await redis_client.get_status()
-    return s or {"running": engine.running, "mode": settings.TRADING_MODE}
+    return s or build_status_snapshot()
 
 
 @app.get("/api/strategies")
@@ -175,6 +211,7 @@ async def get_strategies():
         "strategies": [
             bollinger_strategy.get_stats(),
             cs_strategy.get_stats(),
+            forex_strategy.get_stats(),
         ],
         "risk": risk_manager.to_dict(),
     }

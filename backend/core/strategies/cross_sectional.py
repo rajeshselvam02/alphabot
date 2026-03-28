@@ -126,13 +126,15 @@ class CrossSectionalStrategy:
                 await self._open(sym, "sell", returns.get(sym, 0))
 
         # Publish signal
-        await redis_client.publish("signals", {
+        signal_payload = {
             "strategy": self.NAME,
             "weights":  {k: round(v, 4) for k, v in weights.items()},
             "longs":    longs,
             "shorts":   shorts,
             "returns":  {k: round(v, 4) for k, v in returns.items()},
-        })
+        }
+        await redis_client.set_signal(self.NAME, self.NAME, signal_payload)
+        await redis_client.publish("signals", signal_payload)
 
     async def _open(self, symbol: str, side: str, ret: float):
         price = self._prices.get(symbol, [0])[-1]

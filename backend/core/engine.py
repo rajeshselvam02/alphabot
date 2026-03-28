@@ -15,6 +15,9 @@ from backend.core.execution.risk_manager import risk_manager
 from backend.db.redis_client import redis_client
 from backend.db.database import init_db
 from backend.core.strategies.funding_rate import funding_strategy
+from backend.core.data_feeds.twelvedata_feed import twelvedata_feed
+from backend.core.strategies.forex_mr import forex_strategy
+from backend.core.execution.forex_paper_trader import forex_paper_trader
 
 logger = logging.getLogger("alphabot.engine")
 
@@ -38,6 +41,8 @@ class TradingEngine:
 
         # ── Startup validation ──────────────────────────────────
         await self._validate_startup()
+        await paper_trader.load_state()
+        await forex_paper_trader.load_state()
 
         # Register strategy callbacks
         binance_feed.register(bollinger_strategy.on_bar)
@@ -51,7 +56,17 @@ class TradingEngine:
             # Bollinger uses 1h, CS also uses 1h — safe to merge
             binance_feed.subscribe(sym, settings.BOLLINGER_INTERVAL)
 
+        # Register forex callbacks
+        twelvedata_feed.register(forex_strategy.on_bar)
+        for sym in settings.FOREX_PAIRS:
+            twelvedata_feed.subscribe(sym, settings.FOREX_INTERVAL)
+        logger.info("Pre-loading forex historical bars...")
+        for sym in settings.FOREX_PAIRS:
+            await twelvedata_feed.fetch_historical(sym, settings.FOREX_INTERVAL, limit=300)
+            await asyncio.sleep(10)  # 7 symbols × 10s = 70s, stays under 8 req/min
+
         # Pre-load historical bars for Kalman warmup
+        await asyncio.sleep(60)  # Wait for Twelve Data rate limit window to reset
         logger.info("Pre-loading historical bars...")
         for sym in settings.BOLLINGER_PAIRS:
             await binance_feed.fetch_historical(sym, settings.BOLLINGER_INTERVAL, limit=300)
@@ -123,14 +138,21 @@ class TradingEngine:
         bollinger_strategy.is_active = True
         cs_strategy.is_active        = True
         risk_manager.reset_peak()
-        # Restore portfolio state from Redis (survives restarts)
-        await paper_trader.load_state()
         # Seed bar counts and Kalman state from Redis after warmup
         for sym in settings.BOLLINGER_PAIRS:
             count = await redis_client.bar_count(sym, settings.BOLLINGER_INTERVAL)
             bollinger_strategy._bars[sym] = count
             # total_bars already incremented during warmup replay
             pass  # _last_z populated during warmup replay below
+        # Warmup forex strategy
+        forex_strategy.is_active = False
+        for sym in settings.FOREX_PAIRS:
+            bars = await redis_client.get_bars(sym, settings.FOREX_INTERVAL, n=300)
+            for bar in bars:
+                bar["is_closed"] = True
+                await forex_strategy.on_bar(bar)
+        forex_strategy.is_active = True
+
         logger.info("Warmup complete")    
 
     async def run(self):
@@ -139,6 +161,7 @@ class TradingEngine:
 
         self._tasks = [
             asyncio.create_task(binance_feed.start(),      name="binance_feed"),
+            asyncio.create_task(twelvedata_feed.start(),    name="twelvedata_feed"),
             asyncio.create_task(self._heartbeat_loop(),    name="heartbeat"),
             asyncio.create_task(self._price_update_loop(), name="price_updater"),
             asyncio.create_task(self._daily_close_loop(),  name="daily_close"),
@@ -215,6 +238,7 @@ class TradingEngine:
             "strategies": [
                 bollinger_strategy.get_stats(),
                 cs_strategy.get_stats(),
+                forex_strategy.get_stats(),
             ],
             "timestamp":  datetime.now(timezone.utc).isoformat(),
         }
@@ -224,12 +248,14 @@ class TradingEngine:
     async def pause(self, reason: str = "Manual"):
         bollinger_strategy.is_active = False
         cs_strategy.is_active        = False
+        forex_strategy.is_active     = False
         logger.info(f"Trading paused: {reason}")
         await redis_client.publish("status", {"event": "paused", "reason": reason})
 
     async def resume(self):
         bollinger_strategy.is_active = True
         cs_strategy.is_active        = True
+        forex_strategy.is_active     = True
         risk_manager.resume()
         logger.info("Trading resumed")
         await redis_client.publish("status", {"event": "resumed"})
@@ -261,6 +287,7 @@ class TradingEngine:
     async def shutdown(self):
         self.running = False
         await binance_feed.stop()
+        await twelvedata_feed.stop()
         for t in self._tasks:
             t.cancel()
         logger.info("Engine shutdown complete")

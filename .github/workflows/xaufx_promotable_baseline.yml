@@ -1,0 +1,182 @@
+name: XAUFX Promotable Baseline
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_path:
+        description: Optional path to a validation artifact or legacy manifest
+        required: false
+        default: ""
+      base_branch:
+        description: Branch to target with the promotion PR
+        required: false
+        default: main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Select promotable baseline artifact
+      id: baseline
+      env:
+        INPUT_ARTIFACT_PATH: ${{ github.event.inputs.artifact_path }}
+        INPUT_BASE_BRANCH: ${{ github.event.inputs.base_branch }}
+        CURRENT_BRANCH: ${{ github.ref_name }}
+      run: |
+        python - <<'PY'
+        import json
+        import os
+        from pathlib import Path
+
+        repo = Path.cwd()
+        requested = os.environ.get("INPUT_ARTIFACT_PATH", "").strip()
+        base_branch = os.environ.get("INPUT_BASE_BRANCH", "").strip() or "main"
+        current_branch = os.environ.get("CURRENT_BRANCH", "").strip()
+
+        candidates = []
+        artifact_dir = repo / "reports" / "validation_artifacts" / "xaufx"
+        if artifact_dir.exists():
+            candidates.extend(
+                path for path in artifact_dir.glob("*.json")
+                if "artifact_smoke__" not in path.name
+            )
+        candidates.extend(sorted(repo.glob("reports/xaufx*_train_test_manifest.json")))
+
+        if requested:
+            selected = repo / requested
+            if not selected.exists():
+                raise SystemExit(f"Requested artifact path not found: {requested}")
+        else:
+            if not candidates:
+                raise SystemExit("No XAU/FX validation artifacts or manifests found.")
+            selected = max(candidates, key=lambda path: path.stat().st_mtime)
+
+        payload = json.loads(selected.read_text(encoding="utf-8"))
+        summary = payload.get("summary") or {}
+        verdict = str(summary.get("verdict") or payload.get("status") or "").strip()
+        if verdict not in {"promotable_baseline", "research_winner"}:
+            raise SystemExit(
+                f"Selected validation artifact is not promotable: {selected} verdict={verdict or 'unknown'}"
+            )
+
+        run_id = str(summary.get("run_id") or payload.get("run_id") or selected.stem)
+        config_hash = str(summary.get("config_hash") or payload.get("best_config_hash") or "unknown")
+        release_tag = f"xaufx-baseline-{run_id}"
+        release_name = f"XAU/FX baseline {run_id}"
+        artifact_relpath = selected.relative_to(repo).as_posix()
+        notes_path = repo / "reports" / "validation_artifacts" / "xaufx" / f"{run_id}_promotion_summary.md"
+        notes_path.parent.mkdir(parents=True, exist_ok=True)
+
+        failure_reasons = summary.get("failure_reasons") or "none"
+        notes_path.write_text(
+            "\n".join(
+                [
+                    f"# XAU/FX baseline promotion: {run_id}",
+                    "",
+                    f"- Verdict: `{verdict}`",
+                    f"- Config hash: `{config_hash}`",
+                    f"- Source artifact: `{artifact_relpath}`",
+                    f"- Branch: `{current_branch}`",
+                    f"- Base branch: `{base_branch}`",
+                    f"- Test return: `{summary.get('test_return_pct', 'n/a')}`",
+                    f"- Test Sharpe: `{summary.get('test_sharpe', 'n/a')}`",
+                    f"- Test max DD: `{summary.get('test_max_dd_pct', 'n/a')}`",
+                    f"- Failure reasons: `{failure_reasons}`",
+                ]
+            ) + "\n",
+            encoding="utf-8",
+        )
+
+        output_path = Path(os.environ["GITHUB_OUTPUT"])
+        with output_path.open("a", encoding="utf-8") as fh:
+            fh.write(f"artifact_path={artifact_relpath}\n")
+            fh.write(f"base_branch={base_branch}\n")
+            fh.write(f"config_hash={config_hash}\n")
+            fh.write(f"current_branch={current_branch}\n")
+            fh.write(f"notes_path={notes_path.relative_to(repo).as_posix()}\n")
+            fh.write(f"release_name={release_name}\n")
+            fh.write(f"release_tag={release_tag}\n")
+            fh.write(f"run_id={run_id}\n")
+            fh.write(f"verdict={verdict}\n")
+        PY
+
+    - name: Create draft promotion release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.baseline.outputs.release_tag }}
+        name: ${{ steps.baseline.outputs.release_name }}
+        body_path: ${{ steps.baseline.outputs.notes_path }}
+        files: |
+          ${{ steps.baseline.outputs.artifact_path }}
+        draft: true
+        prerelease: true
+
+    - name: Open or reuse promotion PR
+      uses: actions/github-script@v7
+      env:
+        ARTIFACT_PATH: ${{ steps.baseline.outputs.artifact_path }}
+        BASE_BRANCH: ${{ steps.baseline.outputs.base_branch }}
+        CONFIG_HASH: ${{ steps.baseline.outputs.config_hash }}
+        CURRENT_BRANCH: ${{ steps.baseline.outputs.current_branch }}
+        RELEASE_TAG: ${{ steps.baseline.outputs.release_tag }}
+        RUN_ID: ${{ steps.baseline.outputs.run_id }}
+        VERDICT: ${{ steps.baseline.outputs.verdict }}
+      with:
+        script: |
+          const owner = context.repo.owner;
+          const repo = context.repo.repo;
+          const base = process.env.BASE_BRANCH;
+          const head = process.env.CURRENT_BRANCH;
+          if (!head || head === base) {
+            core.setFailed(`Refusing to open a promotion PR from branch '${head}' into '${base}'.`);
+            return;
+          }
+
+          const title = `Promote XAU/FX baseline ${process.env.RUN_ID}`;
+          const body = [
+            "## XAU/FX promotable baseline",
+            "",
+            `- Verdict: \`${process.env.VERDICT}\``,
+            `- Config hash: \`${process.env.CONFIG_HASH}\``,
+            `- Validation artifact: \`${process.env.ARTIFACT_PATH}\``,
+            `- Draft release tag: \`${process.env.RELEASE_TAG}\``,
+          ].join("\n");
+
+          const { data: pulls } = await github.rest.pulls.list({
+            owner,
+            repo,
+            state: "open",
+            head: `${owner}:${head}`,
+            base,
+          });
+
+          if (pulls.length > 0) {
+            core.info(`Reusing existing PR #${pulls[0].number}`);
+            return;
+          }
+
+          const { data: pull } = await github.rest.pulls.create({
+            owner,
+            repo,
+            title,
+            head,
+            base,
+            body,
+            draft: true,
+          });
+
+          core.info(`Created promotion PR #${pull.number}`);

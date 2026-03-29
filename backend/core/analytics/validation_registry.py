@@ -64,15 +64,38 @@ class ValidationRegistryService:
     def load_validation_artifact(self, artifact_path: str) -> dict[str, Any]:
         return json.loads(Path(artifact_path).read_text(encoding="utf-8"))
 
-    def _recent_validation_artifacts(self, limit: int = 20, status: Optional[str] = None) -> list[dict]:
-        base_dir = Path.cwd() / self.ARTIFACT_DIR
-        rows: list[dict] = []
-        artifact_paths = []
-        if base_dir.exists():
-            artifact_paths.extend(base_dir.glob("*.json"))
-        artifact_paths.extend(Path.cwd().glob(self.LEGACY_MANIFEST_GLOB))
+    async def backfill_model_registry(self) -> int:
+        count = 0
+        for path in self._candidate_artifact_paths():
+            if "artifact_smoke__" in path.name:
+                continue
+            if await model_registry.artifact_exists(str(path)):
+                continue
+            row = self._row_from_artifact_file(path)
+            if row is None:
+                continue
+            try:
+                await model_registry.register_model(
+                    model_type="xaufx_validation",
+                    model_name=row["model_name"],
+                    artifact_path=row["artifact_path"],
+                    version=row["version"] or "legacy",
+                    status=row["status"],
+                    training_rows=None,
+                    training_start=None,
+                    training_end=None,
+                    metrics=row["metrics"],
+                    config=row["config"],
+                    notes="Backfilled from historical XAU/FX validation artifact.",
+                )
+                count += 1
+            except Exception as exc:
+                logger.warning(f"[VALIDATION REGISTRY] backfill failed for {path}: {exc}")
+        return count
 
-        for path in sorted(artifact_paths, key=lambda p: p.stat().st_mtime, reverse=True):
+    def _recent_validation_artifacts(self, limit: int = 20, status: Optional[str] = None) -> list[dict]:
+        rows: list[dict] = []
+        for path in self._candidate_artifact_paths():
             if "artifact_smoke__" in path.name:
                 continue
             row = self._row_from_artifact_file(path, status=status)
@@ -83,6 +106,14 @@ class ValidationRegistryService:
                 break
 
         return rows
+
+    def _candidate_artifact_paths(self) -> list[Path]:
+        base_dir = Path.cwd() / self.ARTIFACT_DIR
+        artifact_paths: list[Path] = []
+        if base_dir.exists():
+            artifact_paths.extend(base_dir.glob("*.json"))
+        artifact_paths.extend(Path.cwd().glob(self.LEGACY_MANIFEST_GLOB))
+        return sorted(artifact_paths, key=lambda p: p.stat().st_mtime, reverse=True)
 
     def _row_from_artifact_file(self, path: Path, status: Optional[str] = None) -> dict[str, Any] | None:
         try:

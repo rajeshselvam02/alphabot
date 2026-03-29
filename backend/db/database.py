@@ -133,3 +133,12 @@ async def init_db():
     """Create all tables."""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+    # Backfill historical XAU/FX validation manifests and artifacts into model_registry.
+    try:
+        from backend.core.analytics.validation_registry import validation_registry
+
+        await validation_registry.backfill_model_registry()
+    except Exception:
+        # Keep startup resilient even if backfill has malformed legacy files.
+        pass

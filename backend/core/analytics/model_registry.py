@@ -24,6 +24,16 @@ def _dt(value):
 
 
 class ModelRegistryService:
+    async def artifact_exists(self, artifact_path: str) -> bool:
+        async with AsyncSessionLocal() as session:
+            stmt = (
+                select(ModelRegistry.id)
+                .where(ModelRegistry.artifact_path == str(Path(artifact_path)))
+                .limit(1)
+            )
+            row = (await session.execute(stmt)).first()
+        return row is not None
+
     async def register_model(
         self,
         *,
@@ -87,6 +97,9 @@ class ModelRegistryService:
 
     def register_model_sync(self, **kwargs) -> str:
         return asyncio.run(self.register_model(**kwargs))
+
+    def artifact_exists_sync(self, artifact_path: str) -> bool:
+        return asyncio.run(self.artifact_exists(artifact_path))
 
     async def recent_validations(self, limit: int = 20, status: Optional[str] = None) -> list[dict]:
         async with AsyncSessionLocal() as session:

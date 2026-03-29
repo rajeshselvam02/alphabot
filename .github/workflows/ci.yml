@@ -2,9 +2,9 @@ name: AlphaBot CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/next-local-work ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/next-local-work ]
 
 jobs:
   test:
@@ -21,12 +21,16 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install numpy scipy pytest
+        pip install numpy scipy pytest requests
 
     - name: Syntax check all Python files
       run: |
         find backend -name "*.py" | xargs python -m py_compile
         echo "✅ All Python files syntax OK"
+
+    - name: Run frozen XAU benchmark regression
+      run: |
+        python -m backend.backtester.xaufx.benchmark_regression --profile xauusd_best_validated_v1
 
     - name: Test quant_signals imports
       run: |

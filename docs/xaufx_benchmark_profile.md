@@ -25,6 +25,37 @@ python -m backend.backtester.xaufx.backtest_xau_ndog_asia --profile xauusd_best_
 
 The profile is locked. Benchmark-managed parameters cannot be overridden when `--profile xauusd_best_validated_v1` is used.
 
+## Freeze Reproducible Inputs
+
+Capture the exact provider dataset used by the benchmark:
+
+```bash
+cd /root/alphabot
+source /root/alphabot-venv/bin/activate
+python -m backend.backtester.xaufx.backtest_xau_ndog_asia \
+  --profile xauusd_best_validated_v1 \
+  --freeze-snapshot
+```
+
+This writes:
+- `reports/benchmarks/xauusd_best_validated_v1_dataset.json`
+
+The snapshot stores:
+- provider source
+- fetch timestamp
+- exact intraday and daily candles
+- dataset hash
+
+Replay the benchmark from frozen local inputs:
+
+```bash
+cd /root/alphabot
+source /root/alphabot-venv/bin/activate
+python -m backend.backtester.xaufx.backtest_xau_ndog_asia \
+  --profile xauusd_best_validated_v1 \
+  --snapshot @profile
+```
+
 ## Fixed Parameters
 
 The profile encodes the documented best validated case:

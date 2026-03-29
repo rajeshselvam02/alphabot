@@ -10,6 +10,7 @@ class BenchmarkProfile:
     description: str
     managed_args: Dict[str, Any]
     csv_path: str
+    dataset_path: str
     notes: str = ""
 
 
@@ -45,6 +46,7 @@ XAUUSD_BEST_VALIDATED_V1 = BenchmarkProfile(
         "force_daily_bias": "",
     },
     csv_path="reports/benchmarks/xauusd_best_validated_v1_trades.csv",
+    dataset_path="reports/benchmarks/xauusd_best_validated_v1_dataset.json",
     notes=(
         "Derived from the documented best validated XAUUSD test case in the project "
         "attachment note and promoted into the repo as the canonical benchmark."

@@ -8,6 +8,11 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import List, Tuple
 
+from backend.backtester.xaufx.benchmark_dataset import (
+    build_snapshot_payload,
+    load_snapshot,
+    save_snapshot,
+)
 from backend.backtester.xaufx.benchmark_profiles import BENCHMARK_PROFILES, get_profile
 from backend.core.xaufx.config import XAUFXConfig
 from backend.core.xaufx.data_feeds.twelvedata_feed import TwelveDataFeed, TwelveDataQuotaExceeded
@@ -539,6 +544,9 @@ def main() -> None:
     parser.add_argument("--stop-buffer", type=float, default=1.0, help="extra stop buffer beyond sweep/reclaim structure")
     parser.add_argument("--max-entry-extension-r", type=float, default=0.5, help="max allowed extension from reclaim level in R units")
     parser.add_argument("--csv", type=str, default="reports/xau_ndog_asia_trades.csv", help="CSV export path")
+    parser.add_argument("--snapshot", type=str, default="", help="load frozen benchmark inputs from a local snapshot file")
+    parser.add_argument("--freeze-snapshot", action="store_true", help="save the fetched dataset as a frozen local snapshot")
+    parser.add_argument("--snapshot-out", type=str, default="", help="output path for frozen benchmark snapshot JSON")
     parser.add_argument("--breakeven-r", type=float, default=1.0, help="move stop to breakeven after this many R")
     parser.add_argument("--trail-r", type=float, default=1.5, help="start trailing after this many R")
     parser.add_argument("--allow-hours", type=str, default="", help="comma-separated NY entry hours, e.g. 19,20")
@@ -585,18 +593,52 @@ def main() -> None:
     run_backtest._demand_zone_tolerance = args.demand_zone_tolerance
     run_backtest._force_daily_bias = args.force_daily_bias
 
+    snapshot_path = args.snapshot
     if args.profile:
         profile = get_profile(args.profile)
         print(f"Running locked benchmark profile: {profile.name}")
         print(f"Profile notes: {profile.notes}")
+        if args.freeze_snapshot and not args.snapshot_out:
+            args.snapshot_out = profile.dataset_path
+        if snapshot_path == "@profile":
+            snapshot_path = profile.dataset_path
 
-    print(f"Fetching XAUUSD {cfg.intraday_interval} bars ({args.bars})...")
-    try:
-        candles = feed.fetch_bars("XAUUSD", cfg.intraday_interval, outputsize=args.bars)
-        daily_candles = feed.fetch_bars("XAUUSD", cfg.daily_interval, outputsize=200)
-    except TwelveDataQuotaExceeded as exc:
-        print(f"Quota exhausted: {exc}")
-        return
+    if snapshot_path:
+        if not Path(snapshot_path).exists():
+            print(f"Snapshot not found: {snapshot_path}")
+            print("Freeze it first with --freeze-snapshot or point --snapshot to an existing JSON dataset.")
+            return
+        snapshot = load_snapshot(snapshot_path)
+        candles = snapshot["intraday_candles"]
+        daily_candles = snapshot["daily_candles"]
+        print(f"Loaded frozen snapshot: {snapshot_path}")
+        print(f"Snapshot provider: {snapshot['provider']}")
+        print(f"Snapshot fetched_at: {snapshot['fetched_at']}")
+        print(f"Snapshot dataset_hash: {snapshot['dataset_hash']}")
+    else:
+        print(f"Fetching XAUUSD {cfg.intraday_interval} bars ({args.bars})...")
+        try:
+            candles = feed.fetch_bars("XAUUSD", cfg.intraday_interval, outputsize=args.bars)
+            daily_candles = feed.fetch_bars("XAUUSD", cfg.daily_interval, outputsize=200)
+        except TwelveDataQuotaExceeded as exc:
+            print(f"Quota exhausted: {exc}")
+            return
+
+        if args.freeze_snapshot:
+            if not args.snapshot_out:
+                args.snapshot_out = "reports/benchmarks/xauusd_snapshot.json"
+            payload = build_snapshot_payload(
+                profile=args.profile,
+                symbol="XAUUSD",
+                provider="twelvedata",
+                intraday_interval=cfg.intraday_interval,
+                daily_interval=cfg.daily_interval,
+                intraday_candles=candles,
+                daily_candles=daily_candles,
+            )
+            saved = save_snapshot(args.snapshot_out, payload)
+            print(f"Frozen snapshot saved: {saved}")
+            print(f"Frozen snapshot dataset_hash: {payload['dataset_hash']}")
 
     print(f"Loaded {len(candles)} intraday bars")
     print(f"Loaded {len(daily_candles)} daily bars")

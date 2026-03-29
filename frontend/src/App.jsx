@@ -191,7 +191,7 @@ function SectionTitle({ children, right }) {
   );
 }
 
-function SignalCard({ symbol, signal }) {
+function SignalCard({ symbol, signal, compact }) {
   if (!signal) return null;
   const z = signal.zscore ?? 0;
   const width = Math.min((Math.abs(z) / 3) * 100, 100);
@@ -200,7 +200,7 @@ function SignalCard({ symbol, signal }) {
 
   return (
     <div style={styles.panel}>
-      <div style={styles.rowBetween}>
+      <div style={compact ? styles.rowStack : styles.rowBetween}>
         <span style={styles.symbol}>{symbol}</span>
         <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
           {signal.close != null ? <span style={styles.smallMono}>{usdShort(signal.close)}</span> : null}
@@ -224,7 +224,7 @@ function SignalCard({ symbol, signal }) {
   );
 }
 
-function ForexSignalCard({ symbol, signal }) {
+function ForexSignalCard({ symbol, signal, compact }) {
   if (!signal) return null;
   const reason = Array.isArray(signal.reason) ? signal.reason.join(", ") : signal.reason || "—";
   const action = (signal.action || signal.signal || "hold").toUpperCase();
@@ -232,11 +232,11 @@ function ForexSignalCard({ symbol, signal }) {
 
   return (
     <div style={styles.panel}>
-      <div style={styles.rowBetween}>
+      <div style={compact ? styles.rowStack : styles.rowBetween}>
         <span style={styles.symbol}>{symbol}</span>
         <span style={badge(color)}>{action}</span>
       </div>
-      <div style={styles.infoGrid2}>
+      <div style={compact ? styles.infoGrid1 : styles.infoGrid2}>
         <Info label="Z-Score" value={signal.zscore != null ? `${signal.zscore >= 0 ? "+" : ""}${f3(signal.zscore)}` : "—"} />
         <Info label="Quality" value={signal.quality != null ? f3(signal.quality) : "—"} />
         <Info label="Session" value={signal.session || "—"} />
@@ -246,15 +246,15 @@ function ForexSignalCard({ symbol, signal }) {
   );
 }
 
-function PositionRow({ position }) {
+function PositionRow({ position, compact }) {
   const pnl = position.unrealized_pnl || 0;
   const quantity = Number(position.quantity ?? position.lots ?? 0);
   const quantityLabel = position.book === "forex" ? `${quantity.toFixed(2)} lots` : quantity.toFixed(4);
 
   return (
-    <div style={styles.listRow}>
+    <div style={compact ? styles.listRowStack : styles.listRow}>
       <div style={styles.col}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={styles.validationHeaderRow}>
           <span style={styles.symbol}>{position.symbol}</span>
           <span style={badge(position.side === "long" ? POSITIVE : NEGATIVE)}>{position.side?.toUpperCase()}</span>
           <span style={marketBadge(position.book)}>{position.book?.toUpperCase()}</span>
@@ -264,7 +264,7 @@ function PositionRow({ position }) {
         </span>
         <span style={{ ...styles.smallMono, color: ACCENT }}>Now: {usd(position.current_price)}</span>
       </div>
-      <div style={{ ...styles.col, alignItems: "flex-end" }}>
+      <div style={{ ...styles.col, alignItems: compact ? "flex-start" : "flex-end" }}>
         <span style={{ ...styles.monoStrong, color: pnlColor(pnl) }}>{usd(pnl)}</span>
         <span style={{ ...styles.smallMono, color: pnlColor((position.unrealized_pct || 0) * 100) }}>
           {pct((position.unrealized_pct || 0) * 100)}
@@ -274,14 +274,14 @@ function PositionRow({ position }) {
   );
 }
 
-function TradeRow({ trade }) {
+function TradeRow({ trade, compact }) {
   const quantity = Number(trade.quantity ?? trade.lots ?? 0);
   const quantityLabel = trade.book === "forex" ? `${quantity.toFixed(2)} lots` : quantity.toFixed(4);
 
   return (
-    <div style={styles.listRow}>
+    <div style={compact ? styles.listRowStack : styles.listRow}>
       <div style={styles.col}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={styles.validationHeaderRow}>
           <span style={styles.symbol}>{trade.symbol}</span>
           <span style={badge(trade.side === "buy" ? POSITIVE : trade.side === "sell" ? NEGATIVE : ACCENT)}>
             {(trade.side || "trade").toUpperCase()}
@@ -292,7 +292,7 @@ function TradeRow({ trade }) {
           {quantityLabel} @ {usd(trade.fill_price)}
         </span>
       </div>
-      <div style={{ ...styles.col, alignItems: "flex-end" }}>
+      <div style={{ ...styles.col, alignItems: compact ? "flex-start" : "flex-end" }}>
         <span style={{ ...styles.monoStrong, color: trade.pnl != null ? pnlColor(trade.pnl) : "#5a6a8a" }}>
           {trade.pnl != null ? usd(trade.pnl) : "open"}
         </span>
@@ -311,21 +311,21 @@ function Info({ label, value }) {
   );
 }
 
-function BookPanel({ title, book, accent }) {
+function BookPanel({ title, book, accent, compact }) {
   return (
     <div style={{ ...styles.panel, borderColor: `${accent}33` }}>
-      <div style={styles.rowBetween}>
+      <div style={compact ? styles.rowStack : styles.rowBetween}>
         <span style={{ ...styles.symbol, color: accent }}>{title}</span>
         <span style={marketBadge(title.toLowerCase())}>{(book?.mode || "paper").toUpperCase()}</span>
       </div>
-      <div style={styles.heroValue}>{usd(book?.equity)}</div>
-      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+      <div style={compact ? styles.heroValueCompact : styles.heroValue}>{usd(book?.equity)}</div>
+      <div style={compact ? styles.inlineStatStack : styles.inlineStatRow}>
         <span style={{ ...styles.monoStrong, color: pnlColor(book?.return_pct || book?.total_return_pct || 0) }}>
           {pct(book?.return_pct ?? book?.total_return_pct)}
         </span>
         <span style={styles.cardSub}>Cash {usd(book?.cash)}</span>
       </div>
-      <div style={styles.infoGrid2}>
+      <div style={compact ? styles.infoGrid1 : styles.infoGrid2}>
         <Info label="Unrealized" value={usdShort(book?.unrealized_pnl)} />
         <Info label="Open Pos" value={book?.open_positions ?? 0} />
         <Info label="Trades" value={book?.total_trades ?? 0} />
@@ -335,15 +335,15 @@ function BookPanel({ title, book, accent }) {
   );
 }
 
-function StrategyPanel({ strategy }) {
+function StrategyPanel({ strategy, compact }) {
   const active = strategy.is_active ?? strategy.active;
   return (
     <div style={styles.panel}>
-      <div style={styles.rowBetween}>
+      <div style={compact ? styles.rowStack : styles.rowBetween}>
         <span style={styles.symbol}>{strategy.strategy || strategy.name}</span>
         <span style={badge(active ? POSITIVE : NEGATIVE)}>{active ? "ACTIVE" : "PAUSED"}</span>
       </div>
-      <div style={styles.infoGrid4}>
+      <div style={compact ? styles.infoGrid2 : styles.infoGrid4}>
         <Info label="Market" value={marketForStrategy(strategy.strategy || strategy.name).toUpperCase()} />
         <Info label="Signals" value={strategy.signals_fired || 0} />
         <Info label="Trades" value={strategy.trades_made || 0} />
@@ -485,14 +485,14 @@ export default function App() {
   return (
     <div style={styles.app}>
       <style>{globalCss}</style>
-      <div style={styles.header}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+      <div style={compact ? styles.headerCompact : styles.header}>
+        <div style={styles.headerMeta}>
           <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: -1 }}>⬡ AlphaBot</span>
           <span style={badge(connected ? POSITIVE : NEGATIVE)}>{connected ? "LIVE" : "OFF"}</span>
           <span style={badge(ACCENT)}>PAPER</span>
           <span title={engine?.detail || phaseLabel} style={badge(phaseColor)}>{phaseLabel}</span>
         </div>
-        <button onClick={toggle} style={{ ...styles.actionButton, borderColor: paused ? `${POSITIVE}40` : `${NEGATIVE}40`, color: paused ? POSITIVE : NEGATIVE }}>
+        <button onClick={toggle} style={{ ...styles.actionButton, width: compact ? "100%" : undefined, borderColor: paused ? `${POSITIVE}40` : `${NEGATIVE}40`, color: paused ? POSITIVE : NEGATIVE }}>
           {paused ? "▶ Resume" : "⏸ Pause"}
         </button>
       </div>
@@ -500,10 +500,10 @@ export default function App() {
       <div style={styles.page}>
         {tab === "overview" ? (
           <div style={styles.stack}>
-            <BookPanel title="Crypto" book={cryptoBook} accent={ACCENT} />
-            <BookPanel title="Forex" book={forexBook} accent="#ffaa00" />
+            <BookPanel title="Crypto" book={cryptoBook} accent={ACCENT} compact={compact} />
+            <BookPanel title="Forex" book={forexBook} accent="#ffaa00" compact={compact} />
 
-            <div style={styles.grid2}>
+            <div style={compact ? styles.grid1 : styles.grid2}>
               <Card label="Crypto Unrealized" value={usdShort(cryptoBook?.unrealized_pnl)} valueColor={pnlColor(cryptoBook?.unrealized_pnl || 0)} sub={`${cryptoBook?.open_positions || 0} open`} />
               <Card label="Forex Unrealized" value={usdShort(forexBook?.unrealized_pnl)} valueColor={pnlColor(forexBook?.unrealized_pnl || 0)} sub={`${forexBook?.open_positions || 0} open`} />
               <Card label="Crypto Win Rate" value={`${f2(cryptoBook?.win_rate_pct)}%`} sub={`${cryptoBook?.total_trades || 0} trades`} />
@@ -537,9 +537,9 @@ export default function App() {
 
             <div>
               <SectionTitle>Crypto Signals</SectionTitle>
-              <div style={styles.grid2}>
+              <div style={compact ? styles.grid1 : styles.grid2}>
                 {cryptoSignals.slice(0, 4).map(([symbol, signal]) => (
-                  <SignalCard key={symbol} symbol={symbol} signal={signal} />
+                  <SignalCard key={symbol} symbol={symbol} signal={signal} compact={compact} />
                 ))}
               </div>
             </div>
@@ -548,7 +548,7 @@ export default function App() {
               <SectionTitle>Forex Diagnostics</SectionTitle>
               <div style={styles.grid1}>
                 {forexSignals.slice(0, 4).map(([symbol, signal]) => (
-                  <ForexSignalCard key={symbol} symbol={symbol} signal={signal} />
+                  <ForexSignalCard key={symbol} symbol={symbol} signal={signal} compact={compact} />
                 ))}
               </div>
             </div>
@@ -558,9 +558,9 @@ export default function App() {
         {tab === "signals" ? (
           <div style={styles.stack}>
             <SectionTitle>Crypto Signals</SectionTitle>
-            {cryptoSignals.length > 0 ? cryptoSignals.map(([symbol, signal]) => <SignalCard key={symbol} symbol={symbol} signal={signal} />) : <Empty label="No crypto signals yet" />}
+            {cryptoSignals.length > 0 ? cryptoSignals.map(([symbol, signal]) => <SignalCard key={symbol} symbol={symbol} signal={signal} compact={compact} />) : <Empty label="No crypto signals yet" />}
             <SectionTitle>Forex Diagnostics</SectionTitle>
-            {forexSignals.length > 0 ? forexSignals.map(([symbol, signal]) => <ForexSignalCard key={symbol} symbol={symbol} signal={signal} />) : <Empty label="No forex diagnostics yet" />}
+            {forexSignals.length > 0 ? forexSignals.map(([symbol, signal]) => <ForexSignalCard key={symbol} symbol={symbol} signal={signal} compact={compact} />) : <Empty label="No forex diagnostics yet" />}
           </div>
         ) : null}
 
@@ -568,11 +568,11 @@ export default function App() {
           <div style={styles.stack}>
             <SectionTitle right={`${cryptoPositions.length} open`}>Crypto Positions</SectionTitle>
             <div style={styles.listPanel}>
-              {cryptoPositions.length > 0 ? cryptoPositions.map((position) => <PositionRow key={`${position.book}-${position.symbol}`} position={{ ...position, book: "crypto" }} />) : <Empty label="No crypto positions" />}
+              {cryptoPositions.length > 0 ? cryptoPositions.map((position) => <PositionRow key={`${position.book}-${position.symbol}`} position={{ ...position, book: "crypto" }} compact={compact} />) : <Empty label="No crypto positions" />}
             </div>
             <SectionTitle right={`${forexPositions.length} open`}>Forex Positions</SectionTitle>
             <div style={styles.listPanel}>
-              {forexPositions.length > 0 ? forexPositions.map((position) => <PositionRow key={`${position.book || "forex"}-${position.symbol}`} position={{ ...position, book: "forex" }} />) : <Empty label="No forex positions" />}
+              {forexPositions.length > 0 ? forexPositions.map((position) => <PositionRow key={`${position.book || "forex"}-${position.symbol}`} position={{ ...position, book: "forex" }} compact={compact} />) : <Empty label="No forex positions" />}
             </div>
           </div>
         ) : null}
@@ -581,11 +581,11 @@ export default function App() {
           <div style={styles.stack}>
             <SectionTitle right={`${trades.totals?.crypto || 0} total`}>Crypto Trades</SectionTitle>
             <div style={styles.listPanel}>
-              {trades.crypto.length > 0 ? trades.crypto.map((trade, idx) => <TradeRow key={`crypto-${trade.id || idx}`} trade={trade} />) : <Empty label="No crypto trades" />}
+              {trades.crypto.length > 0 ? trades.crypto.map((trade, idx) => <TradeRow key={`crypto-${trade.id || idx}`} trade={trade} compact={compact} />) : <Empty label="No crypto trades" />}
             </div>
             <SectionTitle right={`${trades.totals?.forex || 0} total`}>Forex Trades</SectionTitle>
             <div style={styles.listPanel}>
-              {trades.forex.length > 0 ? trades.forex.map((trade, idx) => <TradeRow key={`forex-${trade.id || idx}`} trade={trade} />) : <Empty label="No forex trades" />}
+              {trades.forex.length > 0 ? trades.forex.map((trade, idx) => <TradeRow key={`forex-${trade.id || idx}`} trade={trade} compact={compact} />) : <Empty label="No forex trades" />}
             </div>
           </div>
         ) : null}
@@ -602,7 +602,7 @@ export default function App() {
               </div>
             ) : null}
 
-            <div style={styles.grid2}>
+            <div style={compact ? styles.grid1 : styles.grid2}>
               <Card label="Drawdown" value={dd((risk?.drawdown || 0) * 100)} valueColor={riskColor((risk?.drawdown || 0) * 100)} sub="Limit: 10%" />
               <Card label="Daily Loss" value={dd((risk?.daily_loss || 0) * 100)} valueColor={riskColor((risk?.daily_loss || 0) * 100)} sub="Limit: 3%" />
               <Card label="Peak Equity" value={usdShort(risk?.peak_equity)} />
@@ -614,7 +614,7 @@ export default function App() {
             {risk?.budget && Object.keys(risk.budget).length > 0 ? (
               <div style={styles.panel}>
                 <SectionTitle>Risk Budget</SectionTitle>
-                <div style={styles.infoGrid2}>
+                <div style={compact ? styles.infoGrid1 : styles.infoGrid2}>
                   <Info label="Strategy" value={risk.budget.strategy || "—"} />
                   <Info label="Asset" value={risk.budget.asset_class || "—"} />
                   <Info label="Scale" value={`${f2((risk.budget.scale || 0) * 100)}%`} />
@@ -629,9 +629,9 @@ export default function App() {
             ) : null}
 
             <SectionTitle>Crypto Strategies</SectionTitle>
-            {cryptoStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} />)}
+            {cryptoStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} compact={compact} />)}
             <SectionTitle>Forex Strategies</SectionTitle>
-            {forexStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} />)}
+            {forexStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} compact={compact} />)}
           </div>
         ) : null}
 
@@ -704,6 +704,24 @@ const styles = {
     top: 0,
     zIndex: 100,
   },
+  headerCompact: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: 10,
+    padding: "14px 16px 12px",
+    background: "#0a0e16",
+    borderBottom: "1px solid #1e2535",
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
+  },
+  headerMeta: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    flexWrap: "wrap",
+  },
   page: {
     padding: 16,
   },
@@ -727,6 +745,7 @@ const styles = {
     border: "1px solid #1e2535",
     borderRadius: 14,
     padding: 16,
+    minWidth: 0,
   },
   listPanel: {
     background: "#0e1117",
@@ -912,6 +931,26 @@ const styles = {
     fontFamily: "monospace",
     letterSpacing: -1,
     margin: "10px 0 6px",
+  },
+  heroValueCompact: {
+    fontSize: 24,
+    fontWeight: 800,
+    fontFamily: "monospace",
+    letterSpacing: -1,
+    margin: "10px 0 6px",
+    wordBreak: "break-word",
+  },
+  inlineStatRow: {
+    display: "flex",
+    gap: 12,
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  inlineStatStack: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 4,
   },
   empty: {
     padding: 42,

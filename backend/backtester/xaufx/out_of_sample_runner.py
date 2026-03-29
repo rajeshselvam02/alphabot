@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Sequence
 
 from backend.backtester.xaufx.backtest_xau_ndog_asia import run_backtest
+from backend.core.analytics.validation_registry import validation_registry
 from backend.core.xaufx.config import XAUFXConfig
 from backend.core.xaufx.data_feeds.twelvedata_feed import (
     TwelveDataFeed,
@@ -863,6 +864,16 @@ def main() -> None:
         payload=artifact_payload,
     )
     print(f"Saved validation artifact: {artifact_path}")
+    validation_registry.register_validation_artifact(
+        artifact_path=str(artifact_path),
+        runner="out_of_sample_runner",
+        config_hash=artifact_payload["config_hash"],
+        code_version=code_version,
+        verdict=artifact_payload["summary"].get("verdict"),
+        metrics=artifact_payload["summary"],
+        config=best_params,
+        notes="Registered from XAU/FX out-of-sample validation artifact.",
+    )
 
 
 if __name__ == "__main__":

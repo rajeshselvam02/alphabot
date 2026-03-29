@@ -8,6 +8,7 @@ from typing import Any, Dict, Iterable, List
 from backend.core.xaufx.config import XAUFXConfig
 from backend.core.xaufx.data_feeds.twelvedata_feed import TwelveDataFeed, TwelveDataQuotaExceeded
 from backend.backtester.xaufx.backtest_xau_ndog_asia import run_backtest
+from backend.core.analytics.validation_registry import validation_registry
 from backend.backtester.xaufx.validation_governance import (
     bars_window,
     config_hash,
@@ -368,6 +369,16 @@ def main() -> None:
         payload=artifact_payload,
     )
     print(f"Saved validation artifact: {artifact_path}")
+    validation_registry.register_validation_artifact(
+        artifact_path=str(artifact_path),
+        runner="experiment_runner",
+        config_hash=artifact_payload["config_hash"],
+        code_version=code_version,
+        verdict="candidate" if top_row else "reject",
+        metrics=top_row,
+        config=top_config,
+        notes="Registered from XAU/FX experiment runner artifact.",
+    )
 
     if rows:
         print("\nTop 10:")

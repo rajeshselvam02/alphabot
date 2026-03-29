@@ -104,6 +104,19 @@ These artifacts are intended to become the durable handoff format for:
 - promotion review
 - future dashboard/API exposure
 
+## Promotion Workflow
+
+Promotion now has a dedicated GitHub Actions workflow:
+- `.github/workflows/xaufx_promotable_baseline.yml`
+
+Use it with `workflow_dispatch` from the branch that produced the validation result.
+
+The workflow:
+- selects the latest XAU/FX validation artifact or an explicitly provided path
+- refuses promotion unless the verdict is `promotable_baseline` or `research_winner`
+- creates a draft release tagged as `xaufx-baseline-<run_id>`
+- opens or reuses a draft PR into the selected base branch
+
 ## Fixed Parameters
 
 The profile encodes the documented best validated case:

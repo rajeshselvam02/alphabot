@@ -10,9 +10,12 @@ from backend.core.xaufx.data_feeds.twelvedata_feed import TwelveDataFeed, Twelve
 from backend.backtester.xaufx.backtest_xau_ndog_asia import run_backtest
 from backend.backtester.xaufx.validation_governance import (
     bars_window,
+    config_hash,
+    git_commit,
     run_id as new_run_id,
     session_concentration_metrics,
     with_metadata,
+    write_validation_artifact,
     write_csv,
     write_json,
 )
@@ -309,22 +312,62 @@ def main() -> None:
     write_csv(out, rows)
     print(f"\nSaved summary CSV: {out}")
     manifest_path = out.with_suffix(".json")
-    write_json(
-        manifest_path,
-        {
-            "run_id": current_run_id,
-            "runner": "experiment_runner",
-            "bars_requested": args.bars,
-            "rows": len(rows),
-            "intraday_window": intraday_window,
-            "daily_window": daily_window,
-            "top_config_hash": rows[0]["config_hash"] if rows else None,
-            "top_return_pct": rows[0]["return_pct"] if rows else None,
-            "top_sharpe": rows[0]["sharpe"] if rows else None,
-            "top_max_dd_pct": rows[0]["max_dd_pct"] if rows else None,
-        },
-    )
+    manifest_payload = {
+        "run_id": current_run_id,
+        "runner": "experiment_runner",
+        "bars_requested": args.bars,
+        "rows": len(rows),
+        "intraday_window": intraday_window,
+        "daily_window": daily_window,
+        "top_config_hash": rows[0]["config_hash"] if rows else None,
+        "top_return_pct": rows[0]["return_pct"] if rows else None,
+        "top_sharpe": rows[0]["sharpe"] if rows else None,
+        "top_max_dd_pct": rows[0]["max_dd_pct"] if rows else None,
+    }
+    write_json(manifest_path, manifest_payload)
     print(f"Saved manifest: {manifest_path}")
+
+    artifact_base = Path("reports/validation_artifacts/xaufx")
+    top_row = rows[0] if rows else None
+    top_config = {
+        "stop_buffer": top_row["stop_buffer"],
+        "breakeven_r": top_row["breakeven_r"],
+        "trail_r": top_row["trail_r"],
+        "allow_hours": top_row["allow_hours"],
+        "max_risk_distance": top_row["max_risk_distance"],
+        "max_risk_to_range": top_row["max_risk_to_range"],
+        "bars": args.bars,
+        "spread": args.spread,
+        "target_r": args.target_r,
+        "risk": args.risk,
+    } if top_row else {}
+    code_version = git_commit()
+    artifact_payload = {
+        "artifact_kind": "xaufx_validation",
+        "runner": "experiment_runner",
+        "run_id": current_run_id,
+        "config_hash": top_row["config_hash"] if top_row else config_hash(top_config),
+        "code_version": code_version,
+        "generated_at": rows[0]["generated_at"] if rows else None,
+        "intraday_window": intraday_window,
+        "daily_window": daily_window,
+        "best_config": top_config,
+        "best_summary": top_row,
+        "report_paths": {
+            "summary_csv": str(out),
+            "manifest_json": str(manifest_path),
+        },
+        "selection_rank": top_row["selection_rank"] if top_row else None,
+    }
+    artifact_path = write_validation_artifact(
+        base_dir=artifact_base,
+        runner="experiment_runner",
+        config_hash_value=artifact_payload["config_hash"],
+        code_version=code_version,
+        run_id_value=current_run_id,
+        payload=artifact_payload,
+    )
+    print(f"Saved validation artifact: {artifact_path}")
 
     if rows:
         print("\nTop 10:")

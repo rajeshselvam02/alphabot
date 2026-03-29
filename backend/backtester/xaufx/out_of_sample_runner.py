@@ -24,6 +24,7 @@ from backend.backtester.xaufx.validation_governance import (
     safe_ratio,
     session_concentration_metrics,
     utc_now_iso,
+    write_validation_artifact,
     write_csv,
     write_json,
 )
@@ -817,22 +818,51 @@ def main() -> None:
     print(f"Saved: {summary_path}")
 
     manifest_path = Path(args.out_train_test).with_name(Path(args.out_train_test).stem + "_manifest.json")
-    write_json(
-        manifest_path,
-        {
-            "run_id": current_run_id,
-            "runner": "out_of_sample_runner",
-            "intraday_window": bars_window(candles),
-            "daily_window": bars_window(daily_candles),
-            "best_config_hash": config_hash(best_params),
-            "best_params": best_params,
-            "selection_rank": best_rank,
-            "train_test_rows": len(train_test_rows),
-            "walk_forward_rows": len(wf_rows),
-            "summary": dataclass_rows([summary_row])[0],
-        },
-    )
+    manifest_payload = {
+        "run_id": current_run_id,
+        "runner": "out_of_sample_runner",
+        "intraday_window": bars_window(candles),
+        "daily_window": bars_window(daily_candles),
+        "best_config_hash": config_hash(best_params),
+        "best_params": best_params,
+        "selection_rank": best_rank,
+        "train_test_rows": len(train_test_rows),
+        "walk_forward_rows": len(wf_rows),
+        "summary": dataclass_rows([summary_row])[0],
+    }
+    write_json(manifest_path, manifest_payload)
     print(f"Saved: {manifest_path}")
+
+    artifact_base = Path("reports/validation_artifacts/xaufx")
+    code_version = git_commit()
+    artifact_payload = {
+        "artifact_kind": "xaufx_validation",
+        "runner": "out_of_sample_runner",
+        "run_id": current_run_id,
+        "config_hash": config_hash(best_params),
+        "code_version": code_version,
+        "generated_at": utc_now_iso(),
+        "intraday_window": bars_window(candles),
+        "daily_window": bars_window(daily_candles),
+        "best_config": best_params,
+        "selection_rank": best_rank,
+        "summary": dataclass_rows([summary_row])[0],
+        "report_paths": {
+            "train_test_csv": str(Path(args.out_train_test)),
+            "walk_forward_csv": str(Path(args.out_walk_forward)),
+            "summary_csv": str(summary_path),
+            "manifest_json": str(manifest_path),
+        },
+    }
+    artifact_path = write_validation_artifact(
+        base_dir=artifact_base,
+        runner="out_of_sample_runner",
+        config_hash_value=artifact_payload["config_hash"],
+        code_version=code_version,
+        run_id_value=current_run_id,
+        payload=artifact_payload,
+    )
+    print(f"Saved validation artifact: {artifact_path}")
 
 
 if __name__ == "__main__":

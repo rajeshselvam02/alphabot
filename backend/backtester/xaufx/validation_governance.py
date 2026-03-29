@@ -134,6 +134,39 @@ def write_json(path: Path, payload: Dict[str, Any]) -> None:
         f.write("\n")
 
 
+def validation_artifact_path(
+    *,
+    base_dir: Path,
+    runner: str,
+    config_hash_value: str,
+    code_version: str,
+    run_id_value: str,
+) -> Path:
+    safe_code_version = (code_version or "unknown")[:12]
+    filename = f"{runner}__{config_hash_value}__{safe_code_version}__{run_id_value}.json"
+    return base_dir / filename
+
+
+def write_validation_artifact(
+    *,
+    base_dir: Path,
+    runner: str,
+    config_hash_value: str,
+    code_version: str,
+    run_id_value: str,
+    payload: Dict[str, Any],
+) -> Path:
+    path = validation_artifact_path(
+        base_dir=base_dir,
+        runner=runner,
+        config_hash_value=config_hash_value,
+        code_version=code_version,
+        run_id_value=run_id_value,
+    )
+    write_json(path, payload)
+    return path
+
+
 def dataclass_rows(items: Iterable[Any]) -> list[dict]:
     rows = []
     for item in items:

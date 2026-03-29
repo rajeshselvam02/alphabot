@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import itertools
 from dataclasses import dataclass
 from pathlib import Path
@@ -14,10 +13,29 @@ from backend.core.xaufx.data_feeds.twelvedata_feed import (
     TwelveDataQuotaExceeded,
 )
 from backend.core.xaufx.models import Candle
+from backend.backtester.xaufx.validation_governance import (
+    PROMOTION_THRESHOLDS,
+    bars_window,
+    config_hash,
+    dataclass_rows,
+    evaluate_promotion,
+    git_commit,
+    run_id as new_run_id,
+    safe_ratio,
+    session_concentration_metrics,
+    utc_now_iso,
+    write_csv,
+    write_json,
+)
 
 
 @dataclass
 class ExperimentResult:
+    run_id: str
+    runner: str
+    config_hash: str
+    code_version: str
+    generated_at: str
     phase: str
     window_id: int
     train_start: str
@@ -40,6 +58,45 @@ class ExperimentResult:
     avg_bars_held: float
     daily_bias: str
     score: float
+    selection_rank: int
+    validation_stage: str
+
+
+@dataclass
+class ValidationSummary:
+    run_id: str
+    runner: str
+    config_hash: str
+    selection_rank: int
+    train_return_pct: float
+    test_return_pct: float
+    train_sharpe: float
+    test_sharpe: float
+    train_max_dd_pct: float
+    test_max_dd_pct: float
+    train_trades: int
+    test_trades: int
+    return_retention_ratio: float | None
+    walk_forward_windows: int
+    walk_forward_qualified_windows: int
+    walk_forward_min_trades_per_window: int
+    walk_forward_test_median_return_pct: float | None
+    walk_forward_test_avg_return_pct: float | None
+    walk_forward_positive_rate: float | None
+    walk_forward_test_avg_sharpe: float | None
+    cost_stress_spread: float
+    cost_stress_return_pct: float | None
+    cost_stress_retention_ratio: float | None
+    slippage_stress_spread: float
+    slippage_stress_return_pct: float | None
+    slippage_stress_retention_ratio: float | None
+    top_hour: int | None
+    top_hour_trade_count: int
+    top_hour_trade_share: float | None
+    distinct_entry_hours: int
+    verdict: str
+    failure_reasons: str
+    warning_reasons: str
 
 
 def parse_csv_list(raw: str, cast) -> List[Any]:
@@ -76,6 +133,7 @@ def set_run_backtest_flags(
     max_risk_to_range: float,
     require_demand_zone: bool,
     demand_zone_tolerance: float,
+    force_daily_bias: str,
 ) -> None:
     run_backtest._no_mss = no_mss
     run_backtest._no_fvg = no_fvg
@@ -94,6 +152,7 @@ def set_run_backtest_flags(
     run_backtest._max_risk_to_range = max_risk_to_range
     run_backtest._require_demand_zone = require_demand_zone
     run_backtest._demand_zone_tolerance = demand_zone_tolerance
+    run_backtest._force_daily_bias = force_daily_bias
 
 
 def slice_recent_daily_candles(
@@ -122,6 +181,9 @@ def score_summary(summary: Dict[str, Any]) -> float:
 
 def summarize_result(
     *,
+    run_id: str,
+    runner: str,
+    selection_rank: int,
     phase: str,
     window_id: int,
     train_bars: Sequence[Candle],
@@ -135,6 +197,11 @@ def summarize_result(
     test_end = test_bars[-1].ts.isoformat() if test_bars else ""
 
     return ExperimentResult(
+        run_id=run_id,
+        runner=runner,
+        config_hash=config_hash(params),
+        code_version=git_commit(),
+        generated_at=utc_now_iso(),
         phase=phase,
         window_id=window_id,
         train_start=train_start,
@@ -157,21 +224,9 @@ def summarize_result(
         avg_bars_held=float(summary["avg_bars_held"]),
         daily_bias=str(summary["daily_bias"]),
         score=score_summary(summary),
+        selection_rank=selection_rank,
+        validation_stage="train_test" if window_id == 0 else "walk_forward",
     )
-
-
-def write_csv(path: Path, rows: List[ExperimentResult]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
-        path.write_text("")
-        return
-
-    fieldnames = list(rows[0].__dataclass_fields__.keys())
-    with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow(row.__dict__)
 
 
 def generate_param_grid(args) -> List[Dict[str, Any]]:
@@ -216,6 +271,7 @@ def generate_param_grid(args) -> List[Dict[str, Any]]:
                 "max_risk_distance": max_risk_distance,
                 "max_risk_to_range": max_risk_to_range,
                 "spread": spread,
+                "force_daily_bias": args.force_daily_bias or "inferred",
             }
         )
     return grid
@@ -241,6 +297,7 @@ def run_single_config(
     min_progress_r: float,
     require_demand_zone: bool,
     demand_zone_tolerance: float,
+    force_daily_bias: str,
     params: Dict[str, Any],
 ) -> Dict[str, Any]:
     set_run_backtest_flags(
@@ -261,6 +318,7 @@ def run_single_config(
         max_risk_to_range=params["max_risk_to_range"],
         require_demand_zone=require_demand_zone,
         demand_zone_tolerance=demand_zone_tolerance,
+        force_daily_bias=force_daily_bias,
     )
 
     _, _, summary = run_backtest(
@@ -283,10 +341,11 @@ def choose_best_params(
     cfg: XAUFXConfig,
     args,
     grid: List[Dict[str, Any]],
-) -> tuple[Dict[str, Any], Dict[str, Any]]:
+) -> tuple[Dict[str, Any], Dict[str, Any], int]:
     best_params = None
     best_summary = None
     best_score = float("-inf")
+    best_rank = 0
 
     for idx, params in enumerate(grid, start=1):
         print(
@@ -320,6 +379,7 @@ def choose_best_params(
             min_progress_r=args.min_progress_r,
             require_demand_zone=args.require_demand_zone,
             demand_zone_tolerance=args.demand_zone_tolerance,
+            force_daily_bias=args.force_daily_bias,
             params=params,
         )
         score = score_summary(summary)
@@ -328,9 +388,150 @@ def choose_best_params(
             best_score = score
             best_params = params
             best_summary = summary
+            best_rank = idx
 
     assert best_params is not None and best_summary is not None
-    return best_params, best_summary
+    return best_params, best_summary, best_rank
+
+
+def build_validation_summary(
+    *,
+    run_id: str,
+    runner: str,
+    best_params: Dict[str, Any],
+    selection_rank: int,
+    train_summary: Dict[str, Any],
+    test_summary: Dict[str, Any],
+    wf_rows: List[ExperimentResult],
+    test_bars: Sequence[Candle],
+    daily_candles: Sequence[Candle],
+    cfg: XAUFXConfig,
+    args,
+) -> ValidationSummary:
+    wf_test_rows = [row for row in wf_rows if row.phase == "test"]
+    min_wf_trades = int(PROMOTION_THRESHOLDS["min_walk_forward_test_trades_per_window"])
+    qualified_wf_test_rows = [row for row in wf_test_rows if row.trades >= min_wf_trades]
+    wf_returns = [row.return_pct for row in qualified_wf_test_rows]
+    wf_sharpes = [row.sharpe for row in qualified_wf_test_rows]
+    positive_rate = safe_ratio(sum(1 for value in wf_returns if value > 0), len(wf_returns)) if wf_returns else None
+    avg_return = sum(wf_returns) / len(wf_returns) if wf_returns else None
+    avg_sharpe = sum(wf_sharpes) / len(wf_sharpes) if wf_sharpes else None
+    median_return = None
+    if wf_returns:
+        ordered = sorted(wf_returns)
+        mid = len(ordered) // 2
+        median_return = ordered[mid] if len(ordered) % 2 else (ordered[mid - 1] + ordered[mid]) / 2.0
+    retention = safe_ratio(float(test_summary["return_pct"]), float(train_summary["return_pct"]))
+    session_metrics = session_concentration_metrics(test_summary)
+
+    cost_stress_spread = float(best_params.get("spread", args.spread)) + float(PROMOTION_THRESHOLDS["cost_stress_spread_add"])
+    slippage_stress_spread = float(best_params.get("spread", args.spread)) + float(PROMOTION_THRESHOLDS["slippage_stress_spread_add"])
+
+    cost_stress_params = dict(best_params)
+    cost_stress_params["spread"] = cost_stress_spread
+    slippage_stress_params = dict(best_params)
+    slippage_stress_params["spread"] = slippage_stress_spread
+
+    cost_stress_summary = run_single_config(
+        candles=test_bars,
+        daily_candles=daily_candles,
+        cfg=cfg,
+        capital=args.capital,
+        risk=args.risk,
+        spread=cost_stress_spread,
+        target_r=args.target_r,
+        no_mss=args.no_mss,
+        no_fvg=args.no_fvg,
+        mss_disp=args.mss_disp,
+        mss_lookback=args.mss_lookback,
+        pd_confluence=args.pd_confluence,
+        pd_tolerance=args.pd_tolerance,
+        max_entry_extension_r=args.max_entry_extension_r,
+        progress_check_bars=args.progress_check_bars,
+        min_progress_r=args.min_progress_r,
+        require_demand_zone=args.require_demand_zone,
+        demand_zone_tolerance=args.demand_zone_tolerance,
+        force_daily_bias=args.force_daily_bias,
+        params=cost_stress_params,
+    )
+    slippage_stress_summary = run_single_config(
+        candles=test_bars,
+        daily_candles=daily_candles,
+        cfg=cfg,
+        capital=args.capital,
+        risk=args.risk,
+        spread=slippage_stress_spread,
+        target_r=args.target_r,
+        no_mss=args.no_mss,
+        no_fvg=args.no_fvg,
+        mss_disp=args.mss_disp,
+        mss_lookback=args.mss_lookback,
+        pd_confluence=args.pd_confluence,
+        pd_tolerance=args.pd_tolerance,
+        max_entry_extension_r=args.max_entry_extension_r,
+        progress_check_bars=args.progress_check_bars,
+        min_progress_r=args.min_progress_r,
+        require_demand_zone=args.require_demand_zone,
+        demand_zone_tolerance=args.demand_zone_tolerance,
+        force_daily_bias=args.force_daily_bias,
+        params=slippage_stress_params,
+    )
+
+    cost_stress_retention = safe_ratio(float(cost_stress_summary["return_pct"]), float(test_summary["return_pct"]))
+    slippage_stress_retention = safe_ratio(float(slippage_stress_summary["return_pct"]), float(test_summary["return_pct"]))
+    evaluation = evaluate_promotion(
+        train_trades=int(train_summary["trades"]),
+        test_trades=int(test_summary["trades"]),
+        train_return_pct=float(train_summary["return_pct"]),
+        test_return_pct=float(test_summary["return_pct"]),
+        return_retention_ratio=retention,
+        test_max_drawdown_pct=float(test_summary["max_dd_pct"]),
+        walk_forward_windows=len(wf_test_rows),
+        qualified_walk_forward_windows=len(qualified_wf_test_rows),
+        walk_forward_positive_rate=positive_rate,
+        walk_forward_median_return_pct=median_return,
+        cost_stress_return_pct=float(cost_stress_summary["return_pct"]),
+        cost_stress_retention_ratio=cost_stress_retention,
+        slippage_stress_return_pct=float(slippage_stress_summary["return_pct"]),
+        slippage_stress_retention_ratio=slippage_stress_retention,
+        session_top_hour_trade_share=session_metrics["top_hour_trade_share"],
+        distinct_entry_hours=session_metrics["distinct_entry_hours"],
+    )
+    return ValidationSummary(
+        run_id=run_id,
+        runner=runner,
+        config_hash=config_hash(best_params),
+        selection_rank=selection_rank,
+        train_return_pct=float(train_summary["return_pct"]),
+        test_return_pct=float(test_summary["return_pct"]),
+        train_sharpe=float(train_summary["sharpe"]),
+        test_sharpe=float(test_summary["sharpe"]),
+        train_max_dd_pct=float(train_summary["max_dd_pct"]),
+        test_max_dd_pct=float(test_summary["max_dd_pct"]),
+        train_trades=int(train_summary["trades"]),
+        test_trades=int(test_summary["trades"]),
+        return_retention_ratio=retention,
+        walk_forward_windows=len(wf_test_rows),
+        walk_forward_qualified_windows=len(qualified_wf_test_rows),
+        walk_forward_min_trades_per_window=min_wf_trades,
+        walk_forward_test_median_return_pct=median_return,
+        walk_forward_test_avg_return_pct=avg_return,
+        walk_forward_positive_rate=positive_rate,
+        walk_forward_test_avg_sharpe=avg_sharpe,
+        cost_stress_spread=cost_stress_spread,
+        cost_stress_return_pct=float(cost_stress_summary["return_pct"]),
+        cost_stress_retention_ratio=cost_stress_retention,
+        slippage_stress_spread=slippage_stress_spread,
+        slippage_stress_return_pct=float(slippage_stress_summary["return_pct"]),
+        slippage_stress_retention_ratio=slippage_stress_retention,
+        top_hour=session_metrics["top_hour"],
+        top_hour_trade_count=session_metrics["top_hour_trade_count"],
+        top_hour_trade_share=session_metrics["top_hour_trade_share"],
+        distinct_entry_hours=session_metrics["distinct_entry_hours"],
+        verdict=evaluation["verdict"],
+        failure_reasons=";".join(evaluation["failure_reasons"]),
+        warning_reasons=";".join(evaluation["warning_reasons"]),
+    )
 
 
 def walk_forward_windows(
@@ -396,6 +597,12 @@ def main() -> None:
     parser.add_argument("--min-progress-r", type=float, default=0.3)
     parser.add_argument("--require-demand-zone", action="store_true")
     parser.add_argument("--demand-zone-tolerance", type=float, default=10.0)
+    parser.add_argument(
+        "--force-daily-bias",
+        type=str,
+        choices=["bullish", "bearish", "flat"],
+        default="",
+    )
 
     args = parser.parse_args()
 
@@ -403,6 +610,7 @@ def main() -> None:
 
     cfg = XAUFXConfig()
     feed = TwelveDataFeed(cfg.twelvedata_api_key)
+    current_run_id = new_run_id("xaufx_oos")
 
     print(f"Fetching XAUUSD {cfg.intraday_interval} bars ({args.bars})...")
     try:
@@ -428,7 +636,7 @@ def main() -> None:
     print(f"\nTrain/test split: train={len(train_bars)} bars, test={len(test_bars)} bars")
     print(f"Grid size: {len(grid)}")
 
-    best_params, best_train_summary = choose_best_params(
+    best_params, best_train_summary, best_rank = choose_best_params(
         train_bars=train_bars,
         daily_candles=train_daily,
         cfg=cfg,
@@ -455,11 +663,15 @@ def main() -> None:
         min_progress_r=args.min_progress_r,
         require_demand_zone=args.require_demand_zone,
         demand_zone_tolerance=args.demand_zone_tolerance,
+        force_daily_bias=args.force_daily_bias,
         params=best_params,
     )
 
     train_test_rows = [
         summarize_result(
+            run_id=current_run_id,
+            runner="out_of_sample_runner",
+            selection_rank=best_rank,
             phase="train",
             window_id=0,
             train_bars=train_bars,
@@ -468,6 +680,9 @@ def main() -> None:
             summary=best_train_summary,
         ),
         summarize_result(
+            run_id=current_run_id,
+            runner="out_of_sample_runner",
+            selection_rank=best_rank,
             phase="test",
             window_id=0,
             train_bars=train_bars,
@@ -476,7 +691,7 @@ def main() -> None:
             summary=best_test_summary,
         ),
     ]
-    write_csv(Path(args.out_train_test), train_test_rows)
+    write_csv(Path(args.out_train_test), dataclass_rows(train_test_rows))
 
     print("\nBest train params:")
     print(best_params)
@@ -509,7 +724,7 @@ def main() -> None:
         wf_train_daily = slice_recent_daily_candles(daily_candles, wf_train_bars[-1].ts, max_count=200)
         wf_test_daily = slice_recent_daily_candles(daily_candles, wf_test_bars[-1].ts, max_count=200)
 
-        wf_best_params, wf_train_summary = choose_best_params(
+        wf_best_params, wf_train_summary, wf_rank = choose_best_params(
             train_bars=wf_train_bars,
             daily_candles=wf_train_daily,
             cfg=cfg,
@@ -536,11 +751,15 @@ def main() -> None:
             min_progress_r=args.min_progress_r,
             require_demand_zone=args.require_demand_zone,
             demand_zone_tolerance=args.demand_zone_tolerance,
+            force_daily_bias=args.force_daily_bias,
             params=wf_best_params,
         )
 
         wf_rows.append(
             summarize_result(
+                run_id=current_run_id,
+                runner="out_of_sample_runner",
+                selection_rank=wf_rank,
                 phase="train",
                 window_id=window_id,
                 train_bars=wf_train_bars,
@@ -551,6 +770,9 @@ def main() -> None:
         )
         wf_rows.append(
             summarize_result(
+                run_id=current_run_id,
+                runner="out_of_sample_runner",
+                selection_rank=wf_rank,
                 phase="test",
                 window_id=window_id,
                 train_bars=wf_train_bars,
@@ -574,8 +796,43 @@ def main() -> None:
             f"spread={wf_best_params.get('spread', args.spread)}"
         )
 
-    write_csv(Path(args.out_walk_forward), wf_rows)
+    write_csv(Path(args.out_walk_forward), dataclass_rows(wf_rows))
     print(f"Saved: {args.out_walk_forward}")
+
+    summary_row = build_validation_summary(
+        run_id=current_run_id,
+        runner="out_of_sample_runner",
+        best_params=best_params,
+        selection_rank=best_rank,
+        train_summary=best_train_summary,
+        test_summary=best_test_summary,
+        wf_rows=wf_rows,
+        test_bars=test_bars,
+        daily_candles=test_daily,
+        cfg=cfg,
+        args=args,
+    )
+    summary_path = Path(args.out_train_test).with_name(Path(args.out_train_test).stem + "_summary.csv")
+    write_csv(summary_path, dataclass_rows([summary_row]))
+    print(f"Saved: {summary_path}")
+
+    manifest_path = Path(args.out_train_test).with_name(Path(args.out_train_test).stem + "_manifest.json")
+    write_json(
+        manifest_path,
+        {
+            "run_id": current_run_id,
+            "runner": "out_of_sample_runner",
+            "intraday_window": bars_window(candles),
+            "daily_window": bars_window(daily_candles),
+            "best_config_hash": config_hash(best_params),
+            "best_params": best_params,
+            "selection_rank": best_rank,
+            "train_test_rows": len(train_test_rows),
+            "walk_forward_rows": len(wf_rows),
+            "summary": dataclass_rows([summary_row])[0],
+        },
+    )
+    print(f"Saved: {manifest_path}")
 
 
 if __name__ == "__main__":

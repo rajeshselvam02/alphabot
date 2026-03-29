@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import itertools
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
@@ -9,6 +8,14 @@ from typing import Any, Dict, Iterable, List
 from backend.core.xaufx.config import XAUFXConfig
 from backend.core.xaufx.data_feeds.twelvedata_feed import TwelveDataFeed, TwelveDataQuotaExceeded
 from backend.backtester.xaufx.backtest_xau_ndog_asia import run_backtest
+from backend.backtester.xaufx.validation_governance import (
+    bars_window,
+    run_id as new_run_id,
+    session_concentration_metrics,
+    with_metadata,
+    write_csv,
+    write_json,
+)
 
 
 def parse_csv_list(raw: str, cast):
@@ -45,6 +52,7 @@ def set_run_backtest_flags(
     max_risk_to_range: float,
     require_demand_zone: bool,
     demand_zone_tolerance: float,
+    force_daily_bias: str,
 ) -> None:
     run_backtest._no_mss = no_mss
     run_backtest._no_fvg = no_fvg
@@ -63,6 +71,7 @@ def set_run_backtest_flags(
     run_backtest._max_risk_to_range = max_risk_to_range
     run_backtest._require_demand_zone = require_demand_zone
     run_backtest._demand_zone_tolerance = demand_zone_tolerance
+    run_backtest._force_daily_bias = force_daily_bias
 
 
 def flatten_result(
@@ -110,28 +119,17 @@ def flatten_result(
         row[f"stop_{subtype}_pnl"] = round(stats.get("pnl", 0.0), 6)
         row[f"stop_{subtype}_avg"] = round(stats.get("avg_pnl", 0.0), 6)
 
+    session_metrics = session_concentration_metrics(summary)
+    row["top_hour"] = session_metrics["top_hour"]
+    row["top_hour_trade_count"] = session_metrics["top_hour_trade_count"]
+    row["top_hour_trade_share"] = (
+        round(session_metrics["top_hour_trade_share"], 6)
+        if session_metrics["top_hour_trade_share"] is not None
+        else None
+    )
+    row["distinct_entry_hours"] = session_metrics["distinct_entry_hours"]
+
     return row
-
-
-def write_csv(path: Path, rows: List[Dict[str, Any]]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
-        with path.open("w", newline="", encoding="utf-8") as f:
-            f.write("")
-        return
-
-    fieldnames: List[str] = []
-    seen = set()
-    for row in rows:
-        for k in row.keys():
-            if k not in seen:
-                seen.add(k)
-                fieldnames.append(k)
-
-    with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
 
 
 def main() -> None:
@@ -165,6 +163,12 @@ def main() -> None:
 
     parser.add_argument("--require-demand-zone", action="store_true")
     parser.add_argument("--demand-zone-tolerance", type=float, default=10.0)
+    parser.add_argument(
+        "--force-daily-bias",
+        type=str,
+        choices=["bullish", "bearish", "flat"],
+        default="",
+    )
 
     args = parser.parse_args()
 
@@ -177,6 +181,7 @@ def main() -> None:
 
     cfg = XAUFXConfig()
     feed = TwelveDataFeed(cfg.twelvedata_api_key)
+    current_run_id = new_run_id("xaufx_exp")
 
     print(f"Fetching XAUUSD {cfg.intraday_interval} bars ({args.bars})...")
     try:
@@ -193,6 +198,8 @@ def main() -> None:
         return
 
     rows: List[Dict[str, Any]] = []
+    intraday_window = bars_window(candles)
+    daily_window = bars_window(daily_candles)
 
     combos = list(
         itertools.product(
@@ -235,6 +242,7 @@ def main() -> None:
             "min_progress_r": args.min_progress_r,
             "require_demand_zone": args.require_demand_zone,
             "demand_zone_tolerance": args.demand_zone_tolerance,
+            "force_daily_bias": args.force_daily_bias or "inferred",
             "bars": args.bars,
             "spread": args.spread,
             "target_r": args.target_r,
@@ -265,6 +273,7 @@ def main() -> None:
             max_risk_to_range=max_risk_to_range,
             require_demand_zone=args.require_demand_zone,
             demand_zone_tolerance=args.demand_zone_tolerance,
+            force_daily_bias=args.force_daily_bias,
         )
 
         _, _, summary = run_backtest(
@@ -278,14 +287,44 @@ def main() -> None:
             session_cap=1,
         )
 
-        row = flatten_result(params, summary)
+        row = with_metadata(
+            flatten_result(params, summary),
+            run_id_value=current_run_id,
+            config=params,
+            intraday_window=intraday_window,
+            daily_window=daily_window,
+            runner_name="experiment_runner",
+            notes={
+                "selection_rank": 0,
+                "validation_stage": "in_sample_sweep",
+            },
+        )
         rows.append(row)
 
     rows.sort(key=lambda r: (r["return_pct"], r["sharpe"]), reverse=True)
+    for idx, row in enumerate(rows, start=1):
+        row["selection_rank"] = idx
 
     out = Path(args.out)
     write_csv(out, rows)
     print(f"\nSaved summary CSV: {out}")
+    manifest_path = out.with_suffix(".json")
+    write_json(
+        manifest_path,
+        {
+            "run_id": current_run_id,
+            "runner": "experiment_runner",
+            "bars_requested": args.bars,
+            "rows": len(rows),
+            "intraday_window": intraday_window,
+            "daily_window": daily_window,
+            "top_config_hash": rows[0]["config_hash"] if rows else None,
+            "top_return_pct": rows[0]["return_pct"] if rows else None,
+            "top_sharpe": rows[0]["sharpe"] if rows else None,
+            "top_max_dd_pct": rows[0]["max_dd_pct"] if rows else None,
+        },
+    )
+    print(f"Saved manifest: {manifest_path}")
 
     if rows:
         print("\nTop 10:")

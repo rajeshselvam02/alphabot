@@ -155,6 +155,23 @@ function useBot() {
   };
 }
 
+function useCompactLayout(maxWidth = 420) {
+  const getMatches = () =>
+    typeof window !== "undefined" ? window.matchMedia(`(max-width: ${maxWidth}px)`).matches : false;
+  const [compact, setCompact] = useState(getMatches);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const media = window.matchMedia(`(max-width: ${maxWidth}px)`);
+    const onChange = (event) => setCompact(event.matches);
+    setCompact(media.matches);
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, [maxWidth]);
+
+  return compact;
+}
+
 function Card({ label, value, sub, valueColor }) {
   return (
     <div style={styles.card}>
@@ -167,9 +184,9 @@ function Card({ label, value, sub, valueColor }) {
 
 function SectionTitle({ children, right }) {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+    <div style={styles.sectionTitleRow}>
       <div style={styles.sectionTitle}>{children}</div>
-      {right ? <div style={{ color: "#3a4a6a", fontSize: 10 }}>{right}</div> : null}
+      {right ? <div style={styles.sectionTitleMeta}>{right}</div> : null}
     </div>
   );
 }
@@ -336,7 +353,7 @@ function StrategyPanel({ strategy }) {
   );
 }
 
-function ValidationPanel({ validation }) {
+function ValidationPanel({ validation, compact }) {
   const metrics = validation?.metrics || {};
   const config = validation?.config || {};
   const failureReasons = String(metrics.failure_reasons || "")
@@ -356,11 +373,11 @@ function ValidationPanel({ validation }) {
   return (
     <div style={styles.panel}>
       <SectionTitle right={validation?.model_name || "xaufx_validation"}>Latest XAU/FX Validation</SectionTitle>
-      <div style={styles.rowBetween}>
+      <div style={compact ? styles.rowStack : styles.rowBetween}>
         <span style={styles.symbol}>{verdict.toUpperCase()}</span>
         <span style={badge(verdictColor)}>{verdict.toUpperCase()}</span>
       </div>
-      <div style={styles.infoGrid2}>
+      <div style={compact ? styles.infoGrid1 : styles.infoGrid2}>
         <Info label="Config Hash" value={config.config_hash || "—"} />
         <Info label="Run ID" value={metrics.run_id || validation?.id || "—"} />
         <Info label="Artifact" value={validation?.artifact_path ? validation.artifact_path.split("/").slice(-1)[0] : "—"} />
@@ -384,7 +401,7 @@ function ValidationPanel({ validation }) {
   );
 }
 
-function ValidationRow({ validation }) {
+function ValidationRow({ validation, compact }) {
   const metrics = validation?.metrics || {};
   const config = validation?.config || {};
   const verdict = metrics.verdict || validation?.status || "unknown";
@@ -398,18 +415,18 @@ function ValidationRow({ validation }) {
           : NEGATIVE;
 
   return (
-    <div style={styles.listRow}>
+    <div style={compact ? styles.listRowStack : styles.listRow}>
       <div style={styles.col}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={compact ? styles.validationHeaderStack : styles.validationHeaderRow}>
           <span style={styles.symbol}>{metrics.run_id || validation?.id || "validation"}</span>
           <span style={badge(verdictColor)}>{verdict.toUpperCase()}</span>
         </div>
-        <span style={styles.smallMono}>cfg {config.config_hash || "—"}</span>
-        <span style={styles.cardSub}>
+        <span style={styles.wrapMono}>cfg {config.config_hash || "—"}</span>
+        <span style={styles.wrapSubtle}>
           {validation?.artifact_path ? validation.artifact_path.split("/").slice(-1)[0] : "—"}
         </span>
       </div>
-      <div style={{ ...styles.col, alignItems: "flex-end" }}>
+      <div style={{ ...styles.col, alignItems: compact ? "flex-start" : "flex-end" }}>
         <span style={{ ...styles.monoStrong, color: pnlColor(metrics.test_return_pct || 0) }}>
           {metrics.test_return_pct != null ? pct(metrics.test_return_pct) : "—"}
         </span>
@@ -446,6 +463,7 @@ export default function App() {
   const { connected, books, risk, trades, signals, strategies, engine, equitySeries, latestValidation, recentValidations, api } = useBot();
   const [tab, setTab] = useState("overview");
   const [paused, setPaused] = useState(false);
+  const compact = useCompactLayout();
 
   const cryptoBook = books.crypto;
   const forexBook = books.forex;
@@ -619,12 +637,12 @@ export default function App() {
 
         {tab === "validation" ? (
           <div style={styles.stack}>
-            <ValidationPanel validation={latestValidation} />
+            <ValidationPanel validation={latestValidation} compact={compact} />
             <SectionTitle right={`${recentValidations.length} recent`}>Validation History</SectionTitle>
             <div style={styles.listPanel}>
               {recentValidations.length > 0 ? (
                 recentValidations.map((validation, idx) => (
-                  <ValidationRow key={validation.id || idx} validation={validation} />
+                  <ValidationRow key={validation.id || idx} validation={validation} compact={compact} />
                 ))
               ) : (
                 <Empty label="No validation history available" />
@@ -743,6 +761,13 @@ const styles = {
     fontSize: 10,
     marginTop: 3,
   },
+  wrapSubtle: {
+    color: "#5a6a8a",
+    fontSize: 10,
+    marginTop: 3,
+    wordBreak: "break-word",
+    overflowWrap: "anywhere",
+  },
   validationReasonList: {
     marginTop: 8,
     display: "flex",
@@ -765,6 +790,20 @@ const styles = {
     letterSpacing: 2,
     textTransform: "uppercase",
   },
+  sectionTitleRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: 8,
+    marginBottom: 10,
+    flexWrap: "wrap",
+  },
+  sectionTitleMeta: {
+    color: "#3a4a6a",
+    fontSize: 10,
+    textAlign: "right",
+    wordBreak: "break-word",
+  },
   symbol: {
     color: "#e2e8f0",
     fontWeight: 700,
@@ -781,6 +820,13 @@ const styles = {
     fontSize: 10,
     fontFamily: "monospace",
   },
+  wrapMono: {
+    color: "#5a6a8a",
+    fontSize: 10,
+    fontFamily: "monospace",
+    wordBreak: "break-word",
+    overflowWrap: "anywhere",
+  },
   mutedTiny: {
     color: "#3a4a6a",
     fontSize: 8,
@@ -791,6 +837,12 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  rowStack: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 8,
   },
   progressTrack: {
     height: 4,
@@ -810,6 +862,12 @@ const styles = {
     gap: 10,
     marginTop: 12,
   },
+  infoGrid1: {
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gap: 10,
+    marginTop: 12,
+  },
   infoGrid4: {
     display: "grid",
     gridTemplateColumns: "repeat(4,1fr)",
@@ -823,10 +881,30 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
   },
+  listRowStack: {
+    padding: "12px 16px",
+    borderBottom: "1px solid #0d1117",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 10,
+  },
   col: {
     display: "flex",
     flexDirection: "column",
     gap: 3,
+  },
+  validationHeaderRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    flexWrap: "wrap",
+  },
+  validationHeaderStack: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 6,
   },
   heroValue: {
     fontSize: 30,

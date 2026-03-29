@@ -1,29 +1,834 @@
-import{useState,useEffect,useRef,useCallback}from"react";import{AreaChart,Area,XAxis,YAxis,CartesianGrid,Tooltip,ResponsiveContainer,ReferenceLine}from"recharts";
-function useBot(){const[C,sC]=useState(!1),[P,sP]=useState(null),[R,sR]=useState(null),[T,sT]=useState([]),[Si,sSi]=useState({}),[St,sSt]=useState([]),[E,sE]=useState([]),[M,sM]=useState(null);const w=useRef(null);const mergeTrades=useCallback(items=>sT(p=>{const m=new Map;[...items,...p].forEach(t=>{if(t?.id&&!m.has(t.id))m.set(t.id,t)});return[...m.values()].slice(0,100)}),[]);const applyStatus=useCallback(m=>{if(m.portfolio){sP(m.portfolio);sE(p=>[...p.slice(-60),{t:new Date().toLocaleTimeString("en",{hour:"2-digit",minute:"2-digit"}),v:m.portfolio.equity}])}if(m.risk)sR(m.risk);if(m.strategies)sSt(m.strategies);if(m.engine)sM(m.engine)},[]);const load=useCallback(async()=>{try{const [st,tr,sg]=await Promise.all([fetch("/api/status").then(r=>r.json()),fetch("/api/trades").then(r=>r.json()),fetch("/api/signals").then(r=>r.json())]);applyStatus(st);if(Array.isArray(tr?.trades))mergeTrades(tr.trades);if(sg?.signals)sSi(sg.signals)}catch(e){}},[applyStatus,mergeTrades]);const conn=useCallback(()=>{w.current=new WebSocket(`ws://${window.location.hostname}:8000/ws`);w.current.onopen=()=>{sC(!0);load()};w.current.onclose=()=>{sC(!1);setTimeout(conn,3000)};w.current.onmessage=e=>{try{const m=JSON.parse(e.data),ch=m._ch;if(ch==="status")applyStatus(m);else if(ch==="trades")mergeTrades([m]);else if(ch==="signals")sSi(p=>({...p,[m.symbol||m.strategy]:m}))}catch(e){}}},[applyStatus,load,mergeTrades]);useEffect(()=>{load();conn();return()=>w.current?.close()},[conn,load]);return{C,P,R,T,Si,St,E,M,api:(p)=>fetch(`/api${p}`,{method:"POST"})}}
-const f2=n=>n!=null?Number(n).toFixed(2):"—";
-const f3=n=>n!=null?Number(n).toFixed(3):"—";
-const usd=n=>n!=null?`$${Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}`:"—";
-const usdS=n=>{if(n==null)return"—";const v=Number(n);return Math.abs(v)>=1000?`$${(v/1e3).toFixed(1)}k`:`$${v.toFixed(2)}`};
-const sp=n=>n!=null?`${Number(n)>=0?"+":""}${f2(n)}%`:"—";
-const dd=n=>`${f2(Number(n)||0)}%`;
-const G="#00e5aa",R2="#ff4466",B="#4488ff";
-const clr=v=>Number(v)>=0?G:R2;
-const dc=v=>Number(v)<50?G:Number(v)<80?"#ffaa00":R2;
-function Card({label,value,sub,vc}){return(<div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:12,padding:"14px 16px",minWidth:0}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginBottom:6}}>{label}</div><div style={{fontSize:20,fontWeight:700,color:vc||"#e2e8f0",fontFamily:"monospace",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{value}</div>{sub&&<div style={{color:"#5a6a8a",fontSize:10,marginTop:3}}>{sub}</div>}</div>)}
-function ZG({sym,sig}){if(!sig)return null;const z=sig.zscore??0,p=Math.min(Math.abs(z)/3*100,100),bc=z<-2?G:z>2?R2:B,side=sig.position;return(<div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:12,padding:"12px 14px"}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}><span style={{color:"#e2e8f0",fontWeight:700,fontFamily:"monospace",fontSize:12}}>{sym}</span><div style={{display:"flex",gap:6,alignItems:"center"}}><span style={{color:B,fontFamily:"monospace",fontSize:10}}>{usdS(sig.close)}</span><span style={{fontSize:8,fontWeight:700,padding:"2px 6px",borderRadius:4,background:side==="long"?"#00e5aa18":side==="short"?"#ff446618":"#ffffff0a",color:side==="long"?G:side==="short"?R2:"#5a6a8a",border:`1px solid ${side==="long"?"#00e5aa30":side==="short"?"#ff446630":"#ffffff18"}`}}>{side?side.toUpperCase():"FLAT"}</span></div></div><div style={{display:"flex",justifyContent:"space-between",marginBottom:5}}><span style={{color:"#5a6a8a",fontSize:10}}>Z-Score</span><span style={{color:bc,fontFamily:"monospace",fontWeight:700,fontSize:13}}>{z>=0?"+":""}{f3(z)}</span></div><div style={{height:4,background:"#1e2535",borderRadius:2,overflow:"hidden"}}><div style={{height:"100%",width:`${p}%`,background:bc,boxShadow:`0 0 8px ${bc}88`,transition:"width .5s"}}/></div><div style={{display:"flex",justifyContent:"space-between",marginTop:5,fontSize:9,color:"#3a4a6a"}}><span>σ {f2(sig.std)}</span><span>μ {f2(sig.mean)}</span></div></div>)}
-function FG({sym,sig}){if(!sig)return null;const rs=Array.isArray(sig.reason)?sig.reason.join(", "):sig.reason||"—";const q=sig.quality!=null?f3(sig.quality):"—";const action=(sig.action||sig.signal||"hold").toUpperCase();const c=action==="BUY"?G:action==="SELL"?R2:B;return(<div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:12,padding:"12px 14px"}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}><span style={{color:"#e2e8f0",fontWeight:700,fontFamily:"monospace",fontSize:12}}>{sym}</span><span style={{fontSize:8,fontWeight:700,padding:"2px 6px",borderRadius:4,background:`${c}12`,color:c,border:`1px solid ${c}30`}}>{action}</span></div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>{[["Z-Score",sig.zscore!=null?`${sig.zscore>=0?"+":""}${f3(sig.zscore)}`:"—"],["Quality",q],["Session",sig.session||"—"],["Reason",rs]].map(([k,v])=><div key={k}><div style={{color:"#3a4a6a",fontSize:8,letterSpacing:1,textTransform:"uppercase"}}>{k}</div><div style={{color:"#e2e8f0",fontFamily:"monospace",fontSize:11,marginTop:2,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{v}</div></div>)}</div></div>)}
-function TR({t}){return(<div style={{padding:"12px 16px",borderBottom:"1px solid #0d1117",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{display:"flex",flexDirection:"column",gap:3}}><div style={{display:"flex",alignItems:"center",gap:8}}><span style={{color:"#e2e8f0",fontWeight:700,fontFamily:"monospace",fontSize:13}}>{t.symbol}</span><span style={{fontSize:9,fontWeight:700,padding:"1px 6px",borderRadius:3,background:t.side==="buy"?"#00e5aa18":"#ff446618",color:t.side==="buy"?G:R2}}>{t.side?.toUpperCase()}</span></div><span style={{color:"#5a6a8a",fontSize:10,fontFamily:"monospace"}}>{Number(t.quantity||0).toFixed(4)} @ {usd(t.fill_price)}</span></div><div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:3}}><span style={{color:t.pnl!=null?clr(t.pnl):"#5a6a8a",fontWeight:700,fontFamily:"monospace",fontSize:13}}>{t.pnl!=null?usd(t.pnl):"open"}</span><span style={{color:"#3a4a6a",fontSize:9}}>{t.timestamp?new Date(t.timestamp).toLocaleTimeString():""}</span></div></div>)}
-function PR({p}){const pnl=p.unrealized_pnl||0;return(<div style={{padding:"12px 16px",borderBottom:"1px solid #0d1117",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{display:"flex",flexDirection:"column",gap:3}}><div style={{display:"flex",alignItems:"center",gap:8}}><span style={{color:"#e2e8f0",fontWeight:700,fontFamily:"monospace",fontSize:13}}>{p.symbol}</span><span style={{fontSize:9,fontWeight:700,padding:"1px 6px",borderRadius:3,background:p.side==="long"?"#00e5aa18":"#ff446618",color:p.side==="long"?G:R2}}>{p.side?.toUpperCase()}</span></div><span style={{color:"#5a6a8a",fontSize:10,fontFamily:"monospace"}}>{Number(p.quantity||0).toFixed(4)} @ {usd(p.entry_price)}</span><span style={{color:B,fontSize:10,fontFamily:"monospace"}}>Now: {usd(p.current_price)}</span></div><div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:3}}><span style={{color:clr(pnl),fontWeight:700,fontFamily:"monospace",fontSize:14}}>{usd(pnl)}</span><span style={{color:clr((p.unrealized_pct||0)*100),fontSize:10,fontFamily:"monospace"}}>{sp((p.unrealized_pct||0)*100)}</span></div></div>)}
-function Nav({tab,set}){const items=[{id:"overview",icon:"◈",l:"Home"},{id:"signals",icon:"⟐",l:"Signals"},{id:"positions",icon:"⊞",l:"Pos"},{id:"trades",icon:"↕",l:"Trades"},{id:"risk",icon:"⊛",l:"Risk"}];return(<div style={{position:"fixed",bottom:0,left:0,right:0,background:"#0a0e16",borderTop:"1px solid #1e2535",display:"flex",zIndex:200,paddingBottom:"env(safe-area-inset-bottom,0px)"}}>{items.map(i=>(<button key={i.id} onClick={()=>set(i.id)} style={{flex:1,padding:"10px 2px 8px",background:"none",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3,position:"relative",color:tab===i.id?B:"#3a4a6a"}}>{tab===i.id&&<div style={{position:"absolute",top:0,width:28,height:2,background:B,borderRadius:"0 0 2px 2px"}}/>}<span style={{fontSize:18,lineHeight:1}}>{i.icon}</span><span style={{fontSize:8,fontWeight:600,letterSpacing:.5,textTransform:"uppercase"}}>{i.l}</span></button>))}</div>)}
-export default function App(){const{C,P,R,T,Si,St,E,M,api}=useBot();const[tab,setTab]=useState("overview");const[paused,setPaused]=useState(!1);const cap=P?.initial_capital||10000;const dv=(R?.drawdown||0)*100;const phase=M?.phase||"booting";const phaseLabel=phase.replace(/_/g," ").toUpperCase();const phaseColor=M?.ready?G:phase==="error"?R2:"#ffaa00";const toggle=async()=>{await api(paused?"/control/resume":"/control/pause");setPaused(!paused)};
-return(<div style={{minHeight:"100vh",background:"#070b10",color:"#e2e8f0",fontFamily:"system-ui,sans-serif",paddingBottom:72}}><style>{`*{box-sizing:border-box;margin:0;padding:0}body{overflow-x:hidden;-webkit-tap-highlight-color:transparent}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#1e2535}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}button:active{opacity:.7}`}</style>
-<div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 16px 12px",background:"#0a0e16",borderBottom:"1px solid #1e2535",position:"sticky",top:0,zIndex:100}}><div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}><span style={{fontSize:18,fontWeight:800,letterSpacing:-1}}>⬡ AlphaBot</span><span style={{fontSize:8,padding:"2px 7px",borderRadius:4,fontWeight:700,letterSpacing:1,background:C?"#00e5aa12":"#ff446612",color:C?G:R2,border:`1px solid ${C?"#00e5aa30":"#ff446630"}`,animation:C?"none":"pulse 1.5s infinite"}}>{C?"● LIVE":"● OFF"}</span><span style={{fontSize:8,padding:"2px 7px",borderRadius:4,fontWeight:700,letterSpacing:1,background:"#4488ff12",color:B,border:"1px solid #4488ff30"}}>PAPER</span><span title={M?.detail||phaseLabel} style={{fontSize:8,padding:"2px 7px",borderRadius:4,fontWeight:700,letterSpacing:1,background:`${phaseColor}12`,color:phaseColor,border:`1px solid ${phaseColor}30`}}>{phaseLabel}</span></div><button onClick={toggle} style={{padding:"7px 14px",borderRadius:20,fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"inherit",border:`1px solid ${paused?"#00e5aa40":"#ff446640"}`,background:paused?"#00e5aa12":"#ff446612",color:paused?G:R2}}>{paused?"▶ Resume":"⏸ Pause"}</button></div>
-<div style={{padding:"16px",animation:"fadeUp .25s ease"}} key={tab}>
-{tab==="overview"&&<div style={{display:"flex",flexDirection:"column",gap:14}}><div style={{background:"linear-gradient(135deg,#0e1117,#111827)",border:"1px solid #1e2535",borderRadius:16,padding:20}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginBottom:8}}>Portfolio Value</div><div style={{fontSize:34,fontWeight:800,fontFamily:"monospace",letterSpacing:-1,marginBottom:4}}>{usd(P?.equity)}</div><div style={{display:"flex",gap:12,alignItems:"center"}}><span style={{fontSize:15,fontWeight:700,fontFamily:"monospace",color:clr(P?.total_return_pct||0)}}>{sp(P?.total_return_pct)}</span><span style={{color:"#5a6a8a",fontSize:11}}>from {usd(cap)}</span></div></div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}><Card label="Unrealized P&L" value={usdS(P?.unrealized_pnl)} vc={clr(P?.unrealized_pnl||0)} sub={`${P?.open_positions||0} open`}/><Card label="Win Rate" value={`${f2(P?.win_rate_pct)}%`} sub={`${P?.total_trades||0} trades`}/><Card label="Drawdown" value={dd(P?.drawdown_pct)} vc={dc(P?.drawdown_pct||0)} sub="Limit: 10%"/><Card label="Sharpe" value={P?.sharpe!=null?f2(P.sharpe):"—"} sub="Annualized"/></div><div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,padding:"16px 12px"}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginBottom:12}}>Equity Curve</div><ResponsiveContainer width="100%" height={130}><AreaChart data={E} margin={{top:0,right:0,bottom:0,left:0}}><defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor={B} stopOpacity={0.3}/><stop offset="95%" stopColor={B} stopOpacity={0}/></linearGradient></defs><CartesianGrid strokeDasharray="3 3" stroke="#1a2030"/><XAxis dataKey="t" tick={{fill:"#3a4a6a",fontSize:8}} tickLine={false}/><YAxis tick={{fill:"#3a4a6a",fontSize:8}} tickLine={false} tickFormatter={v=>`$${(v/1e3).toFixed(1)}k`} width={38}/><Tooltip contentStyle={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:8,fontSize:11,fontFamily:"monospace"}} formatter={v=>[usd(v),"Equity"]}/><ReferenceLine y={cap} stroke="#1e2535" strokeDasharray="4 4"/><Area type="monotone" dataKey="v" stroke={B} fill="url(#eg)" strokeWidth={2} dot={false}/></AreaChart></ResponsiveContainer></div><div><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Live Signals</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>{Object.entries(Si).filter(([,s])=>s.zscore!=null).slice(0,4).map(([sym,sig])=><ZG key={sym} sym={sym} sig={sig}/>)}</div>{Object.values(Si).filter(s=>s.zscore!=null).length===0&&<div style={{padding:24,textAlign:"center",color:"#3a4a6a",fontSize:12,background:"#0e1117",borderRadius:12,border:"1px solid #1e2535"}}>Waiting for candle close...</div>}</div></div>}
-{tab==="signals"&&<div style={{display:"flex",flexDirection:"column",gap:12}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase"}}>Bollinger MR Signals</div>{Object.entries(Si).filter(([,s])=>s.strategy!=="forex_mr"&&s.zscore!=null).map(([sym,sig])=><div key={sym} style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,padding:14}}><ZG sym={sym} sig={sig}/><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginTop:12}}>{[["Upper",usd(sig.upper)],["Mean",usd(sig.mean)],["Lower",usd(sig.lower)],["Std",usd(sig.std)],["Hurst",sig.hurst!=null?f3(sig.hurst):"—"],["Signal",sig.signal||"none"]].map(([k,v])=><div key={k}><div style={{color:"#3a4a6a",fontSize:8,letterSpacing:1,textTransform:"uppercase"}}>{k}</div><div style={{color:"#e2e8f0",fontFamily:"monospace",fontSize:11,marginTop:2}}>{v}</div></div>)}</div></div>)}<div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginTop:8}}>Forex Diagnostics</div>{Object.entries(Si).filter(([,s])=>s.strategy==="forex_mr").map(([sym,sig])=><FG key={sym} sym={sym} sig={sig}/>)}{Object.values(Si).filter(s=>s.zscore!=null).length===0&&<div style={{padding:48,textAlign:"center",color:"#3a4a6a",fontSize:13}}>No signals yet</div>}</div>}
-{tab==="positions"&&<div style={{display:"flex",flexDirection:"column",gap:12}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase"}}>Open Positions ({P?.open_positions||0})</div><div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,overflow:"hidden"}}>{(P?.positions||[]).length>0?(P.positions).map((p,i)=><PR key={i} p={p}/>):<div style={{padding:48,textAlign:"center",color:"#3a4a6a",fontSize:13}}>No open positions</div>}</div></div>}
-{tab==="trades"&&<div style={{display:"flex",flexDirection:"column",gap:12}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase"}}>Trade History</div><span style={{color:"#3a4a6a",fontSize:10}}>{T.length} trades</span></div><div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,overflow:"hidden"}}>{T.length>0?T.map((t,i)=><TR key={i} t={t}/>):<div style={{padding:48,textAlign:"center",color:"#3a4a6a",fontSize:13}}>No trades yet</div>}</div></div>}
-{tab==="risk"&&<div style={{display:"flex",flexDirection:"column",gap:14}}>{R?.is_halted&&<div style={{padding:"14px 16px",borderRadius:12,background:"#ff446610",border:"1px solid #ff446640",color:R2}}><div style={{fontWeight:700,marginBottom:6}}>⚠ HALTED</div><div style={{fontSize:12}}>{R.halt_reason}</div><button onClick={()=>api("/control/resume")} style={{marginTop:10,padding:"8px 0",borderRadius:8,width:"100%",background:"#ff446820",border:`1px solid ${R2}`,color:R2,cursor:"pointer",fontFamily:"inherit",fontWeight:700,fontSize:12}}>RESUME</button></div>}<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}><Card label="Drawdown" value={dd(dv)} vc={dc(dv)} sub="Limit: 10%"/><Card label="Daily Loss" value={dd((R?.daily_loss||0)*100)} vc={dc((R?.daily_loss||0)*100)} sub="Limit: 3%"/><Card label="Peak Equity" value={usdS(R?.peak_equity)}/><Card label="Trades" value={R?.trade_count||0} sub="Total"/><Card label="24h VaR 99%" value={usdS(R?.var_24h)} vc={dc(R?.var_pct||0)} sub={`${f2(R?.var_pct||0)}% of equity`}/><Card label="Jump VaR" value={usdS(R?.var_jump)} sub="Poisson"/></div>{R?.budget&&Object.keys(R.budget).length>0&&<div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,padding:16}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginBottom:12}}>Risk Budget</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>{[["Strategy",R.budget.strategy],["Asset",R.budget.asset_class],["Scale",`${f2((R.budget.scale||0)*100)}%`],["Global Exp",usdS(R.budget.global_exposure)],["Strategy Exp",usdS(R.budget.strategy_exposure)],["Asset Exp",usdS(R.budget.asset_exposure)],["Symbol Exp",usdS(R.budget.symbol_exposure)],["Strat Budget",`${f2((R.budget.strategy_budget_pct||0)*100)}%`],["Asset Budget",`${f2((R.budget.asset_budget_pct||0)*100)}%`]].map(([k,v])=><div key={k}><div style={{color:"#3a4a6a",fontSize:8,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{k}</div><div style={{color:"#e2e8f0",fontFamily:"monospace",fontSize:12}}>{v??"—"}</div></div>)}</div></div>}{St.map((s,i)=><div key={i} style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,padding:16}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}><span style={{fontWeight:700,fontSize:13}}>{s.strategy||s.name}</span><span style={{fontSize:8,padding:"3px 8px",borderRadius:4,fontWeight:700,letterSpacing:1,background:s.is_active?"#00e5aa12":"#ff446612",color:s.is_active?G:R2,border:`1px solid ${s.is_active?"#00e5aa30":"#ff446630"}`}}>{s.is_active?"● ACTIVE":"● PAUSED"}</span></div><div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,textAlign:"center"}}>{[["Signals",s.signals_fired||0],["Trades",s.trades_made||0],["Bars",s.total_bars||s.bar_count||0],["Pairs",s.symbols?.length||0]].map(([k,v])=><div key={k}><div style={{color:"#3a4a6a",fontSize:8,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{k}</div><div style={{color:"#e2e8f0",fontFamily:"monospace",fontSize:20,fontWeight:700}}>{v}</div></div>)}</div></div>)}<div style={{background:"#0e1117",border:"1px solid #1e2535",borderRadius:14,padding:16}}><div style={{color:"#5a6a8a",fontSize:9,letterSpacing:2,textTransform:"uppercase",marginBottom:12}}>Risk Rules</div>{[["Kelly","25% fractional"],["Max Position","15% per symbol"],["DD Halt","10%"],["Daily Halt","3%"],["MR Stop","None"],["Mom Stop","3%"]].map(([k,v])=><div key={k} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:"1px solid #0d1117",fontSize:12}}><span style={{color:"#5a6a8a"}}>{k}</span><span style={{color:"#e2e8f0",fontFamily:"monospace"}}>{v}</span></div>)}</div></div>}
-</div>
-<Nav tab={tab} set={setTab}/>
-</div>)}
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+const POSITIVE = "#00e5aa";
+const NEGATIVE = "#ff4466";
+const ACCENT = "#4488ff";
+
+const f2 = (n) => (n != null ? Number(n).toFixed(2) : "—");
+const f3 = (n) => (n != null ? Number(n).toFixed(3) : "—");
+const usd = (n) =>
+  n != null
+    ? `$${Number(n).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`
+    : "—";
+const usdShort = (n) => {
+  if (n == null) return "—";
+  const value = Number(n);
+  return Math.abs(value) >= 1000 ? `$${(value / 1000).toFixed(1)}k` : `$${value.toFixed(2)}`;
+};
+const pct = (n) => (n != null ? `${Number(n) >= 0 ? "+" : ""}${f2(n)}%` : "—");
+const dd = (n) => `${f2(Number(n) || 0)}%`;
+const pnlColor = (value) => (Number(value) >= 0 ? POSITIVE : NEGATIVE);
+const riskColor = (value) => (Number(value) < 50 ? POSITIVE : Number(value) < 80 ? "#ffaa00" : NEGATIVE);
+
+function marketForStrategy(strategy) {
+  return strategy === "forex_mr" ? "forex" : "crypto";
+}
+
+function normalizeBooks(status) {
+  const crypto = status?.books?.crypto || status?.portfolio || null;
+  const forex = status?.books?.forex || null;
+  return { crypto, forex };
+}
+
+async function fetchJson(path) {
+  const response = await fetch(path);
+  if (!response.ok) return null;
+  return response.json();
+}
+
+function useBot() {
+  const [connected, setConnected] = useState(false);
+  const [books, setBooks] = useState({ crypto: null, forex: null });
+  const [risk, setRisk] = useState(null);
+  const [trades, setTrades] = useState({ crypto: [], forex: [], combined: [], totals: {} });
+  const [signals, setSignals] = useState({});
+  const [strategies, setStrategies] = useState([]);
+  const [engine, setEngine] = useState(null);
+  const [equitySeries, setEquitySeries] = useState([]);
+  const [latestValidation, setLatestValidation] = useState(null);
+  const socketRef = useRef(null);
+
+  const applyStatus = useCallback((payload) => {
+    const nextBooks = normalizeBooks(payload);
+    if (nextBooks.crypto || nextBooks.forex) {
+      setBooks(nextBooks);
+      if (nextBooks.crypto?.equity != null) {
+        setEquitySeries((prev) => [
+          ...prev.slice(-60),
+          {
+            t: new Date().toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" }),
+            v: nextBooks.crypto.equity,
+          },
+        ]);
+      }
+    }
+    if (payload?.risk) setRisk(payload.risk);
+    if (payload?.strategies) setStrategies(payload.strategies);
+    if (payload?.engine) setEngine(payload.engine);
+  }, []);
+
+  const load = useCallback(async () => {
+    try {
+      const [statusRes, tradesRes, signalsRes, validationRes] = await Promise.all([
+        fetchJson("/api/status"),
+        fetchJson("/api/trades"),
+        fetchJson("/api/signals"),
+        fetchJson("/api/xaufx/validation/latest"),
+      ]);
+      applyStatus(statusRes);
+      setTrades({
+        crypto: Array.isArray(tradesRes?.crypto) ? tradesRes.crypto : [],
+        forex: Array.isArray(tradesRes?.forex) ? tradesRes.forex : [],
+        combined: Array.isArray(tradesRes?.trades) ? tradesRes.trades : [],
+        totals: tradesRes?.totals || {},
+      });
+      if (signalsRes?.signals) setSignals(signalsRes.signals);
+      setLatestValidation(validationRes?.validation || null);
+    } catch {}
+  }, [applyStatus]);
+
+  const connect = useCallback(() => {
+    socketRef.current = new WebSocket(`ws://${window.location.hostname}:8000/ws`);
+    socketRef.current.onopen = () => {
+      setConnected(true);
+      load();
+    };
+    socketRef.current.onclose = () => {
+      setConnected(false);
+      setTimeout(connect, 3000);
+    };
+    socketRef.current.onmessage = async (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        if (msg._ch === "status") {
+          applyStatus(msg);
+          return;
+        }
+        if (msg._ch === "signals") {
+          setSignals((prev) => ({ ...prev, [msg.symbol || msg.strategy]: msg }));
+          return;
+        }
+        if (msg._ch === "trades") {
+          await load();
+        }
+      } catch {}
+    };
+  }, [applyStatus, load]);
+
+  useEffect(() => {
+    load();
+    connect();
+    return () => socketRef.current?.close();
+  }, [connect, load]);
+
+  const api = useCallback((path) => fetch(`/api${path}`, { method: "POST" }), []);
+
+  return {
+    connected,
+    books,
+    risk,
+    trades,
+    signals,
+    strategies,
+    engine,
+    equitySeries,
+    latestValidation,
+    api,
+    reload: load,
+  };
+}
+
+function Card({ label, value, sub, valueColor }) {
+  return (
+    <div style={styles.card}>
+      <div style={styles.cardLabel}>{label}</div>
+      <div style={{ ...styles.cardValue, color: valueColor || "#e2e8f0" }}>{value}</div>
+      {sub ? <div style={styles.cardSub}>{sub}</div> : null}
+    </div>
+  );
+}
+
+function SectionTitle({ children, right }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+      <div style={styles.sectionTitle}>{children}</div>
+      {right ? <div style={{ color: "#3a4a6a", fontSize: 10 }}>{right}</div> : null}
+    </div>
+  );
+}
+
+function SignalCard({ symbol, signal }) {
+  if (!signal) return null;
+  const z = signal.zscore ?? 0;
+  const width = Math.min((Math.abs(z) / 3) * 100, 100);
+  const bandColor = z < -2 ? POSITIVE : z > 2 ? NEGATIVE : ACCENT;
+  const side = signal.position;
+
+  return (
+    <div style={styles.panel}>
+      <div style={styles.rowBetween}>
+        <span style={styles.symbol}>{symbol}</span>
+        <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+          {signal.close != null ? <span style={styles.smallMono}>{usdShort(signal.close)}</span> : null}
+          <span style={badge(side === "long" ? POSITIVE : side === "short" ? NEGATIVE : "#5a6a8a")}>
+            {side ? side.toUpperCase() : "FLAT"}
+          </span>
+        </div>
+      </div>
+      <div style={{ ...styles.rowBetween, marginTop: 8 }}>
+        <span style={styles.mutedTiny}>Z-Score</span>
+        <span style={{ ...styles.monoStrong, color: bandColor }}>{z >= 0 ? "+" : ""}{f3(z)}</span>
+      </div>
+      <div style={styles.progressTrack}>
+        <div style={{ ...styles.progressFill, width: `${width}%`, background: bandColor }} />
+      </div>
+      <div style={{ ...styles.rowBetween, marginTop: 6, fontSize: 9, color: "#3a4a6a" }}>
+        <span>σ {f2(signal.std)}</span>
+        <span>μ {f2(signal.mean)}</span>
+      </div>
+    </div>
+  );
+}
+
+function ForexSignalCard({ symbol, signal }) {
+  if (!signal) return null;
+  const reason = Array.isArray(signal.reason) ? signal.reason.join(", ") : signal.reason || "—";
+  const action = (signal.action || signal.signal || "hold").toUpperCase();
+  const color = action === "BUY" ? POSITIVE : action === "SELL" ? NEGATIVE : ACCENT;
+
+  return (
+    <div style={styles.panel}>
+      <div style={styles.rowBetween}>
+        <span style={styles.symbol}>{symbol}</span>
+        <span style={badge(color)}>{action}</span>
+      </div>
+      <div style={styles.infoGrid2}>
+        <Info label="Z-Score" value={signal.zscore != null ? `${signal.zscore >= 0 ? "+" : ""}${f3(signal.zscore)}` : "—"} />
+        <Info label="Quality" value={signal.quality != null ? f3(signal.quality) : "—"} />
+        <Info label="Session" value={signal.session || "—"} />
+        <Info label="Reason" value={reason} />
+      </div>
+    </div>
+  );
+}
+
+function PositionRow({ position }) {
+  const pnl = position.unrealized_pnl || 0;
+  const quantity = Number(position.quantity ?? position.lots ?? 0);
+  const quantityLabel = position.book === "forex" ? `${quantity.toFixed(2)} lots` : quantity.toFixed(4);
+
+  return (
+    <div style={styles.listRow}>
+      <div style={styles.col}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={styles.symbol}>{position.symbol}</span>
+          <span style={badge(position.side === "long" ? POSITIVE : NEGATIVE)}>{position.side?.toUpperCase()}</span>
+          <span style={marketBadge(position.book)}>{position.book?.toUpperCase()}</span>
+        </div>
+        <span style={styles.smallMono}>
+          {quantityLabel} @ {usd(position.entry_price)}
+        </span>
+        <span style={{ ...styles.smallMono, color: ACCENT }}>Now: {usd(position.current_price)}</span>
+      </div>
+      <div style={{ ...styles.col, alignItems: "flex-end" }}>
+        <span style={{ ...styles.monoStrong, color: pnlColor(pnl) }}>{usd(pnl)}</span>
+        <span style={{ ...styles.smallMono, color: pnlColor((position.unrealized_pct || 0) * 100) }}>
+          {pct((position.unrealized_pct || 0) * 100)}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function TradeRow({ trade }) {
+  const quantity = Number(trade.quantity ?? trade.lots ?? 0);
+  const quantityLabel = trade.book === "forex" ? `${quantity.toFixed(2)} lots` : quantity.toFixed(4);
+
+  return (
+    <div style={styles.listRow}>
+      <div style={styles.col}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={styles.symbol}>{trade.symbol}</span>
+          <span style={badge(trade.side === "buy" ? POSITIVE : trade.side === "sell" ? NEGATIVE : ACCENT)}>
+            {(trade.side || "trade").toUpperCase()}
+          </span>
+          <span style={marketBadge(trade.book)}>{trade.book?.toUpperCase()}</span>
+        </div>
+        <span style={styles.smallMono}>
+          {quantityLabel} @ {usd(trade.fill_price)}
+        </span>
+      </div>
+      <div style={{ ...styles.col, alignItems: "flex-end" }}>
+        <span style={{ ...styles.monoStrong, color: trade.pnl != null ? pnlColor(trade.pnl) : "#5a6a8a" }}>
+          {trade.pnl != null ? usd(trade.pnl) : "open"}
+        </span>
+        <span style={styles.cardSub}>{trade.timestamp ? new Date(trade.timestamp).toLocaleTimeString() : ""}</span>
+      </div>
+    </div>
+  );
+}
+
+function Info({ label, value }) {
+  return (
+    <div>
+      <div style={styles.mutedTiny}>{label}</div>
+      <div style={{ ...styles.smallMono, marginTop: 2 }}>{value}</div>
+    </div>
+  );
+}
+
+function BookPanel({ title, book, accent }) {
+  return (
+    <div style={{ ...styles.panel, borderColor: `${accent}33` }}>
+      <div style={styles.rowBetween}>
+        <span style={{ ...styles.symbol, color: accent }}>{title}</span>
+        <span style={marketBadge(title.toLowerCase())}>{(book?.mode || "paper").toUpperCase()}</span>
+      </div>
+      <div style={styles.heroValue}>{usd(book?.equity)}</div>
+      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <span style={{ ...styles.monoStrong, color: pnlColor(book?.return_pct || book?.total_return_pct || 0) }}>
+          {pct(book?.return_pct ?? book?.total_return_pct)}
+        </span>
+        <span style={styles.cardSub}>Cash {usd(book?.cash)}</span>
+      </div>
+      <div style={styles.infoGrid2}>
+        <Info label="Unrealized" value={usdShort(book?.unrealized_pnl)} />
+        <Info label="Open Pos" value={book?.open_positions ?? 0} />
+        <Info label="Trades" value={book?.total_trades ?? 0} />
+        <Info label="Win Rate" value={`${f2(book?.win_rate ?? book?.win_rate_pct)}%`} />
+      </div>
+    </div>
+  );
+}
+
+function StrategyPanel({ strategy }) {
+  const active = strategy.is_active ?? strategy.active;
+  return (
+    <div style={styles.panel}>
+      <div style={styles.rowBetween}>
+        <span style={styles.symbol}>{strategy.strategy || strategy.name}</span>
+        <span style={badge(active ? POSITIVE : NEGATIVE)}>{active ? "ACTIVE" : "PAUSED"}</span>
+      </div>
+      <div style={styles.infoGrid4}>
+        <Info label="Market" value={marketForStrategy(strategy.strategy || strategy.name).toUpperCase()} />
+        <Info label="Signals" value={strategy.signals_fired || 0} />
+        <Info label="Trades" value={strategy.trades_made || 0} />
+        <Info label="Bars" value={strategy.total_bars || strategy.bar_count || 0} />
+      </div>
+    </div>
+  );
+}
+
+function ValidationPanel({ validation }) {
+  const metrics = validation?.metrics || {};
+  const config = validation?.config || {};
+  const failureReasons = String(metrics.failure_reasons || "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const verdict = metrics.verdict || validation?.status || "unavailable";
+  const verdictColor =
+    verdict === "research_winner"
+      ? POSITIVE
+      : verdict === "promotable_baseline"
+        ? ACCENT
+        : verdict === "candidate"
+          ? "#ffaa00"
+          : NEGATIVE;
+
+  return (
+    <div style={styles.panel}>
+      <SectionTitle right={validation?.model_name || "xaufx_validation"}>Latest XAU/FX Validation</SectionTitle>
+      <div style={styles.rowBetween}>
+        <span style={styles.symbol}>{verdict.toUpperCase()}</span>
+        <span style={badge(verdictColor)}>{verdict.toUpperCase()}</span>
+      </div>
+      <div style={styles.infoGrid2}>
+        <Info label="Config Hash" value={config.config_hash || "—"} />
+        <Info label="Run ID" value={metrics.run_id || validation?.id || "—"} />
+        <Info label="Artifact" value={validation?.artifact_path ? validation.artifact_path.split("/").slice(-1)[0] : "—"} />
+        <Info label="Test Return" value={metrics.test_return_pct != null ? pct(metrics.test_return_pct) : "—"} />
+      </div>
+      <div style={{ marginTop: 12 }}>
+        <div style={styles.mutedTiny}>Top Failure Reasons</div>
+        {failureReasons.length > 0 ? (
+          <div style={styles.validationReasonList}>
+            {failureReasons.slice(0, 3).map((reason) => (
+              <div key={reason} style={styles.validationReason}>
+                {reason}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ ...styles.smallMono, marginTop: 8, color: POSITIVE }}>No active failure reasons</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Nav({ tab, setTab }) {
+  const items = [
+    { id: "overview", icon: "◈", label: "Home" },
+    { id: "signals", icon: "⟐", label: "Signals" },
+    { id: "positions", icon: "⊞", label: "Pos" },
+    { id: "trades", icon: "↕", label: "Trades" },
+    { id: "risk", icon: "⊛", label: "Risk" },
+  ];
+
+  return (
+    <div style={styles.nav}>
+      {items.map((item) => (
+        <button key={item.id} onClick={() => setTab(item.id)} style={{ ...styles.navButton, color: tab === item.id ? ACCENT : "#3a4a6a" }}>
+          {tab === item.id ? <div style={styles.navActiveLine} /> : null}
+          <span style={{ fontSize: 18, lineHeight: 1 }}>{item.icon}</span>
+          <span style={{ fontSize: 8, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{item.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default function App() {
+  const { connected, books, risk, trades, signals, strategies, engine, equitySeries, latestValidation, api } = useBot();
+  const [tab, setTab] = useState("overview");
+  const [paused, setPaused] = useState(false);
+
+  const cryptoBook = books.crypto;
+  const forexBook = books.forex;
+  const phase = engine?.phase || "booting";
+  const phaseLabel = phase.replace(/_/g, " ").toUpperCase();
+  const phaseColor = engine?.ready ? POSITIVE : phase === "error" ? NEGATIVE : "#ffaa00";
+  const cryptoSignals = Object.entries(signals).filter(([, signal]) => signal.strategy !== "forex_mr" && signal.zscore != null);
+  const forexSignals = Object.entries(signals).filter(([, signal]) => signal.strategy === "forex_mr");
+  const cryptoPositions = Array.isArray(cryptoBook?.positions) ? cryptoBook.positions : [];
+  const forexPositions = Array.isArray(forexBook?.positions) ? forexBook.positions : [];
+  const cryptoStrategies = strategies.filter((item) => marketForStrategy(item.strategy || item.name) === "crypto");
+  const forexStrategies = strategies.filter((item) => marketForStrategy(item.strategy || item.name) === "forex");
+
+  const toggle = async () => {
+    await api(paused ? "/control/resume" : "/control/pause");
+    setPaused((prev) => !prev);
+  };
+
+  return (
+    <div style={styles.app}>
+      <style>{globalCss}</style>
+      <div style={styles.header}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: -1 }}>⬡ AlphaBot</span>
+          <span style={badge(connected ? POSITIVE : NEGATIVE)}>{connected ? "LIVE" : "OFF"}</span>
+          <span style={badge(ACCENT)}>PAPER</span>
+          <span title={engine?.detail || phaseLabel} style={badge(phaseColor)}>{phaseLabel}</span>
+        </div>
+        <button onClick={toggle} style={{ ...styles.actionButton, borderColor: paused ? `${POSITIVE}40` : `${NEGATIVE}40`, color: paused ? POSITIVE : NEGATIVE }}>
+          {paused ? "▶ Resume" : "⏸ Pause"}
+        </button>
+      </div>
+
+      <div style={styles.page}>
+        {tab === "overview" ? (
+          <div style={styles.stack}>
+            <BookPanel title="Crypto" book={cryptoBook} accent={ACCENT} />
+            <BookPanel title="Forex" book={forexBook} accent="#ffaa00" />
+
+            <div style={styles.grid2}>
+              <Card label="Crypto Unrealized" value={usdShort(cryptoBook?.unrealized_pnl)} valueColor={pnlColor(cryptoBook?.unrealized_pnl || 0)} sub={`${cryptoBook?.open_positions || 0} open`} />
+              <Card label="Forex Unrealized" value={usdShort(forexBook?.unrealized_pnl)} valueColor={pnlColor(forexBook?.unrealized_pnl || 0)} sub={`${forexBook?.open_positions || 0} open`} />
+              <Card label="Crypto Win Rate" value={`${f2(cryptoBook?.win_rate_pct)}%`} sub={`${cryptoBook?.total_trades || 0} trades`} />
+              <Card label="Forex Win Rate" value={`${f2(forexBook?.win_rate)}%`} sub={`${forexBook?.total_trades || 0} trades`} />
+              <Card label="Risk Drawdown" value={dd((risk?.drawdown || 0) * 100)} valueColor={riskColor((risk?.drawdown || 0) * 100)} sub="Global risk layer" />
+              <Card label="Engine" value={phaseLabel} valueColor={phaseColor} sub={engine?.detail || "—"} />
+            </div>
+
+            <ValidationPanel validation={latestValidation} />
+
+            <div style={styles.panel}>
+              <SectionTitle>Crypto Equity Curve</SectionTitle>
+              <ResponsiveContainer width="100%" height={140}>
+                <AreaChart data={equitySeries} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                  <defs>
+                    <linearGradient id="equityGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={ACCENT} stopOpacity={0.3} />
+                      <stop offset="95%" stopColor={ACCENT} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1a2030" />
+                  <XAxis dataKey="t" tick={{ fill: "#3a4a6a", fontSize: 8 }} tickLine={false} />
+                  <YAxis tick={{ fill: "#3a4a6a", fontSize: 8 }} tickLine={false} width={38} tickFormatter={(v) => `$${(v / 1000).toFixed(1)}k`} />
+                  <Tooltip
+                    contentStyle={{ background: "#0e1117", border: "1px solid #1e2535", borderRadius: 8, fontSize: 11, fontFamily: "monospace" }}
+                    formatter={(v) => [usd(v), "Equity"]}
+                  />
+                  <ReferenceLine y={cryptoBook?.initial_capital || 10000} stroke="#1e2535" strokeDasharray="4 4" />
+                  <Area type="monotone" dataKey="v" stroke={ACCENT} fill="url(#equityGradient)" strokeWidth={2} dot={false} />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div>
+              <SectionTitle>Crypto Signals</SectionTitle>
+              <div style={styles.grid2}>
+                {cryptoSignals.slice(0, 4).map(([symbol, signal]) => (
+                  <SignalCard key={symbol} symbol={symbol} signal={signal} />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <SectionTitle>Forex Diagnostics</SectionTitle>
+              <div style={styles.grid1}>
+                {forexSignals.slice(0, 4).map(([symbol, signal]) => (
+                  <ForexSignalCard key={symbol} symbol={symbol} signal={signal} />
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {tab === "signals" ? (
+          <div style={styles.stack}>
+            <SectionTitle>Crypto Signals</SectionTitle>
+            {cryptoSignals.length > 0 ? cryptoSignals.map(([symbol, signal]) => <SignalCard key={symbol} symbol={symbol} signal={signal} />) : <Empty label="No crypto signals yet" />}
+            <SectionTitle>Forex Diagnostics</SectionTitle>
+            {forexSignals.length > 0 ? forexSignals.map(([symbol, signal]) => <ForexSignalCard key={symbol} symbol={symbol} signal={signal} />) : <Empty label="No forex diagnostics yet" />}
+          </div>
+        ) : null}
+
+        {tab === "positions" ? (
+          <div style={styles.stack}>
+            <SectionTitle right={`${cryptoPositions.length} open`}>Crypto Positions</SectionTitle>
+            <div style={styles.listPanel}>
+              {cryptoPositions.length > 0 ? cryptoPositions.map((position) => <PositionRow key={`${position.book}-${position.symbol}`} position={{ ...position, book: "crypto" }} />) : <Empty label="No crypto positions" />}
+            </div>
+            <SectionTitle right={`${forexPositions.length} open`}>Forex Positions</SectionTitle>
+            <div style={styles.listPanel}>
+              {forexPositions.length > 0 ? forexPositions.map((position) => <PositionRow key={`${position.book || "forex"}-${position.symbol}`} position={{ ...position, book: "forex" }} />) : <Empty label="No forex positions" />}
+            </div>
+          </div>
+        ) : null}
+
+        {tab === "trades" ? (
+          <div style={styles.stack}>
+            <SectionTitle right={`${trades.totals?.crypto || 0} total`}>Crypto Trades</SectionTitle>
+            <div style={styles.listPanel}>
+              {trades.crypto.length > 0 ? trades.crypto.map((trade, idx) => <TradeRow key={`crypto-${trade.id || idx}`} trade={trade} />) : <Empty label="No crypto trades" />}
+            </div>
+            <SectionTitle right={`${trades.totals?.forex || 0} total`}>Forex Trades</SectionTitle>
+            <div style={styles.listPanel}>
+              {trades.forex.length > 0 ? trades.forex.map((trade, idx) => <TradeRow key={`forex-${trade.id || idx}`} trade={trade} />) : <Empty label="No forex trades" />}
+            </div>
+          </div>
+        ) : null}
+
+        {tab === "risk" ? (
+          <div style={styles.stack}>
+            {risk?.is_halted ? (
+              <div style={{ ...styles.panel, borderColor: `${NEGATIVE}55`, background: "#ff446610" }}>
+                <div style={{ fontWeight: 700, marginBottom: 6, color: NEGATIVE }}>HALTED</div>
+                <div style={{ fontSize: 12 }}>{risk.halt_reason}</div>
+                <button onClick={() => api("/control/resume")} style={{ ...styles.actionButton, marginTop: 10, width: "100%", color: NEGATIVE, borderColor: NEGATIVE }}>
+                  RESUME
+                </button>
+              </div>
+            ) : null}
+
+            <div style={styles.grid2}>
+              <Card label="Drawdown" value={dd((risk?.drawdown || 0) * 100)} valueColor={riskColor((risk?.drawdown || 0) * 100)} sub="Limit: 10%" />
+              <Card label="Daily Loss" value={dd((risk?.daily_loss || 0) * 100)} valueColor={riskColor((risk?.daily_loss || 0) * 100)} sub="Limit: 3%" />
+              <Card label="Peak Equity" value={usdShort(risk?.peak_equity)} />
+              <Card label="Trades" value={risk?.trade_count || 0} sub="Risk layer count" />
+              <Card label="24h VaR 99%" value={usdShort(risk?.var_24h)} valueColor={riskColor(risk?.var_pct || 0)} sub={`${f2(risk?.var_pct || 0)}% of equity`} />
+              <Card label="Jump VaR" value={usdShort(risk?.var_jump)} sub="Poisson" />
+            </div>
+
+            {risk?.budget && Object.keys(risk.budget).length > 0 ? (
+              <div style={styles.panel}>
+                <SectionTitle>Risk Budget</SectionTitle>
+                <div style={styles.infoGrid2}>
+                  <Info label="Strategy" value={risk.budget.strategy || "—"} />
+                  <Info label="Asset" value={risk.budget.asset_class || "—"} />
+                  <Info label="Scale" value={`${f2((risk.budget.scale || 0) * 100)}%`} />
+                  <Info label="Global Exp" value={usdShort(risk.budget.global_exposure)} />
+                  <Info label="Strategy Exp" value={usdShort(risk.budget.strategy_exposure)} />
+                  <Info label="Asset Exp" value={usdShort(risk.budget.asset_exposure)} />
+                  <Info label="Symbol Exp" value={usdShort(risk.budget.symbol_exposure)} />
+                  <Info label="Strategy Budget" value={`${f2((risk.budget.strategy_budget_pct || 0) * 100)}%`} />
+                  <Info label="Asset Budget" value={`${f2((risk.budget.asset_budget_pct || 0) * 100)}%`} />
+                </div>
+              </div>
+            ) : null}
+
+            <SectionTitle>Crypto Strategies</SectionTitle>
+            {cryptoStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} />)}
+            <SectionTitle>Forex Strategies</SectionTitle>
+            {forexStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} />)}
+          </div>
+        ) : null}
+      </div>
+
+      <Nav tab={tab} setTab={setTab} />
+    </div>
+  );
+}
+
+function Empty({ label }) {
+  return <div style={styles.empty}>{label}</div>;
+}
+
+function badge(color) {
+  return {
+    fontSize: 8,
+    fontWeight: 700,
+    padding: "2px 7px",
+    borderRadius: 4,
+    letterSpacing: 1,
+    background: `${color}12`,
+    color,
+    border: `1px solid ${color}30`,
+  };
+}
+
+function marketBadge(market) {
+  return badge(market === "forex" ? "#ffaa00" : ACCENT);
+}
+
+const globalCss = `
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: #1e2535; }
+`;
+
+const styles = {
+  app: {
+    minHeight: "100vh",
+    background: "#070b10",
+    color: "#e2e8f0",
+    fontFamily: "system-ui,sans-serif",
+    paddingBottom: 72,
+  },
+  header: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "14px 16px 12px",
+    background: "#0a0e16",
+    borderBottom: "1px solid #1e2535",
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
+  },
+  page: {
+    padding: 16,
+  },
+  stack: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 14,
+  },
+  grid1: {
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gap: 10,
+  },
+  grid2: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 10,
+  },
+  panel: {
+    background: "#0e1117",
+    border: "1px solid #1e2535",
+    borderRadius: 14,
+    padding: 16,
+  },
+  listPanel: {
+    background: "#0e1117",
+    border: "1px solid #1e2535",
+    borderRadius: 14,
+    overflow: "hidden",
+  },
+  card: {
+    background: "#0e1117",
+    border: "1px solid #1e2535",
+    borderRadius: 12,
+    padding: "14px 16px",
+    minWidth: 0,
+  },
+  cardLabel: {
+    color: "#5a6a8a",
+    fontSize: 9,
+    letterSpacing: 2,
+    textTransform: "uppercase",
+    marginBottom: 6,
+  },
+  cardValue: {
+    fontSize: 20,
+    fontWeight: 700,
+    fontFamily: "monospace",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
+  cardSub: {
+    color: "#5a6a8a",
+    fontSize: 10,
+    marginTop: 3,
+  },
+  validationReasonList: {
+    marginTop: 8,
+    display: "flex",
+    flexDirection: "column",
+    gap: 6,
+  },
+  validationReason: {
+    border: "1px solid #1e2535",
+    borderRadius: 8,
+    padding: "8px 10px",
+    fontSize: 11,
+    color: "#cbd5e1",
+    background: "#0a0e16",
+    fontFamily: "monospace",
+    wordBreak: "break-word",
+  },
+  sectionTitle: {
+    color: "#5a6a8a",
+    fontSize: 9,
+    letterSpacing: 2,
+    textTransform: "uppercase",
+  },
+  symbol: {
+    color: "#e2e8f0",
+    fontWeight: 700,
+    fontFamily: "monospace",
+    fontSize: 12,
+  },
+  monoStrong: {
+    fontFamily: "monospace",
+    fontWeight: 700,
+    fontSize: 13,
+  },
+  smallMono: {
+    color: "#5a6a8a",
+    fontSize: 10,
+    fontFamily: "monospace",
+  },
+  mutedTiny: {
+    color: "#3a4a6a",
+    fontSize: 8,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+  },
+  rowBetween: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  progressTrack: {
+    height: 4,
+    background: "#1e2535",
+    borderRadius: 2,
+    overflow: "hidden",
+    marginTop: 6,
+  },
+  progressFill: {
+    height: "100%",
+    boxShadow: "0 0 8px rgba(255,255,255,0.2)",
+    transition: "width .5s",
+  },
+  infoGrid2: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 10,
+    marginTop: 12,
+  },
+  infoGrid4: {
+    display: "grid",
+    gridTemplateColumns: "repeat(4,1fr)",
+    gap: 10,
+    marginTop: 12,
+  },
+  listRow: {
+    padding: "12px 16px",
+    borderBottom: "1px solid #0d1117",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  col: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 3,
+  },
+  heroValue: {
+    fontSize: 30,
+    fontWeight: 800,
+    fontFamily: "monospace",
+    letterSpacing: -1,
+    margin: "10px 0 6px",
+  },
+  empty: {
+    padding: 42,
+    textAlign: "center",
+    color: "#3a4a6a",
+    fontSize: 13,
+    background: "#0e1117",
+    borderRadius: 12,
+    border: "1px solid #1e2535",
+  },
+  nav: {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    background: "#0a0e16",
+    borderTop: "1px solid #1e2535",
+    display: "flex",
+    zIndex: 200,
+    paddingBottom: "env(safe-area-inset-bottom,0px)",
+  },
+  navButton: {
+    flex: 1,
+    padding: "10px 2px 8px",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 3,
+    position: "relative",
+  },
+  navActiveLine: {
+    position: "absolute",
+    top: 0,
+    width: 28,
+    height: 2,
+    background: ACCENT,
+    borderRadius: "0 0 2px 2px",
+  },
+  actionButton: {
+    padding: "7px 14px",
+    borderRadius: 20,
+    fontSize: 11,
+    fontWeight: 700,
+    cursor: "pointer",
+    fontFamily: "inherit",
+    background: "transparent",
+    border: "1px solid #1e2535",
+  },
+};

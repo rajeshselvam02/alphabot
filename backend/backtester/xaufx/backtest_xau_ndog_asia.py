@@ -3,10 +3,12 @@ from __future__ import annotations
 import argparse
 import csv
 import math
+import sys
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import List, Tuple
 
+from backend.backtester.xaufx.benchmark_profiles import BENCHMARK_PROFILES, get_profile
 from backend.core.xaufx.config import XAUFXConfig
 from backend.core.xaufx.data_feeds.twelvedata_feed import TwelveDataFeed, TwelveDataQuotaExceeded
 from backend.core.xaufx.models import Candle
@@ -88,6 +90,59 @@ def export_trades_csv(trades: List[Trade], path: str) -> None:
             writer.writerow(asdict(t))
 
 
+PROFILE_MANAGED_FLAGS = {
+    "--bars",
+    "--capital",
+    "--risk",
+    "--spread",
+    "--target-r",
+    "--no-mss",
+    "--no-fvg",
+    "--mss-disp",
+    "--session-cap",
+    "--mss-lookback",
+    "--pd-confluence",
+    "--pd-tolerance",
+    "--stop-buffer",
+    "--max-entry-extension-r",
+    "--breakeven-r",
+    "--trail-r",
+    "--allow-hours",
+    "--progress-check-bars",
+    "--min-progress-r",
+    "--max-risk-distance",
+    "--max-risk-to-range",
+    "--require-demand-zone",
+    "--demand-zone-tolerance",
+    "--force-daily-bias",
+}
+
+
+def benchmark_profile_choices() -> List[str]:
+    return sorted(BENCHMARK_PROFILES)
+
+
+def enforce_locked_profile(argv: List[str], profile_name: str, parser: argparse.ArgumentParser) -> None:
+    conflicting = sorted(flag for flag in PROFILE_MANAGED_FLAGS if flag in argv)
+    if conflicting:
+        parser.error(
+            "benchmark profile "
+            f"'{profile_name}' is locked; remove explicit overrides for: {', '.join(conflicting)}"
+        )
+
+
+def apply_profile(args: argparse.Namespace) -> argparse.Namespace:
+    if not args.profile:
+        return args
+
+    profile = get_profile(args.profile)
+    for key, value in profile.managed_args.items():
+        setattr(args, key, value)
+    if args.csv == "reports/xau_ndog_asia_trades.csv":
+        args.csv = profile.csv_path
+    return args
+
+
 def run_backtest(
     candles: List[Candle],
     daily_candles: List[Candle],
@@ -99,6 +154,9 @@ def run_backtest(
     session_cap: int,
 ) -> Tuple[List[Trade], List[float], dict]:
     bias = daily_bias("XAUUSD", daily_candles)
+    forced_bias = getattr(run_backtest, "_force_daily_bias", "")
+    if forced_bias:
+        bias = forced_bias
     demand_zone = detect_recent_demand_zone(daily_candles)
 
     strategy = XAUNDOGAsiaStrategy(
@@ -459,6 +517,13 @@ def run_backtest(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Backtest XAU NDOG Asia strategy")
+    parser.add_argument(
+        "--profile",
+        type=str,
+        choices=benchmark_profile_choices(),
+        default="",
+        help="run a locked benchmark profile",
+    )
     parser.add_argument("--bars", type=int, default=1200, help="number of intraday bars to fetch")
     parser.add_argument("--capital", type=float, default=10000.0)
     parser.add_argument("--risk", type=float, default=0.005, help="risk per trade fraction")
@@ -483,7 +548,18 @@ def main() -> None:
     parser.add_argument("--max-risk-to-range", type=float, default=0.8, help="max allowed initial risk distance divided by recent range")
     parser.add_argument("--require-demand-zone", action="store_true", help="require higher-timeframe demand-zone confluence")
     parser.add_argument("--demand-zone-tolerance", type=float, default=10.0, help="distance tolerance around HTF demand zone")
+    parser.add_argument(
+        "--force-daily-bias",
+        type=str,
+        choices=["bullish", "bearish", "flat"],
+        default="",
+        help="override inferred daily bias for controlled studies",
+    )
+    argv = sys.argv[1:]
     args = parser.parse_args()
+    if args.profile:
+        enforce_locked_profile(argv, args.profile, parser)
+        args = apply_profile(args)
 
     cfg = XAUFXConfig()
     feed = TwelveDataFeed(cfg.twelvedata_api_key)
@@ -507,6 +583,12 @@ def main() -> None:
     run_backtest._max_risk_to_range = args.max_risk_to_range
     run_backtest._require_demand_zone = args.require_demand_zone
     run_backtest._demand_zone_tolerance = args.demand_zone_tolerance
+    run_backtest._force_daily_bias = args.force_daily_bias
+
+    if args.profile:
+        profile = get_profile(args.profile)
+        print(f"Running locked benchmark profile: {profile.name}")
+        print(f"Profile notes: {profile.notes}")
 
     print(f"Fetching XAUUSD {cfg.intraday_interval} bars ({args.bars})...")
     try:

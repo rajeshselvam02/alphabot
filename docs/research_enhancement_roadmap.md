@@ -178,3 +178,10 @@ No new strategy feature should be promoted unless it passes:
 3. out-of-sample or walk-forward check
 4. paper-trading stability
 5. dashboard visibility and explainability
+
+## Canonical XAU/FX Benchmark
+
+The XAUUSD NDOG Asia workstream now has a repo-controlled locked benchmark profile:
+- [xaufx_benchmark_profile.md](/root/alphabot/docs/xaufx_benchmark_profile.md)
+
+Use this as the baseline before changing XAU/FX strategy logic, validation standards, or promotion thresholds. This is the first step toward making AlphaBot an industry-grade realtime trading bot with controlled research drift.

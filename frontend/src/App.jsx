@@ -59,6 +59,7 @@ function useBot() {
   const [engine, setEngine] = useState(null);
   const [equitySeries, setEquitySeries] = useState([]);
   const [latestValidation, setLatestValidation] = useState(null);
+  const [recentValidations, setRecentValidations] = useState([]);
   const socketRef = useRef(null);
 
   const applyStatus = useCallback((payload) => {
@@ -82,11 +83,12 @@ function useBot() {
 
   const load = useCallback(async () => {
     try {
-      const [statusRes, tradesRes, signalsRes, validationRes] = await Promise.all([
+      const [statusRes, tradesRes, signalsRes, validationRes, validationsRes] = await Promise.all([
         fetchJson("/api/status"),
         fetchJson("/api/trades"),
         fetchJson("/api/signals"),
         fetchJson("/api/xaufx/validation/latest"),
+        fetchJson("/api/learning/validations?limit=8"),
       ]);
       applyStatus(statusRes);
       setTrades({
@@ -97,6 +99,7 @@ function useBot() {
       });
       if (signalsRes?.signals) setSignals(signalsRes.signals);
       setLatestValidation(validationRes?.validation || null);
+      setRecentValidations(Array.isArray(validationsRes?.validations) ? validationsRes.validations : []);
     } catch {}
   }, [applyStatus]);
 
@@ -146,6 +149,7 @@ function useBot() {
     engine,
     equitySeries,
     latestValidation,
+    recentValidations,
     api,
     reload: load,
   };
@@ -380,6 +384,41 @@ function ValidationPanel({ validation }) {
   );
 }
 
+function ValidationRow({ validation }) {
+  const metrics = validation?.metrics || {};
+  const config = validation?.config || {};
+  const verdict = metrics.verdict || validation?.status || "unknown";
+  const verdictColor =
+    verdict === "research_winner"
+      ? POSITIVE
+      : verdict === "promotable_baseline"
+        ? ACCENT
+        : verdict === "candidate"
+          ? "#ffaa00"
+          : NEGATIVE;
+
+  return (
+    <div style={styles.listRow}>
+      <div style={styles.col}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={styles.symbol}>{metrics.run_id || validation?.id || "validation"}</span>
+          <span style={badge(verdictColor)}>{verdict.toUpperCase()}</span>
+        </div>
+        <span style={styles.smallMono}>cfg {config.config_hash || "—"}</span>
+        <span style={styles.cardSub}>
+          {validation?.artifact_path ? validation.artifact_path.split("/").slice(-1)[0] : "—"}
+        </span>
+      </div>
+      <div style={{ ...styles.col, alignItems: "flex-end" }}>
+        <span style={{ ...styles.monoStrong, color: pnlColor(metrics.test_return_pct || 0) }}>
+          {metrics.test_return_pct != null ? pct(metrics.test_return_pct) : "—"}
+        </span>
+        <span style={styles.smallMono}>{metrics.test_trades != null ? `${metrics.test_trades} trades` : ""}</span>
+      </div>
+    </div>
+  );
+}
+
 function Nav({ tab, setTab }) {
   const items = [
     { id: "overview", icon: "◈", label: "Home" },
@@ -387,6 +426,7 @@ function Nav({ tab, setTab }) {
     { id: "positions", icon: "⊞", label: "Pos" },
     { id: "trades", icon: "↕", label: "Trades" },
     { id: "risk", icon: "⊛", label: "Risk" },
+    { id: "validation", icon: "⌬", label: "Valid" },
   ];
 
   return (
@@ -403,7 +443,7 @@ function Nav({ tab, setTab }) {
 }
 
 export default function App() {
-  const { connected, books, risk, trades, signals, strategies, engine, equitySeries, latestValidation, api } = useBot();
+  const { connected, books, risk, trades, signals, strategies, engine, equitySeries, latestValidation, recentValidations, api } = useBot();
   const [tab, setTab] = useState("overview");
   const [paused, setPaused] = useState(false);
 
@@ -453,8 +493,6 @@ export default function App() {
               <Card label="Risk Drawdown" value={dd((risk?.drawdown || 0) * 100)} valueColor={riskColor((risk?.drawdown || 0) * 100)} sub="Global risk layer" />
               <Card label="Engine" value={phaseLabel} valueColor={phaseColor} sub={engine?.detail || "—"} />
             </div>
-
-            <ValidationPanel validation={latestValidation} />
 
             <div style={styles.panel}>
               <SectionTitle>Crypto Equity Curve</SectionTitle>
@@ -576,6 +614,22 @@ export default function App() {
             {cryptoStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} />)}
             <SectionTitle>Forex Strategies</SectionTitle>
             {forexStrategies.map((strategy) => <StrategyPanel key={strategy.strategy || strategy.name} strategy={strategy} />)}
+          </div>
+        ) : null}
+
+        {tab === "validation" ? (
+          <div style={styles.stack}>
+            <ValidationPanel validation={latestValidation} />
+            <SectionTitle right={`${recentValidations.length} recent`}>Validation History</SectionTitle>
+            <div style={styles.listPanel}>
+              {recentValidations.length > 0 ? (
+                recentValidations.map((validation, idx) => (
+                  <ValidationRow key={validation.id || idx} validation={validation} />
+                ))
+              ) : (
+                <Empty label="No validation history available" />
+              )}
+            </div>
           </div>
         ) : null}
       </div>

@@ -436,23 +436,27 @@ function ValidationRow({ validation, compact }) {
   );
 }
 
-function Nav({ tab, setTab }) {
+function Nav({ tab, setTab, compact }) {
   const items = [
-    { id: "overview", icon: "◈", label: "Home" },
-    { id: "signals", icon: "⟐", label: "Signals" },
+    { id: "overview", icon: "◈", label: compact ? "Home" : "Home" },
+    { id: "signals", icon: "⟐", label: compact ? "Sig" : "Signals" },
     { id: "positions", icon: "⊞", label: "Pos" },
-    { id: "trades", icon: "↕", label: "Trades" },
+    { id: "trades", icon: "↕", label: compact ? "Exec" : "Trades" },
     { id: "risk", icon: "⊛", label: "Risk" },
-    { id: "validation", icon: "⌬", label: "Valid" },
+    { id: "validation", icon: "⌬", label: compact ? "Val" : "Valid" },
   ];
 
   return (
     <div style={styles.nav}>
       {items.map((item) => (
-        <button key={item.id} onClick={() => setTab(item.id)} style={{ ...styles.navButton, color: tab === item.id ? ACCENT : "#3a4a6a" }}>
+        <button
+          key={item.id}
+          onClick={() => setTab(item.id)}
+          style={{ ...(compact ? styles.navButtonCompact : styles.navButton), color: tab === item.id ? ACCENT : "#3a4a6a" }}
+        >
           {tab === item.id ? <div style={styles.navActiveLine} /> : null}
-          <span style={{ fontSize: 18, lineHeight: 1 }}>{item.icon}</span>
-          <span style={{ fontSize: 8, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>{item.label}</span>
+          <span style={tab === item.id ? styles.navIconActive : compact ? styles.navIconCompact : styles.navIcon}>{item.icon}</span>
+          <span style={compact ? styles.navLabelCompact : styles.navLabel}>{item.label}</span>
         </button>
       ))}
     </div>
@@ -652,7 +656,7 @@ export default function App() {
         ) : null}
       </div>
 
-      <Nav tab={tab} setTab={setTab} />
+      <Nav tab={tab} setTab={setTab} compact={compact} />
     </div>
   );
 }
@@ -984,6 +988,20 @@ const styles = {
     gap: 3,
     position: "relative",
   },
+  navButtonCompact: {
+    flex: 1,
+    minHeight: 62,
+    padding: "8px 1px 10px",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 5,
+    position: "relative",
+  },
   navActiveLine: {
     position: "absolute",
     top: 0,
@@ -991,6 +1009,38 @@ const styles = {
     height: 2,
     background: ACCENT,
     borderRadius: "0 0 2px 2px",
+  },
+  navIcon: {
+    fontSize: 18,
+    lineHeight: 1,
+  },
+  navIconCompact: {
+    fontSize: 20,
+    lineHeight: 1,
+  },
+  navIconActive: {
+    fontSize: 20,
+    lineHeight: 1,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 28,
+    height: 28,
+    borderRadius: 9,
+    background: "#4488ff14",
+    border: "1px solid #4488ff2f",
+  },
+  navLabel: {
+    fontSize: 8,
+    fontWeight: 600,
+    letterSpacing: 0.5,
+    textTransform: "uppercase",
+  },
+  navLabelCompact: {
+    fontSize: 7,
+    fontWeight: 700,
+    letterSpacing: 0.4,
+    textTransform: "uppercase",
   },
   actionButton: {
     padding: "7px 14px",

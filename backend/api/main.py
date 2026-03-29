@@ -71,6 +71,7 @@ def build_status_snapshot() -> dict:
     return {
         "running": engine.running,
         "mode": settings.TRADING_MODE,
+        "engine": engine.engine_state(),
         "portfolio": paper_trader.summary(),
         "risk": risk_manager.to_dict(),
         "strategies": [
@@ -159,7 +160,7 @@ async def ws_endpoint(ws: WebSocket):
 
 @app.get("/api/health")
 async def health():
-    return {"ok": True, "mode": settings.TRADING_MODE, "version": "1.0.0"}
+    return {"ok": True, "mode": settings.TRADING_MODE, "version": "1.0.0", "engine": engine.engine_state()}
 
 
 @app.get("/api/portfolio")

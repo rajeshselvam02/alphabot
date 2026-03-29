@@ -19,3 +19,6 @@ __pycache__/
 # Runtime outputs
 logs/
 reports/
+!reports/benchmarks/
+reports/benchmarks/*
+!reports/benchmarks/xauusd_best_validated_v1_dataset.json

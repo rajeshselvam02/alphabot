@@ -21,6 +21,9 @@ from backend.core.execution.forex_paper_trader import forex_paper_trader
 
 logger = logging.getLogger("alphabot.engine")
 
+CRYPTO_WARMUP_BARS = 96
+FOREX_WARMUP_BARS = 96
+
 
 class TradingEngine:
     def __init__(self):
@@ -28,23 +31,49 @@ class TradingEngine:
         self.start_time = None
         self.mode       = settings.TRADING_MODE
         self._tasks: list = []
+        self.phase = "booting"
+        self.phase_detail = "Process created"
+        self._state_restored = False
+        self._warmup_complete = False
+
+    def _set_phase(self, phase: str, detail: str):
+        self.phase = phase
+        self.phase_detail = detail
+
+    def engine_state(self) -> dict:
+        return {
+            "phase": self.phase,
+            "detail": self.phase_detail,
+            "ready": self.phase == "live",
+            "state_restored": self._state_restored,
+            "warmup_complete": self._warmup_complete,
+            "started_at": self.start_time.isoformat() if self.start_time else None,
+        }
 
     async def startup(self):
         """Initialize all components — called once at startup."""
+        self._state_restored = False
+        self._warmup_complete = False
+        self._set_phase("initializing", "Preparing engine startup")
         logger.info("=" * 55)
         logger.info(f"  ALPHABOT STARTING — Mode: {self.mode.upper()}")
         logger.info(f"  Capital: ${settings.INITIAL_CAPITAL:,.0f}")
         logger.info("=" * 55)
 
+        self._set_phase("initializing_db", "Opening SQLite database")
         await init_db()
         logger.info("Database initialized (SQLite)")
 
         # ── Startup validation ──────────────────────────────────
+        self._set_phase("validating", "Checking dependencies and settings")
         await self._validate_startup()
+        self._set_phase("restoring_state", "Loading saved trader state")
         await paper_trader.load_state()
         await forex_paper_trader.load_state()
+        self._state_restored = True
 
         # Register strategy callbacks
+        self._set_phase("subscribing", "Registering feeds and strategy callbacks")
         binance_feed.register(bollinger_strategy.on_bar)
         binance_feed.register(cs_strategy.on_bar)
 
@@ -61,21 +90,27 @@ class TradingEngine:
         for sym in settings.FOREX_PAIRS:
             twelvedata_feed.subscribe(sym, settings.FOREX_INTERVAL)
         logger.info("Pre-loading forex historical bars...")
-        for sym in settings.FOREX_PAIRS:
+        for i, sym in enumerate(settings.FOREX_PAIRS, start=1):
+            self._set_phase("preloading_forex", f"{i}/{len(settings.FOREX_PAIRS)} {sym}")
             await twelvedata_feed.fetch_historical(sym, settings.FOREX_INTERVAL, limit=300)
             await asyncio.sleep(10)  # 7 symbols × 10s = 70s, stays under 8 req/min
 
         # Pre-load historical bars for Kalman warmup
+        self._set_phase("preloading_crypto", "Waiting for forex rate-limit reset")
         await asyncio.sleep(60)  # Wait for Twelve Data rate limit window to reset
         logger.info("Pre-loading historical bars...")
-        for sym in settings.BOLLINGER_PAIRS:
+        for i, sym in enumerate(settings.BOLLINGER_PAIRS, start=1):
+            self._set_phase("preloading_crypto", f"{i}/{len(settings.BOLLINGER_PAIRS)} {sym}")
             await binance_feed.fetch_historical(sym, settings.BOLLINGER_INTERVAL, limit=300)
 
         # Warm up strategies by replaying historical bars
+        self._set_phase("warming_up", "Replaying historical bars into strategies")
         await self._warmup()
+        self._warmup_complete = True
 
         self.running    = True
         self.start_time = datetime.now(timezone.utc)
+        self._set_phase("live", "Feeds and strategies are active")
         await self._publish_status()
         await telegram.init()
         command_bot.register_callbacks(
@@ -123,18 +158,33 @@ class TradingEngine:
             logger.info("[STARTUP] All settings validated")
 
     async def _warmup(self):
-        """Replay historical bars — NO trading during warmup."""
+        """
+        Replay only the recent history needed to seed indicators.
+
+        Replaying the full cached history was blocking startup for far too long,
+        especially once forex diagnostics began persisting on every replayed bar.
+        """
         logger.info("Warming up strategy signals...")
         bollinger_strategy.is_active = False
         cs_strategy.is_active        = False
         # Warm ETH first so pair prices are available for other symbols
         ordered = ["ETHUSDT"] + [s for s in settings.BOLLINGER_PAIRS if s != "ETHUSDT"]
-        for sym in ordered:
-            bars = await redis_client.get_bars(sym, settings.BOLLINGER_INTERVAL, n=300)
-            for bar in bars:
+        for idx, sym in enumerate(ordered, start=1):
+            self._set_phase(
+                "warming_up",
+                f"crypto {idx}/{len(ordered)} {sym} ({CRYPTO_WARMUP_BARS} bars)"
+            )
+            bars = await redis_client.get_bars(
+                sym,
+                settings.BOLLINGER_INTERVAL,
+                n=CRYPTO_WARMUP_BARS,
+            )
+            for bar_idx, bar in enumerate(bars, start=1):
                 bar["is_closed"] = True
                 await bollinger_strategy.on_bar(bar)
                 await cs_strategy.on_bar(bar)
+                if bar_idx % 24 == 0:
+                    await asyncio.sleep(0)
         bollinger_strategy.is_active = True
         cs_strategy.is_active        = True
         risk_manager.reset_peak()
@@ -146,35 +196,45 @@ class TradingEngine:
             pass  # _last_z populated during warmup replay below
         # Warmup forex strategy
         forex_strategy.is_active = False
-        for sym in settings.FOREX_PAIRS:
-            bars = await redis_client.get_bars(sym, settings.FOREX_INTERVAL, n=300)
-            for bar in bars:
+        for idx, sym in enumerate(settings.FOREX_PAIRS, start=1):
+            self._set_phase(
+                "warming_up",
+                f"forex {idx}/{len(settings.FOREX_PAIRS)} {sym} ({FOREX_WARMUP_BARS} bars)"
+            )
+            bars = await redis_client.get_bars(
+                sym,
+                settings.FOREX_INTERVAL,
+                n=FOREX_WARMUP_BARS,
+            )
+            for bar_idx, bar in enumerate(bars, start=1):
                 bar["is_closed"] = True
                 await forex_strategy.on_bar(bar)
+                if bar_idx % 24 == 0:
+                    await asyncio.sleep(0)
         forex_strategy.is_active = True
 
         logger.info("Warmup complete")    
 
     async def run(self):
         """Main run loop — starts all async tasks."""
-        await self.startup()
-
-        self._tasks = [
-            asyncio.create_task(binance_feed.start(),      name="binance_feed"),
-            asyncio.create_task(twelvedata_feed.start(),    name="twelvedata_feed"),
-            asyncio.create_task(self._heartbeat_loop(),    name="heartbeat"),
-            asyncio.create_task(self._price_update_loop(), name="price_updater"),
-            asyncio.create_task(self._daily_close_loop(),  name="daily_close"),
-            asyncio.create_task(self._funding_rate_loop(), name="funding_rates"),
-        ]
-
-        logger.info("All tasks running. Bot is live.")
-
         try:
+            await self.startup()
+
+            self._tasks = [
+                asyncio.create_task(binance_feed.start(),      name="binance_feed"),
+                asyncio.create_task(twelvedata_feed.start(),    name="twelvedata_feed"),
+                asyncio.create_task(self._heartbeat_loop(),    name="heartbeat"),
+                asyncio.create_task(self._price_update_loop(), name="price_updater"),
+                asyncio.create_task(self._daily_close_loop(),  name="daily_close"),
+                asyncio.create_task(self._funding_rate_loop(), name="funding_rates"),
+            ]
+
+            logger.info("All tasks running. Bot is live.")
             await asyncio.gather(*self._tasks)
         except asyncio.CancelledError:
             logger.info("Tasks cancelled")
         except Exception as e:
+            self._set_phase("error", str(e))
             logger.critical(f"Fatal engine error: {e}", exc_info=True)
         finally:
             await self.shutdown()
@@ -231,6 +291,7 @@ class TradingEngine:
         status = {
             "running":    self.running,
             "mode":       self.mode,
+            "engine":     self.engine_state(),
             "uptime_sec": int((datetime.now(timezone.utc) - self.start_time).total_seconds())
                           if self.start_time else 0,
             "portfolio":  portfolio,
@@ -286,6 +347,7 @@ class TradingEngine:
 
     async def shutdown(self):
         self.running = False
+        self._set_phase("stopped", "Engine shutdown complete")
         await binance_feed.stop()
         await twelvedata_feed.stop()
         for t in self._tasks:

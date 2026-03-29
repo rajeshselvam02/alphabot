@@ -147,7 +147,9 @@ class CrossSectionalStrategy:
 
         decision = risk_manager.check(
             symbol=symbol, side=side, quantity=qty, price=price,
-            open_positions=paper_trader.positions, is_mean_reversion=False
+            open_positions=paper_trader.positions, is_mean_reversion=False,
+            strategy=self.NAME, asset_class="crypto",
+            conviction=min(1.25, max(0.75, abs(ret) / 0.03))
         )
         if not decision.approved:
             return

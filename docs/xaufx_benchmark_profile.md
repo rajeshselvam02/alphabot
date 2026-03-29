@@ -56,6 +56,24 @@ python -m backend.backtester.xaufx.backtest_xau_ndog_asia \
   --snapshot @profile
 ```
 
+## Automated Regression Check
+
+Run the locked benchmark against the frozen dataset and fail on metric drift:
+
+```bash
+cd /root/alphabot
+source /root/alphabot-venv/bin/activate
+python -m backend.backtester.xaufx.benchmark_regression --profile xauusd_best_validated_v1
+```
+
+This check enforces:
+- exact dataset hash match
+- exact trade count and side distribution
+- no drift in key metrics beyond the profile tolerances
+
+Current baseline snapshot hash:
+- `e4ef7288432aba280a3e5c905a3b163e04064b83de46e3e7fa9759d63d53221b`
+
 ## Fixed Parameters
 
 The profile encodes the documented best validated case:

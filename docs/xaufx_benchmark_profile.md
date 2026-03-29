@@ -74,6 +74,36 @@ This check enforces:
 Current baseline snapshot hash:
 - `e4ef7288432aba280a3e5c905a3b163e04064b83de46e3e7fa9759d63d53221b`
 
+## Promotion Governance
+
+XAU/FX promotion now distinguishes:
+- `research_winner`
+- `promotable_baseline`
+- `candidate`
+- `reject`
+
+Promotion is no longer based only on train/test and walk-forward returns. It also considers:
+- cost-stress retention under higher spread assumptions
+- slippage-proxy stress retention under even higher spread assumptions
+- session concentration risk from the entry-hour distribution
+
+## Structured Validation Artifacts
+
+Serious XAU/FX validation runs now emit structured artifacts under:
+- `reports/validation_artifacts/xaufx/`
+
+Artifact identity is keyed by:
+- runner
+- `config_hash`
+- `code_version`
+- `run_id`
+
+These artifacts are intended to become the durable handoff format for:
+- analytics registration
+- benchmark provenance
+- promotion review
+- future dashboard/API exposure
+
 ## Fixed Parameters
 
 The profile encodes the documented best validated case:

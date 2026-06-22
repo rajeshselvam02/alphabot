@@ -1,13 +1,13 @@
 name: trigger-test
-  on:
-    workflow_dispatch:
-    push:
-    pull_request:
-    pull_request_target:
-  jobs:
-    show:
-      runs-on: ubuntu-latest
-      steps:
-        - run: |
-            echo "event=${GITHUB_EVENT_NAME}"
-            echo "actor=${GITHUB_ACTOR}"
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+  pull_request_target:
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "event=${GITHUB_EVENT_NAME}"
+          echo "actor=${GITHUB_ACTOR}"

@@ -11,4 +11,3 @@ name: trigger-test
         - run: |
             echo "event=${GITHUB_EVENT_NAME}"
             echo "actor=${GITHUB_ACTOR}"
-
